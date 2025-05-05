@@ -1,0 +1,110 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+   /* themes: light-wedding --default, dark-wedding --prefersdark; */
+   themes: all;
+}
+
+/* Animaciones personalizadas */
+@theme {
+   --animate-slide-in: slide-in 2s ease;
+   @keyframes slide-in {
+      0% {
+         transform: translateX(-100vw);
+      }
+      100% {
+         transform: translateX(0);
+      }
+   }
+
+   --animate-fade-in: fade-in 1s ease-in-out;
+   @keyframes fade-in {
+      from {
+         opacity: 0;
+      }
+      to {
+         opacity: 1;
+      }
+   }
+
+   --animate-slide-up: slide-up 0.8s ease-out;
+   @keyframes slide-up {
+      from {
+         transform: translateY(20px);
+         opacity: 0;
+      }
+      to {
+         transform: translateY(0);
+         opacity: 1;
+      }
+   }
+}
+
+@plugin "daisyui/theme" {
+   name: "light-wedding";
+   default: true;
+   prefersdark: false;
+   color-scheme: "light";
+   --color-base-100: oklch(100% 0 0);
+   --color-base-200: oklch(98% 0 0);
+   --color-base-300: oklch(95% 0 0);
+   --color-base-content: oklch(21% 0.006 285.885);
+   --color-primary: #252c25;
+   --color-primary-content: #cbc8c3;
+   --color-secondary: #b28121;
+   --color-secondary-content: #121318;
+   --color-accent: #a1d6b2;
+   --color-accent-content: oklch(38% 0.063 188.416);
+   --color-neutral: #121318;
+   --color-neutral-content: oklch(92% 0.004 286.32);
+   --color-info: #37afe1;
+   --color-info-content: oklch(29% 0.066 243.157);
+   --color-success: #aacb73;
+   --color-success-content: oklch(26% 0.051 172.552);
+   --color-warning: #ff9d3d;
+   --color-warning-content: oklch(27% 0.077 45.635);
+   --color-error: #fa7070;
+   --color-error-content: oklch(27% 0.105 12.094);
+   --radius-selector: 1rem;
+   --radius-field: 1rem;
+   --radius-box: 2rem;
+   --size-selector: 0.25rem;
+   --size-field: 0.25rem;
+   --border: 1.5px;
+   --depth: 1;
+   --noise: 0;
+}
+
+@plugin "daisyui/theme" {
+   name: "dark-wedding";
+   default: false;
+   prefersdark: true;
+   color-scheme: "dark";
+   --color-base-100: oklch(25.33% 0.016 252.42);
+   --color-base-200: oklch(23.26% 0.014 253.1);
+   --color-base-300: oklch(21.15% 0.012 254.09);
+   --color-base-content: oklch(97.807% 0.029 256.847);
+   --color-primary: #b28121;
+   --color-primary-content: oklch(96% 0.018 272.314);
+   --color-secondary: #faea66;
+   --color-secondary-content: #121318;
+   --color-accent: #29c7ac;
+   --color-accent-content: oklch(38% 0.063 188.416);
+   --color-neutral: #0c0f14;
+   --color-neutral-content: oklch(92% 0.004 286.32);
+   --color-info: #37afe1;
+   --color-info-content: oklch(29% 0.066 243.157);
+   --color-success: #03c988;
+   --color-success-content: oklch(37% 0.077 168.94);
+   --color-warning: #ffac41;
+   --color-warning-content: oklch(41% 0.112 45.904);
+   --color-error: #c70d3a;
+   --color-error-content: oklch(96% 0.015 12.422);
+   --radius-selector: 1rem;
+   --radius-field: 1rem;
+   --radius-box: 2rem;
+   --size-selector: 0.25rem;
+   --size-field: 0.25rem;
+   --border: 1.5px;
+   --depth: 0;
+   --noise: 0;
+}
