@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-// import img from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
    Calendar,
@@ -12,19 +11,12 @@ import {
    Moon,
    Sun,
    Heart,
+   Shirt,
 } from "lucide-react";
-// import { Button } from "@/components/ui/button";
-// import { Card } from "@/components/ui/card";
-// import { Separator } from "@/components/ui/separator";
-// import { useTheme } from "next-themes";
-// import RsvpForm from "./";
-// import AudioPlayer from "./audio-player";
-// import { useMobile } from "@/hooks/use-mobile";
-// import CountdownTimer from "./countdown-timer";
-// import ScrollToTopButton from "./scroll-to-top-button";
 import AudioPlayer from "./components/AudioPlayer";
 import ThemeChanger from "./components/ThemeChanger";
 import CountdownTimer from "./components/CountdownTimer";
+import TimelineBoda from "./components/TimelineBoda";
 import RsvpForm from "./components/RsvpForm";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import Divider from "./components/Divider";
@@ -33,6 +25,8 @@ import audios from "./constants/audios";
 import images from "./constants/images";
 import { formatDatetime } from "./utils/formats";
 import dayjs from "dayjs";
+import LoveHistory from "./components/LoveHistory";
+import DressCode from "./components/DressCode";
 
 export default function WeddingInvitation() {
    // const { theme, setTheme } = useTheme();
@@ -52,33 +46,19 @@ export default function WeddingInvitation() {
       return () => window.removeEventListener("scroll", handleScroll);
    }, []);
 
-   // Fecha de la boda
+   // Variables
    const weddingDate = new Date("2025-10-03T19:00:00");
    const weddingPlace = "Hacienda Elegancia";
-   const location = "Torreón,Coahuila";
+   const location = "Torreón, Coahuila";
    const girlfriend = "Daniela",
       boyfriend = "Néstor";
 
-   // Formatear fecha para mostrar
-   const dateOptions = {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-   };
-   // const formattedDate = weddingDate.toLocaleDateString("es-ES", dateOptions);
    const formattedDate = formatDatetime(
       weddingDate,
       true,
       "dddd DD [de] MMMM [de] YYYY",
    );
 
-   // Formatear hora para mostrar
-   const timeOptions = {
-      hour: "2-digit",
-      minute: "2-digit",
-   };
-   // const formattedTime = weddingDate.toLocaleTimeString("es-ES", timeOptions);
    const formattedTime = formatDatetime(weddingDate, false, "HH:mm");
 
    // Crear enlace para Google Calendar
@@ -91,7 +71,10 @@ export default function WeddingInvitation() {
       .slice(
          0,
          15,
-      )}00Z&details=¡Estamos+emocionados+de+celebrar+nuestro+día+especial+contigo!&location=Hacienda+Elegancia,+Torreón+Coahuila&sf=true&output=xml`;
+      )}00Z&details=¡Estamos+emocionados+de+celebrar+nuestro+día+especial+contigo!&location=${weddingPlace.replace(
+      " ",
+      "+",
+   )},+${location.replace(" ", "+")}&sf=true&output=xml`;
 
    // Crear enlace para Google Maps
    const googleMapsUrl = "https://maps.app.goo.gl/oX2AEVkygjnscaXo9";
@@ -105,7 +88,7 @@ export default function WeddingInvitation() {
          className="min-h-screen bg-gradient-to-b from-rose-50 to-rose-100 dark:from-slate-900 dark:to-slate-800 transition-colors duration-500">
          {/* Botones flotantes */}
          <div className="fixed top-4 right-4 z-50 flex gap-2">
-            <AudioPlayer audio={audios.bailando} />
+            <AudioPlayer audios={[audios.bailando, audios.todoVaAEstarBien]} />
             <ThemeChanger />
          </div>
 
@@ -145,7 +128,7 @@ export default function WeddingInvitation() {
                initial={{ y: 20, opacity: 0 }}
                animate={{ y: 0, opacity: 1 }}
                transition={{ delay: 1, duration: 0.8 }}>
-               <h1 className="font-serif text-3xl md:text-5xl mb-4 text-rose-800 dark:text-rose-300">
+               <h1 className="font-dashing text-3xl md:text-9xl mb-4 text-rose-800 dark:text-rose-300">
                   {girlfriend} & {boyfriend}
                </h1>
                <motion.div
@@ -158,13 +141,13 @@ export default function WeddingInvitation() {
                      fill="currentColor"
                   />
                </motion.div>
-               <h2 className="font-light text-xl md:text-2xl mb-8 text-slate-700 dark:text-slate-300">
+               <h2 className="font-marcellus text-xl md:text-2xl mb-8 text-slate-700 dark:text-slate-300">
                   Nos casamos
                </h2>
-               <p className="text-lg md:text-xl font-medium text-slate-800 dark:text-slate-200 mb-2">
+               <p className="text-lg md:text-xl font-anodina-extrabold text-slate-800 dark:text-slate-200 mb-2">
                   {formattedDate}
                </p>
-               <p className="text-lg md:text-xl font-medium text-slate-800 dark:text-slate-200 mb-8">
+               <p className="text-lg md:text-xl font-anodina-extrabold text-slate-800 dark:text-slate-200 mb-8">
                   {formattedTime} hrs
                </p>
                <motion.div
@@ -223,11 +206,11 @@ export default function WeddingInvitation() {
                   transition={{ duration: 0.8 }}
                   viewport={{ once: true }}
                   className="text-center mb-16">
-                  <h2 className="font-serif text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
-                     Nuestra Historia
+                  <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
+                     Nuestra Historia de Amor
                   </h2>
-                  <Divider className="mx-auto w-24 bg-rose-300 dark:bg-rose-700 mb-8" />
-                  <p className="text-slate-700 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto">
+                  <Divider />
+                  <p className="font-marcellus text-slate-700 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto">
                      Nos conocimos hace 5 años en una tarde de otoño. Desde
                      entonces, hemos compartido innumerables momentos que nos
                      han llevado a este día tan especial. Ahora queremos
@@ -309,11 +292,13 @@ export default function WeddingInvitation() {
                      </div>
                   </motion.div>
                </div>
+
+               <LoveHistory />
             </div>
          </section>
 
-         {/* Sección de detalles */}
-         <section className="py-20 px-6 bg-white/50 dark:bg-slate-900/50">
+         {/* Sección de Linea de tiempo */}
+         <section className="py-20 px-6  bg-white/50 dark:bg-slate-900/50">
             <div className="max-w-4xl mx-auto">
                <motion.div
                   initial={{ opacity: 0, y: 50 }}
@@ -321,10 +306,24 @@ export default function WeddingInvitation() {
                   transition={{ duration: 0.8 }}
                   viewport={{ once: true }}
                   className="text-center mb-16">
-                  <h2 className="font-serif text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
+                  <TimelineBoda />
+               </motion.div>
+            </div>
+         </section>
+
+         {/* Sección de detalles */}
+         <section className="py-20 px-6">
+            <div className="max-w-4xl mx-auto">
+               <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  viewport={{ once: true }}
+                  className="text-center mb-16">
+                  <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
                      Detalles del Evento
                   </h2>
-                  <Divider className="mx-auto w-24 bg-rose-300 dark:bg-rose-700 mb-8" />
+                  <Divider />
                </motion.div>
 
                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -400,7 +399,7 @@ export default function WeddingInvitation() {
          </section>
 
          {/* Sección de mesa de regalos */}
-         <section className="py-20 px-6">
+         <section className="py-20 px-6  bg-white/50 dark:bg-slate-900/50">
             <div className="max-w-4xl mx-auto">
                <motion.div
                   initial={{ opacity: 0, y: 50 }}
@@ -411,11 +410,11 @@ export default function WeddingInvitation() {
                   <div className="flex justify-center mb-4">
                      <Gift className="h-12 w-12 text-rose-600 dark:text-rose-400" />
                   </div>
-                  <h2 className="font-serif text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
+                  <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
                      Mesa de Regalos
                   </h2>
-                  <Divider className="mx-auto w-24 bg-rose-300 dark:bg-rose-700 mb-8" />
-                  <p className="text-slate-700 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto mb-8">
+                  <Divider />
+                  <p className="font-marcellus text-slate-700 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto mb-8">
                      Tu presencia es nuestro mejor regalo. Sin embargo, si
                      deseas obsequiarnos algo, hemos creado una mesa de regalos
                      para facilitar tu elección.
@@ -436,8 +435,13 @@ export default function WeddingInvitation() {
             </div>
          </section>
 
+         {/* Sección de Código de Vestimenta */}
+         <section className="py-20 px-6  ">
+            <DressCode />
+         </section>
+
          {/* Sección de RSVP */}
-         <section className="py-20 px-6 bg-white/50 dark:bg-slate-900/50">
+         <section className="py-20 px-6bg-white/50 dark:bg-slate-900/50">
             <div className="max-w-4xl mx-auto">
                <motion.div
                   initial={{ opacity: 0, y: 50 }}
@@ -445,11 +449,11 @@ export default function WeddingInvitation() {
                   transition={{ duration: 0.8 }}
                   viewport={{ once: true }}
                   className="text-center mb-12">
-                  <h2 className="font-serif text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
+                  <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
                      Confirma tu Asistencia
                   </h2>
-                  <Divider className="mx-auto w-24 bg-rose-300 dark:bg-rose-700 mb-8" />
-                  <p className="text-slate-700 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto">
+                  <Divider />
+                  <p className="font-marcellus text-slate-700 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto">
                      Por favor, confirma tu asistencia antes del{" "}
                      {dayjs(weddingDate)
                         .subtract(15, "days")
@@ -469,9 +473,9 @@ export default function WeddingInvitation() {
          </section>
 
          {/* Footer */}
-         <footer className="py-12 px-6 text-center text-slate-600 dark:text-slate-400">
+         <footer className="py-12 px-6 text-center">
             <p className="mb-4">Con amor,</p>
-            <h2 className="font-serif text-2xl mb-8 text-rose-700 dark:text-rose-400">
+            <h2 className="font-dashing text-2xl mb-8 text-rose-700 dark:text-rose-400">
                {girlfriend} & {boyfriend}
             </h2>
             <p className="text-sm">

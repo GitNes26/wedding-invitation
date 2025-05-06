@@ -22,6 +22,7 @@ interface DividerProps {
    mt?: number;
    /** margen inferior */
    mb?: number;
+   classNamme?: string;
 }
 
 /**
@@ -36,6 +37,7 @@ const Divider: React.FC<DividerProps> = ({
    text = "",
    position = "center",
    direction = "horizontal",
+   className,
    color = "",
    mt,
    mb,
@@ -55,7 +57,8 @@ const Divider: React.FC<DividerProps> = ({
 
    return (
       <div className="flex w-full flex-col">
-         <div className={`divider ${dividerClasses} mt-${mt} mb-${mb}`}>
+         <div
+            className={`divider ${dividerClasses} mt-${mt} mb-${mb} ${className}`}>
             {text}
          </div>
       </div>

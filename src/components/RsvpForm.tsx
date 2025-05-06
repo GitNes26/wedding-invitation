@@ -79,10 +79,10 @@ export default function RsvpForm({ onComplete }: RsvpFormProps) {
                   <polyline points="22 4 12 14.01 9 11.01" />
                </svg>
             </div>
-            <h3 className="text-xl font-medium mb-2 text-slate-800 dark:text-slate-200">
+            <h3 className="text-xl font-marcellus font-bold mb-2 text-slate-800 dark:text-slate-200">
                ¡Gracias por confirmar!
             </h3>
-            <p className="text-slate-600 dark:text-slate-400">
+            <p className="font-marcellus text-slate-600 dark:text-slate-400">
                Hemos recibido tu respuesta. Nos vemos en nuestra boda.
             </p>
          </motion.div>
@@ -138,14 +138,18 @@ export default function RsvpForm({ onComplete }: RsvpFormProps) {
                   <label htmlFor="yes">Sí, ahí estare</label>
                   <input
                      type="radio"
-                     name="yes"
-                     className="radio"
+                     name="attendance"
+                     className="radio ml-1"
                      defaultChecked
                   />
                   <label className="ml-5" htmlFor="no">
                      No podre asistir
                   </label>
-                  <input type="radio" name="no" className="radio" />
+                  <input
+                     type="radio"
+                     name="attendance"
+                     className="radio ml-1"
+                  />
                </div>
                {/* <RadioGroup
                   value={formData.attendance}

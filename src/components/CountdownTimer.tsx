@@ -51,16 +51,16 @@ export default function CountdownTimer({
       : "";
 
    const titleClasses = isSticky
-      ? "text-xs text-center text-[#7D2E2E] dark:text-[#d4a5a5] font-medium mb-1"
-      : "text-xl text-center text-[#7D2E2E] dark:text-[#d4a5a5] font-medium mb-4";
+      ? "font-anodina-extrabold text-xs text-center text-[#7D2E2E] dark:text-[#d4a5a5] font-medium mb-1"
+      : "font-anodina-bold text-2xl text-center text-[#7D2E2E] dark:text-[#d4a5a5] font-medium mb-4";
 
    const numberClasses = isSticky
-      ? "text-2xl font-bold text-[#7D2E2E] dark:text-[#d4a5a5]"
-      : "text-4xl font-bold text-[#7D2E2E] dark:text-[#d4a5a5]";
+      ? "text-2xl font-anodina-bold text-[#7D2E2E] dark:text-[#d4a5a5]"
+      : "text-5xl font-anodina-extrabold text-[#7D2E2E] dark:text-[#d4a5a5]";
 
    const labelClasses = isSticky
-      ? "text-[10px] text-[#7D2E2E] dark:text-[#d4a5a5]"
-      : "text-xs text-[#7D2E2E] dark:text-[#d4a5a5]";
+      ? "font-anodina-regular text-[10px] text-[#7D2E2E] dark:text-[#d4a5a5]"
+      : "font-anodina-light text-xs text-[#7D2E2E] dark:text-[#d4a5a5]";
 
    const gridClasses = isSticky
       ? "grid grid-cols-4 gap-1 text-center"
@@ -90,27 +90,27 @@ export default function CountdownTimer({
 
          {!isSticky && (
             <>
-               <div className="text-center mt-8 mb-6">
-                  <p className="text-[#7D2E2E] dark:text-[#d4a5a5] text-sm">
+               <div className="text-center mt-8 mb-1">
+                  <p className="font-anodina-regular text-[#7D2E2E] dark:text-[#d4a5a5]">
                      Te esperamos para celebrar nuestra boda
                   </p>
                </div>
 
                <div className="flex items-center justify-center gap-2 mb-8">
                   <div className="text-center border-t border-b border-[#7D2E2E] dark:border-[#d4a5a5] py-2 px-4">
-                     <span className="text-xs text-[#7D2E2E] dark:text-[#d4a5a5]">
+                     <span className="font-anodina-regular text-[#7D2E2E] dark:text-[#d4a5a5]">
                         {String(
                            formatDatetime(targetDate, false, "dddd"),
                         ).toUpperCase()}
                      </span>
                   </div>
-                  <span className="block text-6xl font-bold text-[#7D2E2E] dark:text-[#d4a5a5]">
+                  <span className="block text-7xl font-anodina-extrabold text-[#7D2E2E] dark:text-[#d4a5a5]">
                      {String(
                         formatDatetime(targetDate, false, "DD"),
                      ).toUpperCase()}
                   </span>
                   <div className="text-center border-t border-b border-[#7D2E2E] dark:border-[#d4a5a5] py-2 px-4">
-                     <span className="block text-xl font-bold text-[#7D2E2E] dark:text-[#d4a5a5]">
+                     <span className="block text-xl font-anodina-extrabold text-[#7D2E2E] dark:text-[#d4a5a5]">
                         {String(
                            formatDatetime(targetDate, false, "MMMM"),
                         ).toUpperCase()}
