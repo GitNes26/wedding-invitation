@@ -30,7 +30,6 @@ import DressCode from "./components/DressCode";
 
 export default function WeddingInvitation() {
    // const { theme, setTheme } = useTheme();
-   const [isPlaying, setIsPlaying] = useState(false);
    const [showRsvp, setShowRsvp] = useState(false);
    const isMobile = useMobile();
    const [isScrolled, setIsScrolled] = useState(false);
@@ -85,7 +84,15 @@ export default function WeddingInvitation() {
    return (
       <div
          ref={mainRef}
-         className="min-h-screen bg-gradient-to-b from-rose-50 to-rose-100 dark:from-slate-900 dark:to-slate-800 transition-colors duration-500">
+         className="min-h-screen bg-gradient-to-b from-rose-50 to-rose-100 dark:from-slate-900 dark:to-slate-800 transition-colors duration-500  relative overflow-hidden">
+         {/* <!-- Elementos decorativos laterales --> */}
+         <div class="decorative-element top-left"></div>
+         <div class="decorative-element top-right"></div>
+         <div class="decorative-element middle-left"></div>
+         <div class="decorative-element middle-right"></div>
+         <div class="decorative-element bottom-left"></div>
+         <div class="decorative-element bottom-right"></div>
+
          {/* Botones flotantes */}
          <div className="fixed top-4 right-4 z-50 flex gap-2">
             <AudioPlayer audios={[audios.bailando, audios.todoVaAEstarBien]} />
@@ -131,6 +138,9 @@ export default function WeddingInvitation() {
                <h1 className="font-dashing text-3xl md:text-9xl mb-4 text-rose-800 dark:text-rose-300">
                   {girlfriend} & {boyfriend}
                </h1>
+               {/* <h1 className="font-mayoritte text-3xl md:text-9xl mb-4 text-rose-800 dark:text-rose-300">
+                  {girlfriend} & {boyfriend}
+               </h1> */}
                <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
@@ -161,6 +171,7 @@ export default function WeddingInvitation() {
                </motion.div>
             </motion.div>
 
+            {/* Flechita */}
             <motion.div
                className="absolute bottom-8 left-0 right-0 flex justify-center"
                initial={{ opacity: 0 }}
@@ -177,15 +188,18 @@ export default function WeddingInvitation() {
                      strokeWidth="2"
                      strokeLinecap="round"
                      strokeLinejoin="round"
-                     className="text-slate-600 dark:text-slate-400">
+                     className="text-white">
                      <path d="M12 5v14M5 12l7 7 7-7" />
                   </svg>
                </div>
             </motion.div>
+
+            {/* <!-- Efecto de papel rasgado en la parte inferior --> */}
+            <div class="torn-paper-effect"></div>
          </motion.header>
 
          {/* Sección de cuenta regresiva */}
-         <section className="py-10 px-6 bg-[#f8f5f2] dark:bg-slate-900">
+         <section className="py-10 px-6 bg-[#f8f5f2] dark:bg-slate-900 relative">
             <div className="max-w-4xl mx-auto">
                <motion.div
                   initial={{ opacity: 0, y: 50 }}
@@ -198,7 +212,7 @@ export default function WeddingInvitation() {
          </section>
 
          {/* Sección de historia */}
-         <section className="py-20 px-6">
+         <section className="py-20 px-6 relative">
             <div className="max-w-4xl mx-auto">
                <motion.div
                   initial={{ opacity: 0, y: 50 }}
@@ -228,7 +242,7 @@ export default function WeddingInvitation() {
                      <div className="card overflow-hidden bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-none shadow-lg">
                         <div className="aspect-square relative">
                            <img
-                              src="/placeholder.svg?height=400&width=400"
+                              src="https://picsum.photos/400/400"
                               alt="Primer encuentro"
                               className="object-cover"
                            />
@@ -252,7 +266,7 @@ export default function WeddingInvitation() {
                      <div className="card overflow-hidden bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-none shadow-lg">
                         <div className="aspect-square relative">
                            <img
-                              src="/placeholder.svg?height=400&width=400"
+                              src="https://picsum.photos/400/401"
                               alt="Compromiso"
                               className="object-cover"
                            />
@@ -276,7 +290,7 @@ export default function WeddingInvitation() {
                      <div className="card overflow-hidden bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-none shadow-lg">
                         <div className="aspect-square relative">
                            <img
-                              src="/placeholder.svg?height=400&width=400"
+                              src="https://picsum.photos/400/402"
                               alt="Boda"
                               className="object-cover"
                            />
@@ -298,7 +312,7 @@ export default function WeddingInvitation() {
          </section>
 
          {/* Sección de Linea de tiempo */}
-         <section className="py-20 px-6  bg-white/50 dark:bg-slate-900/50">
+         <section className="py-20 px-6  bg-white/50 dark:bg-slate-900/50 relative">
             <div className="max-w-4xl mx-auto">
                <motion.div
                   initial={{ opacity: 0, y: 50 }}
@@ -312,7 +326,7 @@ export default function WeddingInvitation() {
          </section>
 
          {/* Sección de detalles */}
-         <section className="py-20 px-6">
+         <section className="py-20 px-6 relative">
             <div className="max-w-4xl mx-auto">
                <motion.div
                   initial={{ opacity: 0, y: 50 }}
@@ -399,7 +413,7 @@ export default function WeddingInvitation() {
          </section>
 
          {/* Sección de mesa de regalos */}
-         <section className="py-20 px-6  bg-white/50 dark:bg-slate-900/50">
+         <section className="py-20 px-6  bg-white/50 dark:bg-slate-900/50 relative">
             <div className="max-w-4xl mx-auto">
                <motion.div
                   initial={{ opacity: 0, y: 50 }}
@@ -436,12 +450,12 @@ export default function WeddingInvitation() {
          </section>
 
          {/* Sección de Código de Vestimenta */}
-         <section className="py-20 px-6  ">
+         <section className="py-20 px-6 relative">
             <DressCode />
          </section>
 
          {/* Sección de RSVP */}
-         <section className="py-20 px-6bg-white/50 dark:bg-slate-900/50">
+         <section className="py-20 px-6bg-white/50 dark:bg-slate-900/50 relative">
             <div className="max-w-4xl mx-auto">
                <motion.div
                   initial={{ opacity: 0, y: 50 }}

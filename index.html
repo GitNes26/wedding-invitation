@@ -9,5 +9,28 @@
    <body>
       <div id="root"></div>
       <script type="module" src="/src/main.jsx"></script>
+      <script>
+         // Script para manejar el cambio de tema
+         document.addEventListener("DOMContentLoaded", () => {
+            console.log("hola bebe");
+
+            const themeToggle = document.getElementById("theme-toggle");
+            const htmlElement = document.documentElement;
+
+            // Verificar si hay un tema guardado en localStorage
+            const savedTheme = localStorage.getItem("theme");
+            if (savedTheme) {
+               htmlElement.setAttribute("data-theme", savedTheme);
+            }
+
+            themeToggle?.addEventListener("click", () => {
+               const currentTheme = htmlElement.getAttribute("data-theme");
+               const newTheme = currentTheme === "light" ? "dark" : "light";
+
+               htmlElement.setAttribute("data-theme", newTheme);
+               localStorage.setItem("theme", newTheme);
+            });
+         });
+      </script>
    </body>
 </html>

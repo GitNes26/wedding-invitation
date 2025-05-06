@@ -64,18 +64,18 @@ const LoveHistory = ({}) => {
                                  ? "md:text-right md:pr-8"
                                  : "md:text-left md:pl-8"
                            } mb-6 md:mb-0`}>
-                           <h3 className="text-2xl font-bold text-[#e5b168] mb-1">
+                           <h3 className="text-3xl font-mayoritte text-[#e5b168] mb-1">
                               {evento.titulo}
                            </h3>
-                           <p className="text-sm text-[#e5b168]/80 mb-3">
+                           <p className="font-anodina-regular text-[#e5b168]/80 mb-3">
                               {evento.fecha}
                            </p>
-                           <p className="text-sm leading-relaxed opacity-80">
+                           <p className="font-marcellus italic text-base-content leading-relaxed opacity-80">
                               {evento.descripcion}
                            </p>
                         </div>
 
-                        <div className="z-10 flex items-center justify-center w-4 h-4 rounded-full bg-[#e5b168] absolute left-1/2 transform -translate-x-1/2 hidden md:flex"></div>
+                        <div className="z-10  items-center justify-center w-4 h-4 rounded-full bg-[#e5b168] absolute left-1/2 transform -translate-x-1/2 hidden md:flex"></div>
 
                         <div
                            className={`w-full md:w-1/2 ${
@@ -87,7 +87,8 @@ const LoveHistory = ({}) => {
                            }`}>
                            <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-[#e5b168]/30 shadow-lg">
                               <img
-                                 src={evento.imagen || "/placeholder.svg"}
+                                 // src={evento.imagen || "/placeholder.svg"}
+                                 src={`https://picsum.photos/400/40${index}`}
                                  alt={evento.alt}
                                  width={400}
                                  height={400}

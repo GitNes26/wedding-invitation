@@ -30,6 +30,15 @@
    font-family: Marcellus;
    src: url("./assets/fonts/Marcellus-Regular.ttf") format("opentype");
 }
+@font-face {
+   font-family: Mayoritte;
+   src: url("./assets/fonts/Mayoritte.ttf") format("opentype");
+}
+@font-face {
+   font-family: Mayoritte-Swash;
+   src: url("./assets/fonts/Mayoritte-Swash.ttf") format("opentype");
+}
+
 
 @import "tailwindcss";
 
@@ -42,6 +51,8 @@
    --font-anodina-bold: Anodina-Bold;
    --font-anodina-extrabold: Anodina-ExtraBold;
    --font-marcellus: Marcellus;
+   --font-mayoritte: Mayoritte;
+   --font-mayoritte-swash: Mayoritte-Swash;
 }
 
 /* Animaciones personalizadas */
@@ -151,4 +162,90 @@
    --border: 1.5px;
    --depth: 0;
    --noise: 0;
+}
+
+/* Efecto de papel rasgado */
+.torn-paper-effect {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background-image: url('./assets/images/torn-paper-edge.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  z-index: 20;
+}
+
+/* Elementos decorativos */
+.decorative-element {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.6;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.top-left {
+  top: 50px;
+  left: 20px;
+  background-image: url('./assets/images/decorative-corner-1.png');
+  transform: rotate(-15deg);
+}
+
+.top-right {
+  top: 50px;
+  right: 20px;
+  background-image: url('./assets/images/decorative-corner-2.png');
+  transform: rotate(15deg);
+}
+
+.middle-left {
+  top: 50%;
+  left: 10px;
+  background-image: url('./assets/images/decorative-flower-1.png');
+}
+
+.middle-right {
+  top: 50%;
+  right: 10px;
+  background-image: url('./assets/images/decorative-flower-2.png');
+}
+
+.bottom-left {
+  bottom: 50px;
+  left: 20px;
+  background-image: url('./assets/images/decorative-corner-3.png');
+  transform: rotate(-5deg);
+}
+
+.bottom-right {
+  bottom: 50px;
+  right: 20px;
+  background-image: url('./assets/images/decorative-corner-4.png');
+  transform: rotate(5deg);
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .decorative-element {
+    width: 80px;
+    height: 80px;
+  }
+
+  .top-left, .bottom-left {
+    left: 5px;
+  }
+
+  .top-right, .bottom-right {
+    right: 5px;
+  }
+
+  .middle-left, .middle-right {
+    display: none;
+  }
 }

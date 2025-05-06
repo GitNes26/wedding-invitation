@@ -7,6 +7,7 @@ const ThemeChanger = ({}) => {
             <label className="btn btn-circle swap swap-rotate rounded-full bg-background/80 backdrop-blur-sm transition-all duration-300 hover:scale-110">
                {/* this hidden checkbox controls the state */}
                <input
+                  id="theme-toggle"
                   type="checkbox"
                   className="theme-controller"
                   value="light-wedding"
