@@ -1,4 +1,4 @@
 const env = {
-   theme: "light-wedding",
+   theme: "light",
 };
 export default env;

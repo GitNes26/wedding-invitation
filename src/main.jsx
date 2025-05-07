@@ -6,7 +6,7 @@ import WeddingInvitation from "./WeddingInvitation.jsx";
 
 createRoot(document.getElementById("root")).render(
    <StrictMode>
-      {/* <App /> */}
-      <WeddingInvitation />
+      <App />
+      {/* <WeddingInvitation /> */}
    </StrictMode>,
 );

@@ -51,16 +51,16 @@ export default function CountdownTimer({
       : "";
 
    const titleClasses = isSticky
-      ? "font-anodina-extrabold text-xs text-center text-[#7D2E2E] dark:text-[#d4a5a5] font-medium mb-1"
-      : "font-anodina-bold text-2xl text-center text-[#7D2E2E] dark:text-[#d4a5a5] font-medium mb-4";
+      ? "font-anodina-extrabold text-xs text-center text-primary font-medium mb-1"
+      : "font-anodina-bold text-2xl text-center text-primary font-medium mb-4";
 
    const numberClasses = isSticky
-      ? "text-2xl font-anodina-bold text-[#7D2E2E] dark:text-[#d4a5a5]"
-      : "text-5xl font-anodina-extrabold text-[#7D2E2E] dark:text-[#d4a5a5]";
+      ? "text-2xl font-anodina-bold text-primary"
+      : "text-5xl font-anodina-extrabold text-primary";
 
    const labelClasses = isSticky
-      ? "font-anodina-regular text-[10px] text-[#7D2E2E] dark:text-[#d4a5a5]"
-      : "font-anodina-light text-xs text-[#7D2E2E] dark:text-[#d4a5a5]";
+      ? "font-anodina-regular text-[10px] text-primary"
+      : "font-anodina-light text-xs text-primary";
 
    const gridClasses = isSticky
       ? "grid grid-cols-4 gap-1 text-center"

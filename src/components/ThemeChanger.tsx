@@ -10,7 +10,7 @@ const ThemeChanger = ({}) => {
                   id="theme-toggle"
                   type="checkbox"
                   className="theme-controller"
-                  value="light-wedding"
+                  value="light"
                />
 
                {/* sun icon */}

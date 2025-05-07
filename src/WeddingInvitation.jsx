@@ -199,7 +199,7 @@ export default function WeddingInvitation() {
          </motion.header>
 
          {/* Sección de cuenta regresiva */}
-         <section className="py-10 px-6 bg-[#f8f5f2] dark:bg-slate-900 relative">
+         <section className="py-10 px-6 bg-bg dark:bg-slate-900 relative">
             <div className="max-w-4xl mx-auto">
                <motion.div
                   initial={{ opacity: 0, y: 50 }}
