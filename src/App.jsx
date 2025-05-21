@@ -27,6 +27,8 @@ import { formatDatetime } from "./utils/formats";
 import dayjs from "dayjs";
 import LoveHistory from "./components/LoveHistory";
 import DressCode from "./components/DressCode";
+import GiftTable from "./components/GiftTable";
+import DetailsEvent from "./components/DetailsEvent";
 
 export default function App() {
    // const { theme, setTheme } = useTheme();
@@ -327,131 +329,29 @@ export default function App() {
 
          {/* Sección de detalles */}
          <section className="py-20 px-6 relative">
-            <div className="max-w-4xl mx-auto">
-               <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                  viewport={{ once: true }}
-                  className="text-center mb-16">
-                  <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
-                     Detalles del Evento
-                  </h2>
-                  <Divider />
-               </motion.div>
-
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                  <motion.div
-                     initial={{ opacity: 0, x: -50 }}
-                     whileInView={{ opacity: 1, x: 0 }}
-                     transition={{ duration: 0.6 }}
-                     viewport={{ once: true }}
-                     className="text-center">
-                     <div className="flex justify-center mb-4">
-                        <Calendar className="h-12 w-12 text-rose-600 dark:text-rose-400" />
-                     </div>
-                     <h3 className="text-xl font-medium mb-4 text-slate-800 dark:text-slate-200">
-                        Fecha y Hora
-                     </h3>
-                     <p className="text-slate-700 dark:text-slate-300 mb-4">
-                        {formattedDate}
-                     </p>
-                     <p className="text-slate-700 dark:text-slate-300 mb-6">
-                        {formattedTime} hrs
-                     </p>
-                     <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}>
-                        <button
-                           // variant="outline"
-                           className="btn btn-outline rounded-full border-rose-300 dark:border-rose-700 text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30">
-                           <a
-                              href={googleCalendarUrl}
-                              target="_blank"
-                              rel="noopener noreferrer">
-                              Agregar a Google Calendar
-                           </a>
-                        </button>
-                     </motion.div>
-                  </motion.div>
-
-                  <motion.div
-                     initial={{ opacity: 0, x: 50 }}
-                     whileInView={{ opacity: 1, x: 0 }}
-                     transition={{ duration: 0.6 }}
-                     viewport={{ once: true }}
-                     className="text-center">
-                     <div className="flex justify-center mb-4">
-                        <MapPin className="h-12 w-12 text-rose-600 dark:text-rose-400" />
-                     </div>
-                     <h3 className="text-xl font-medium mb-4 text-slate-800 dark:text-slate-200">
-                        Ubicación
-                     </h3>
-                     <p className="text-slate-700 dark:text-slate-300 mb-4">
-                        {weddingPlace}
-                     </p>
-                     <p className="text-slate-700 dark:text-slate-300 mb-6">
-                        {location}
-                     </p>
-                     <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}>
-                        <button
-                           variant="outline"
-                           className="btn btn-outline rounded-full border-rose-300 dark:border-rose-700 text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30">
-                           <a
-                              href={googleMapsUrl}
-                              target="_blank"
-                              rel="noopener noreferrer">
-                              Ver en Google Maps
-                           </a>
-                        </button>
-                     </motion.div>
-                  </motion.div>
-               </div>
-            </div>
+            <DetailsEvent
+               formattedDate={formattedDate}
+               formattedTime={formattedTime}
+               googleCalendarUrl={googleCalendarUrl}
+               weddingPlace={weddingPlace}
+               location={location}
+               googleMapsUrl={googleMapsUrl}
+            />
          </section>
 
          {/* Sección de mesa de regalos */}
          <section className="py-20 px-6  bg-white/50 dark:bg-slate-900/50 relative">
-            <div className="max-w-4xl mx-auto">
-               <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                  viewport={{ once: true }}
-                  className="text-center">
-                  <div className="flex justify-center mb-4">
-                     <Gift className="h-12 w-12 text-rose-600 dark:text-rose-400" />
-                  </div>
-                  <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
-                     Mesa de Regalos
-                  </h2>
-                  <Divider />
-                  <p className="font-marcellus text-slate-700 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto mb-8">
-                     Tu presencia es nuestro mejor regalo. Sin embargo, si
-                     deseas obsequiarnos algo, hemos creado una mesa de regalos
-                     para facilitar tu elección.
-                  </p>
-                  <motion.div
-                     whileHover={{ scale: 1.05 }}
-                     whileTap={{ scale: 0.95 }}>
-                     <button className="btn bg-rose-600 hover:bg-rose-700 text-white rounded-full px-8 py-6">
-                        <a
-                           href={giftRegistryUrl}
-                           target="_blank"
-                           rel="noopener noreferrer">
-                           Ver Mesa de Regalos
-                        </a>
-                     </button>
-                  </motion.div>
-               </motion.div>
-            </div>
+            <GiftTable giftRegistryUrl={giftRegistryUrl} />
          </section>
 
          {/* Sección de Código de Vestimenta */}
          <section className="py-20 px-6 relative">
             <DressCode />
+         </section>
+
+         {/* Sección de mesa de regalos */}
+         <section className="py-20 px-6  bg-white/50 dark:bg-slate-900/50 relative">
+            <GiftTable giftRegistryUrl={giftRegistryUrl} />
          </section>
 
          {/* Sección de RSVP */}
@@ -470,7 +370,7 @@ export default function App() {
                   <p className="font-marcellus text-slate-700 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto">
                      Por favor, confirma tu asistencia antes del{" "}
                      {dayjs(weddingDate)
-                        .subtract(15, "days")
+                        .subtract(32, "days")
                         .format("dddd DD [de] MMMM [de] YYYY")}
                      .
                   </p>

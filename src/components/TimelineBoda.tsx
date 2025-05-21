@@ -51,9 +51,12 @@ const TimelineBoda = ({}) => {
                transition={{ duration: 0.8 }}
                viewport={{ once: true }}
                className="text-center mb-16">
-               <h2 className="font-serif text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
-                  Programa
+               <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
+                  Programa <br />
                </h2>
+               <small>
+                  (cambiar la linea del tiempo a un diseño horizontal)
+               </small>
                <Divider />
             </motion.div>
 

@@ -90,11 +90,13 @@ const DressCode = ({}) => {
                   {coloresRecomendados.map((color, index) => (
                      <motion.div
                         key={`item-recomendered-${color}-${index}`}
-                        whileHover={{ scale: 1.05 }}
+                        whileHover={{ scale: 1.15 }}
                         whileTap={{ scale: 0.95 }}
                         transition={{ duration: 0.2 }}>
                         <div className="text-center">
-                           <div className="tooltip tooltip-bottom" data-tip={color.nombre}>
+                           <div
+                              className="tooltip tooltip-bottom"
+                              data-tip={color.nombre}>
                               <div
                                  className="w-16 h-16 rounded-full mb-2 border border-base-300 shadow-sm -mx-2"
                                  style={{ backgroundColor: color.hex }}></div>
@@ -107,7 +109,7 @@ const DressCode = ({}) => {
          </motion.div>
 
          {/* <!-- Colores prohibidos --> */}
-         <motion.div
+         {/* <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
@@ -138,10 +140,10 @@ const DressCode = ({}) => {
                   ))}
                </div>
             </div>
-         </motion.div>
+         </motion.div> */}
 
          {/* <!-- Nota adicional --> */}
-         <motion.div
+         {/* <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
@@ -155,7 +157,7 @@ const DressCode = ({}) => {
                   </span>
                </div>
             </div>
-         </motion.div>
+         </motion.div> */}
       </div>
    );
 };
