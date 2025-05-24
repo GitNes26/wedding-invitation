@@ -29,6 +29,8 @@ import LoveHistory from "./components/LoveHistory";
 import DressCode from "./components/DressCode";
 import GiftTable from "./components/GiftTable";
 import DetailsEvent from "./components/DetailsEvent";
+import InvitationCard from "./components/InvitationCard";
+import Considerations from "./components/Considerations";
 
 export default function App() {
    // const { theme, setTheme } = useTheme();
@@ -36,6 +38,7 @@ export default function App() {
    const isMobile = useMobile();
    const [isScrolled, setIsScrolled] = useState(false);
    const mainRef = useRef(null);
+   const rsvpRef = useRef(null);
 
    useEffect(() => {
       const handleScroll = () => {
@@ -83,6 +86,27 @@ export default function App() {
    // Crear enlace para mesa de regalos
    const giftRegistryUrl = "https://www.amazon.com.mx/wedding/registry";
 
+   const weddingInfo = {
+      bride: girlfriend,
+      groom: boyfriend,
+      date: formattedDate,
+      time: formattedTime,
+      theDate: weddingDate,
+      fullDate: formatDatetime,
+      place: weddingPlace,
+      location: location,
+      calendarUrl: googleCalendarUrl,
+      mapsUrl: googleMapsUrl,
+      giftTable: giftRegistryUrl,
+   };
+
+   const handleClickConfirm = () => {
+      setShowRsvp(true);
+      setTimeout(() => {
+         rsvpRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+   };
+
    return (
       <div
          ref={mainRef}
@@ -115,90 +139,16 @@ export default function App() {
          </AnimatePresence>
 
          {/* Encabezado */}
-         <motion.header
-            className="relative h-screen flex flex-col items-center justify-center text-center p-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.5 }}>
-            <motion.div
-               initial={{ scale: 0.7, opacity: 0 }}
-               animate={{ scale: 1, opacity: 1 }}
-               transition={{ delay: 0.5, duration: 1.5 }}
-               className="absolute inset-0 overflow-hidden z-0">
-               <img
-                  src={images.hero}
-                  alt="Fondo floral"
-                  className="object-cover w-full h-full transition-all opacity-20 dark:opacity-50 "
-               />
-            </motion.div>
-
-            <motion.div
-               className="z-10 max-w-3xl mx-auto"
-               initial={{ y: 20, opacity: 0 }}
-               animate={{ y: 0, opacity: 1 }}
-               transition={{ delay: 1, duration: 0.8 }}>
-               <h1 className="font-dashing text-3xl md:text-9xl mb-4 text-rose-800 dark:text-rose-300">
-                  {girlfriend} & {boyfriend}
-               </h1>
-               {/* <h1 className="font-mayoritte text-3xl md:text-9xl mb-4 text-rose-800 dark:text-rose-300">
-                  {girlfriend} & {boyfriend}
-               </h1> */}
-               <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 1.5, duration: 0.5, type: "spring" }}
-                  className="flex justify-center my-6">
-                  <Heart
-                     className="text-rose-500 dark:text-rose-400 h-12 w-12 animate-pulse"
-                     fill="currentColor"
-                  />
-               </motion.div>
-               <h2 className="font-marcellus text-xl md:text-2xl mb-8 text-slate-700 dark:text-slate-300">
-                  Nos casamos
-               </h2>
-               <p className="text-lg md:text-xl font-anodina-extrabold text-slate-800 dark:text-slate-200 mb-2">
-                  {formattedDate}
-               </p>
-               <p className="text-lg md:text-xl font-anodina-extrabold text-slate-800 dark:text-slate-200 mb-8">
-                  {formattedTime} hrs
-               </p>
-               <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}>
-                  <button
-                     className="btn bg-rose-600 hover:bg-rose-700 text-white rounded-full px-8 py-6 text-lg"
-                     onClick={() => setShowRsvp(true)}>
-                     Confirmar Asistencia
-                  </button>
-               </motion.div>
-            </motion.div>
-
-            {/* Flechita */}
-            <motion.div
-               className="absolute bottom-8 left-0 right-0 flex justify-center"
-               initial={{ opacity: 0 }}
-               animate={{ opacity: 1 }}
-               transition={{ delay: 2, duration: 1 }}>
-               <div className="animate-bounce">
-                  <svg
-                     xmlns="http://www.w3.org/2000/svg"
-                     width="24"
-                     height="24"
-                     viewBox="0 0 24 24"
-                     fill="none"
-                     stroke="currentColor"
-                     strokeWidth="2"
-                     strokeLinecap="round"
-                     strokeLinejoin="round"
-                     className="text-white">
-                     <path d="M12 5v14M5 12l7 7 7-7" />
-                  </svg>
-               </div>
-            </motion.div>
-
-            {/* <!-- Efecto de papel rasgado en la parte inferior --> */}
-            <div className="torn-paper-effect"></div>
-         </motion.header>
+         <InvitationCard
+            bride={girlfriend}
+            groom={boyfriend}
+            weddingDate={formattedDate}
+            weddingTime={formattedTime}
+            weddingPlace={weddingPlace}
+            location={location}
+            option={1}
+            onConfirmClick={handleClickConfirm}
+         />
 
          {/* Sección de cuenta regresiva */}
          <section className="py-10 px-6 bg-[#F7F7F7] dark:bg-[#201f1f] relative">
@@ -349,45 +299,18 @@ export default function App() {
             <DressCode />
          </section>
 
-         {/* Sección de mesa de regalos */}
+         {/* Sección de mesa de reglamento */}
          <section className="py-20 px-6  bg-white/50 dark:bg-slate-900/50 relative">
-            <GiftTable giftRegistryUrl={giftRegistryUrl} />
+            <Considerations giftRegistryUrl={giftRegistryUrl} />
          </section>
 
          {/* Sección de RSVP */}
-         <section className="py-20 px-6bg-white/50 dark:bg-slate-900/50 relative">
-            <div className="max-w-4xl mx-auto">
-               <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                  viewport={{ once: true }}
-                  className="text-center mb-12">
-                  <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
-                     Confirma tu Asistencia
-                  </h2>
-                  <Divider />
-                  <p className="font-marcellus text-slate-700 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto">
-                     Por favor, confirma tu asistencia antes del{" "}
-                     {dayjs(weddingDate)
-                        .subtract(32, "days")
-                        .format("dddd DD [de] MMMM [de] YYYY")}
-                     .
-                  </p>
-               </motion.div>
-
-               <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6 }}
-                  viewport={{ once: true }}>
-                  <RsvpForm />
-               </motion.div>
-            </div>
+         <section className="py-20 px-6bg-white/50 relative" ref={rsvpRef}>
+            <RsvpForm weddingInfo={weddingInfo} />
          </section>
 
          {/* Footer */}
-         <footer className="py-12 px-6 text-center">
+         <footer className="py-12 px-6 text-center dark:bg-slate-900/50">
             <p className="mb-4">Con amor,</p>
             <h2 className="font-dashing text-2xl mb-8 text-rose-700 dark:text-rose-400">
                {girlfriend} & {boyfriend}
