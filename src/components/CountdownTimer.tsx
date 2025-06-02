@@ -70,6 +70,21 @@ export default function CountdownTimer({
       <div className={containerClasses}>
          <h2 className={titleClasses}>FALTAN:</h2>
          <div className={gridClasses}>
+            {/* <div
+               className={`flex flex-col p-2 bg-neutral rounded-sm ${labelClasses}`}>
+               <span
+                  className={`countdown text-center auto-cols-max justify-center ${numberClasses}`}>
+                  <span
+                     style={{
+                        "--value": timeLeft.seconds,
+                     }}
+                     aria-live="polite"
+                     aria-label={timeLeft.days}>
+                     99
+                  </span>
+               </span>
+               Dias
+            </div> */}
             <div className="flex flex-col items-center">
                <div className={numberClasses}>{timeLeft.days}</div>
                <div className={labelClasses}>Días</div>

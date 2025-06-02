@@ -2,8 +2,8 @@
 .ticket-horizontal {
    border-radius: 1.5rem;
    position: relative;
-   background: linear-gradient(90deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
-   border: 2px solid #e2e8f0;
+   /* background: linear-gradient(90deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%); */
+   /* border: 2px solid #e2e8f0; */
    min-height: 500px;
 }
 

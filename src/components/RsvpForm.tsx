@@ -282,7 +282,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                                     placeholder="10 dígitos"
                                  />
                               </div>
-
+{/* 
                               <div className="form-control">
                                  <label className="label">
                                     <span className="label-text font-medium text-sm">
@@ -299,7 +299,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                                     disabled={!authorized}
                                     placeholder="tu@email.com"
                                  />
-                              </div>
+                              </div> */}
                            </div>
 
                            {/* Segunda fila - Nombre */}

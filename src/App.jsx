@@ -1,18 +1,7 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-   Calendar,
-   MapPin,
-   Gift,
-   Music,
-   MicOffIcon as MusicOff,
-   Moon,
-   Sun,
-   Heart,
-   Shirt,
-} from "lucide-react";
 import AudioPlayer from "./components/AudioPlayer";
 import ThemeChanger from "./components/ThemeChanger";
 import CountdownTimer from "./components/CountdownTimer";
@@ -22,9 +11,7 @@ import ScrollToTopButton from "./components/ScrollToTopButton";
 import Divider from "./components/Divider";
 import { useMobile } from "./hooks/useMobile";
 import audios from "./constants/audios";
-import images from "./constants/images";
 import { formatDatetime } from "./utils/formats";
-import dayjs from "dayjs";
 import LoveHistory from "./components/LoveHistory";
 import DressCode from "./components/DressCode";
 import GiftTable from "./components/GiftTable";
