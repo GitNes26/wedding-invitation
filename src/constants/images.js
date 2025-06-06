@@ -1,4 +1,4 @@
-import hero from "../assets/images/hero.jpg";
+import hero from "../assets/images/bg-hero.jpg";
 import floral from "../assets/images/floral.jpg";
 
 const images = {

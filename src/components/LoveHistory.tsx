@@ -41,7 +41,7 @@ const LoveHistory = ({}) => {
       <section className="py-20 px-6">
          <div className="relative">
             {/* <!-- Línea vertical central --> */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-[#e5b168]/30"></div>
+            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-primary/30"></div>
 
             {/* <!-- Eventos de la historia de amor --> */}
             <div className="space-y-24 relative">
@@ -67,7 +67,7 @@ const LoveHistory = ({}) => {
                            <h3 className="text-3xl font-mayoritte text-[#e5b168] mb-1">
                               {evento.titulo}
                            </h3>
-                           <p className="font-anodina-regular text-[#e5b168]/80 mb-3">
+                           <p className="font-anodina-regular text-primary/80 mb-3">
                               {evento.fecha}
                            </p>
                            <p className="font-marcellus italic text-base-content leading-relaxed opacity-80">

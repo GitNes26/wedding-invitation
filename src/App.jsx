@@ -93,11 +93,11 @@ export default function App() {
          rsvpRef.current?.scrollIntoView({ behavior: "smooth" });
       }, 100);
    };
-
+   // dark:from-slate-900 dark:to-slate-800
    return (
       <div
          ref={mainRef}
-         className="min-h-screen bg-gradient-to-b from-rose-50 to-rose-100 dark:from-slate-900 dark:to-slate-800 transition-colors duration-500  relative overflow-hidden">
+         className="min-h-screen bg-gradient-to-b from-rose-50 to-rose-100 dark:from-slate-900 dark:to-slate-800 transition-colors duration-500 relative overflow-hidden">
          {/* <!-- Elementos decorativos laterales --> */}
          <div className="decorative-element top-left"></div>
          <div className="decorative-element top-right"></div>
@@ -138,7 +138,7 @@ export default function App() {
          />
 
          {/* Sección de cuenta regresiva */}
-         <section className="py-10 px-6 bg-[#F7F7F7] dark:bg-[#201f1f] relative">
+         <section className="py-10 px-6 relative bg-white/50 dark:bg-slate-900/50">
             <div className="max-w-4xl mx-auto">
                <motion.div
                   initial={{ opacity: 0, y: 50 }}

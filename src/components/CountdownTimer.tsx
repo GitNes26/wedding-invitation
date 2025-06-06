@@ -103,29 +103,31 @@ export default function CountdownTimer({
             </div>
          </div>
 
+         {/* text-[#7D2E2E] dark:text-[#d4a5a5] */}
+         {/* border-[#7D2E2E] dark:border-[#d4a5a5] */}
          {!isSticky && (
             <>
                <div className="text-center mt-8 mb-1">
-                  <p className="font-anodina-regular text-[#7D2E2E] dark:text-[#d4a5a5]">
+                  <p className="font-anodina-regular text-primary">
                      Te esperamos para celebrar nuestra boda
                   </p>
                </div>
 
-               <div className="flex items-center justify-center gap-2 mb-8">
-                  <div className="text-center border-t border-b border-[#7D2E2E] dark:border-[#d4a5a5] py-2 px-4">
-                     <span className="font-anodina-regular text-[#7D2E2E] dark:text-[#d4a5a5]">
+               <div className="flex items-center justify-center gap-2 mb-8 text-primary">
+                  <div className="text-center border-t border-b  py-2 px-4">
+                     <span className="font-anodina-regular">
                         {String(
                            formatDatetime(targetDate, false, "dddd"),
                         ).toUpperCase()}
                      </span>
                   </div>
-                  <span className="block text-7xl font-anodina-extrabold text-[#7D2E2E] dark:text-[#d4a5a5]">
+                  <span className="block text-7xl font-anodina-extrabold">
                      {String(
                         formatDatetime(targetDate, false, "DD"),
                      ).toUpperCase()}
                   </span>
-                  <div className="text-center border-t border-b border-[#7D2E2E] dark:border-[#d4a5a5] py-2 px-4">
-                     <span className="block text-xl font-anodina-extrabold text-[#7D2E2E] dark:text-[#d4a5a5]">
+                  <div className="text-center border-t border-b py-2 px-4">
+                     <span className="block text-xl font-anodina-extrabold">
                         {String(
                            formatDatetime(targetDate, false, "MMMM"),
                         ).toUpperCase()}

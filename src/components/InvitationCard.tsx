@@ -49,7 +49,7 @@ export default function InvitationCard({
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 1, duration: 0.8 }}>
-            <h1 className="font-dashing text-3xl md:text-9xl mb-4 text-rose-800 dark:text-rose-300">
+            <h1 className="font-dashing text-3xl md:text-9xl mb-4 text-secondary">
                {bride} & {groom}
             </h1>
             {/* <h1 className="font-mayoritte text-3xl md:text-9xl mb-4 text-rose-800 dark:text-rose-300">
