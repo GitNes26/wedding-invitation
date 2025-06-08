@@ -39,7 +39,7 @@ export default function InvitationCard({
             className="absolute inset-0 overflow-hidden z-0">
             <img
                src={images.hero}
-               alt="Fondo floral"
+               alt="Novio y Novia"
                className="object-cover w-full h-full transition-all opacity-20 dark:opacity-50 "
             />
          </motion.div>
@@ -61,22 +61,22 @@ export default function InvitationCard({
                transition={{ delay: 1.5, duration: 0.5, type: "spring" }}
                className="flex justify-center my-6">
                <Heart
-                  className="text-rose-500 dark:text-rose-400 h-12 w-12 animate-pulse"
+                  className="text-primary h-12 w-12 animate-pulse"
                   fill="currentColor"
                />
             </motion.div>
-            <p className="font-marcellus text-xl md:text-2xl text-slate-700 dark:text-slate-300 mb-2">
+            <p className="font-marcellus text-xl md:text-2xl mb-2">
                ¡Nos casamos!
             </p>
-            <p className="font-anodina-extrabold text-lg text-slate-600 dark:text-slate-200">
+            <p className="font-anodina-extrabold text-lg text-base-content/75">
                {weddingDate} - {weddingPlace} {location}
             </p>
-            <p className="text-lg md:text-xl font-anodina-extrabold text-slate-800 dark:text-slate-200 mb-8">
+            <p className="text-lg md:text-xl font-anodina-extrabold mb-8">
                {weddingTime} hrs
             </p>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                <button
-                  className="btn bg-rose-600 hover:bg-rose-700 text-white rounded-full px-8 py-6 text-lg"
+                  className="btn bg-primary text-primary-content rounded-full px-8 py-6 text-lg"
                   onClick={onConfirmClick}>
                   Confirmar Asistencia
                </button>
@@ -100,7 +100,7 @@ export default function InvitationCard({
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="text-white">
+                  className="text-primary-content">
                   <path d="M12 5v14M5 12l7 7 7-7" />
                </svg>
             </div>
@@ -111,7 +111,7 @@ export default function InvitationCard({
       </motion.header>
    ) : (
       <motion.section
-         className="relative bg-rose-50 dark:bg-slate-800 py-20 px-6 text-center overflow-hidden"
+         className="relative bg-primary py-20 px-6 text-center overflow-hidden"
          initial={{ opacity: 0 }}
          animate={{ opacity: 1 }}
          transition={{ duration: 1 }}>
@@ -122,20 +122,20 @@ export default function InvitationCard({
          />
 
          <div className="relative z-10 max-w-xl mx-auto">
-            <h1 className="font-dashing text-4xl md:text-6xl text-rose-700 dark:text-rose-300 mb-4">
+            <h1 className="font-dashing text-4xl md:text-6xl text-primary-content mb-4">
                {bride} & {groom}
             </h1>
-            <p className="font-marcellus text-xl md:text-2xl text-slate-700 dark:text-slate-300 mb-2">
+            <p className="font-marcellus text-xl md:text-2xl mb-2">
                ¡Nos casamos!
             </p>
-            <p className="font-anodina-extrabold text-lg text-slate-600 dark:text-slate-200">
+            <p className="font-anodina-extrabold text-lg text-base-content/75">
                {weddingDate} - {location}
             </p>
 
             <div className="mt-8">
                <button
                   onClick={onConfirmClick}
-                  className="btn bg-rose-600 hover:bg-rose-700 text-white px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105">
+                  className="btn bg-primary text-primary-content px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105">
                   Confirmar Asistencia
                </button>
             </div>

@@ -220,11 +220,20 @@ export default function WeddingInvitation() {
                   transition={{ duration: 0.8 }}
                   viewport={{ once: true }}
                   className="text-center mb-16">
-                  <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
+                  <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-2 text-primary">
                      Nuestra Historia de Amor
                   </h2>
-                  <Divider />
-                  <p className="font-marcellus text-slate-700 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto">
+                  <motion.div
+                     initial={{ opacity: 0, scale: 0, x: 50 }}
+                     whileInView={{ opacity: 1, scale: 1 }}
+                     transition={{
+                        delay: 0.5,
+                        duration: 1,
+                        type: "spring",
+                     }}>
+                     <Divider color="primary" />
+                  </motion.div>
+                  <p className="font-marcellus leading-relaxed max-w-3xl mx-auto">
                      Nos conocimos hace 5 años en una tarde de otoño. Desde
                      entonces, hemos compartido innumerables momentos que nos
                      han llevado a este día tan especial. Ahora queremos
@@ -334,10 +343,19 @@ export default function WeddingInvitation() {
                   transition={{ duration: 0.8 }}
                   viewport={{ once: true }}
                   className="text-center mb-16">
-                  <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
+                  <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-2 text-primary">
                      Detalles del Evento
                   </h2>
-                  <Divider />
+                  <motion.div
+                     initial={{ opacity: 0, scale: 0, x: 50 }}
+                     whileInView={{ opacity: 1, scale: 1 }}
+                     transition={{
+                        delay: 0.5,
+                        duration: 1,
+                        type: "spring",
+                     }}>
+                     <Divider color="primary" />
+                  </motion.div>
                </motion.div>
 
                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -348,7 +366,7 @@ export default function WeddingInvitation() {
                      viewport={{ once: true }}
                      className="text-center">
                      <div className="flex justify-center mb-4">
-                        <Calendar className="h-12 w-12 text-rose-600 dark:text-rose-400" />
+                        <Calendar className="h-12 w-12 text-primary/75" />
                      </div>
                      <h3 className="text-xl font-medium mb-4 text-slate-800 dark:text-slate-200">
                         Fecha y Hora
@@ -382,7 +400,7 @@ export default function WeddingInvitation() {
                      viewport={{ once: true }}
                      className="text-center">
                      <div className="flex justify-center mb-4">
-                        <MapPin className="h-12 w-12 text-rose-600 dark:text-rose-400" />
+                        <MapPin className="h-12 w-12 text-primary/75" />
                      </div>
                      <h3 className="text-xl font-medium mb-4 text-slate-800 dark:text-slate-200">
                         Ubicación
@@ -422,12 +440,21 @@ export default function WeddingInvitation() {
                   viewport={{ once: true }}
                   className="text-center">
                   <div className="flex justify-center mb-4">
-                     <Gift className="h-12 w-12 text-rose-600 dark:text-rose-400" />
+                     <Gift className="h-12 w-12 text-primary/75" />
                   </div>
-                  <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
+                  <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-2 text-primary">
                      Mesa de Regalos
                   </h2>
-                  <Divider />
+                  <motion.div
+                     initial={{ opacity: 0, scale: 0, x: 50 }}
+                     whileInView={{ opacity: 1, scale: 1 }}
+                     transition={{
+                        delay: 0.5,
+                        duration: 1,
+                        type: "spring",
+                     }}>
+                     <Divider color="primary" />
+                  </motion.div>
                   <p className="font-marcellus text-slate-700 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto mb-8">
                      Tu presencia es nuestro mejor regalo. Sin embargo, si
                      deseas obsequiarnos algo, hemos creado una mesa de regalos
@@ -463,10 +490,19 @@ export default function WeddingInvitation() {
                   transition={{ duration: 0.8 }}
                   viewport={{ once: true }}
                   className="text-center mb-12">
-                  <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
+                  <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-2 text-primary">
                      Confirma tu Asistencia
                   </h2>
-                  <Divider />
+                  <motion.div
+                     initial={{ opacity: 0, scale: 0, x: 50 }}
+                     whileInView={{ opacity: 1, scale: 1 }}
+                     transition={{
+                        delay: 0.5,
+                        duration: 1,
+                        type: "spring",
+                     }}>
+                     <Divider color="primary" />
+                  </motion.div>
                   <p className="font-marcellus text-slate-700 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto">
                      Por favor, confirma tu asistencia antes del{" "}
                      {dayjs(weddingDate)

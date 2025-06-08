@@ -1,85 +1,125 @@
 "use client";
 
 import type React from "react";
-import { motion } from "framer-motion";
+import { easeInOut, motion } from "framer-motion";
 import Divider from "./Divider";
+import { useGlobalContext } from "../contexts/GlobalContext";
+import images from "../constants/images";
+import { image } from "motion/react-client";
 
 const TimelineBoda: React.FC = () => {
+   // const { themeActive } = useGlobalContext();
+
    // Definir los eventos de la boda
    const eventos = [
-      {
-         hora: "15:30",
-         titulo: "Ceremonia",
-         subtitulo: "Religiosa",
-         icono: "fa-church",
-      },
-      {
-         hora: "16:00",
-         titulo: "Ceremonia",
-         subtitulo: "Civil",
-         icono: "fa-rings",
-      },
       {
          hora: "16:30",
          titulo: "Sesión",
          subtitulo: "Fotográfica",
-         icono: "fa-camera",
+         icono: images.camera,
+      },
+      {
+         hora: "20:00",
+         titulo: "Ceremonia",
+         subtitulo: "Civil",
+         icono: images.weddingRings,
+      },
+      {
+         hora: "20:30",
+         titulo: "Ceremonia",
+         subtitulo: "Religiosa",
+         icono: images.doves,
+      },
+      {
+         hora: "21:00",
+         titulo: "Recepción",
+         subtitulo: "",
+         icono: images.arch,
+      },
+      {
+         hora: "21:30",
+         titulo: "1er Baile",
+         subtitulo: "",
+         icono: images.vinyl,
+      },
+      {
+         hora: "21:40",
+         titulo: "Baile con los Padres",
+         subtitulo: "",
+         icono: images.weddingGramophone,
+      },
+      {
+         hora: "17:00",
+         titulo: "Baile del billete",
+         subtitulo: "",
+         icono: images.weddingGramophone,
       },
       {
          hora: "17:00",
          titulo: "Brindis",
          subtitulo: "de Honor",
-         icono: "fa-champagne-glasses",
+         icono: images.brindis,
       },
       {
          hora: "17:30",
          titulo: "Cena",
          subtitulo: "Especial",
-         icono: "fa-utensils",
+         icono: images.dinner,
       },
       {
          hora: "18:00",
          titulo: "Pastel",
          subtitulo: "de Bodas",
-         icono: "fa-cake-slice",
+         icono: images.weddingCake,
       },
       {
          hora: "18:30",
-         titulo: "¡A Bailar!",
-         subtitulo: "Fiesta",
-         icono: "fa-music",
+         titulo: "¡A Bailar",
+         subtitulo: "Todos!",
+         icono: images.music,
+      },
+      {
+         hora: "18:00",
+         titulo: "Helado!",
+         subtitulo: "",
+         icono: images.icecream,
       },
    ];
 
    return (
       <>
-         <div className="mx-auto">
+         <div className="max-w-4xl mx-auto">
             <motion.div
                initial={{ opacity: 0, y: 50 }}
                whileInView={{ opacity: 1, y: 0 }}
                transition={{ duration: 0.8 }}
                viewport={{ once: true }}
-               className="text-center mb-16">
-               <h2
-                  className="font-anodina-extraboldl text-3xl md:text-4xl mb-2">
-                  Wedding Timeline
+               className="text-center mb-2">
+               <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-2 text-primary">
+                  Eventos del Día
                </h2>
-               <p className="text-lg mb-6" style={{ color: "#8b7355" }}>
-                  MARÍA & JUAN
-               </p>
-               <Divider />
+               <motion.div
+                  initial={{ opacity: 0, scale: 0, x: 50 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{
+                     delay: 0.5,
+                     duration: 1,
+                     type: "spring",
+                  }}>
+                  <Divider color="primary" />
+               </motion.div>
             </motion.div>
 
             {/* Timeline horizontal */}
-            <div className="relative overflow-x-auto">
+            <div className="relative overflow-x-auto h-fit">
                <div className="min-w-[800px] relative">
                   {/* Línea ondulada SVG */}
                   <svg
-                     className="absolute top-32 left-0 w-full h-16"
+                     className="absolute top-32 left-0 text-primary/30 w-full h-16 hidden"
                      viewBox="0 0 800 60"
                      preserveAspectRatio="none">
                      <path
-                        d="M 0 30 Q 100 10 200 30 T 400 30 T 600 30 T 800 30"
+                        d="M 0 30 Q 100 10 200 30 T 400 30 T 600 30 T 800 30 "
                         stroke="#8b7355"
                         strokeWidth="2"
                         fill="none"
@@ -95,31 +135,34 @@ const TimelineBoda: React.FC = () => {
                               cx={x}
                               cy={y}
                               r="4"
-                              fill="#8b7355"
+                              fill="#e5b168"
                            />
                         );
                      })}
                   </svg>
 
                   {/* Eventos */}
-                  <div className="flex justify-between items-start pt-8">
+                  <div className="flex justify-between items-start mt-8 h-60 w-full">
                      {eventos.map((evento, index) => (
                         <motion.div
                            key={`event-${index}`}
                            initial={{ opacity: 0, y: 20 }}
                            whileInView={{ opacity: 1, y: 0 }}
-                           transition={{ duration: 0.5, delay: index * 0.1 }}
+                           transition={{
+                              duration: 0.5,
+                              delay: index * 0.35,
+                              easings: [easeInOut],
+                           }}
                            viewport={{ once: true }}
-                           className="flex flex-col items-center text-center w-24 md:w-32">
+                           className="flex flex-col items-center text-center w-24 md:w-32 px-3 transition-all ease-in-out hover:duration-300 hover:-translate-y-2">
                            {/* Icono */}
-                           <div
-                              className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white border-2 flex items-center justify-center mb-4 shadow-sm"
-                              style={{ borderColor: "#8b7355" }}>
-                              <i
-                                 className={`fa-solid ${evento.icono} text-xl md:text-2xl`}
+                           <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white border-primary border-2 flex items-center justify-center mb-4 shadow-sm">
+                              <img
+                                 src={evento.icono}
+                                 alt={evento.titulo}
+                                 className="text-center w-12 h-12 transition-all text-primary"
                                  style={{
-                                    color: "#8b7355",
-                                    transition: "transform 0.3s ease",
+                                    transition: "transform 0.3s easeInOut",
                                  }}
                                  onMouseOver={(e) =>
                                     (e.currentTarget.style.transform =
@@ -128,31 +171,22 @@ const TimelineBoda: React.FC = () => {
                                  onMouseOut={(e) =>
                                     (e.currentTarget.style.transform =
                                        "scale(1)")
-                                 }></i>
+                                 }
+                              />
                            </div>
 
                            {/* Espacio para la línea */}
-                           <div className="h-16"></div>
+                           {/* <div className="h-16"></div> */}
 
                            {/* Hora */}
-                           <div
-                              className="text-lg md:text-xl font-bold mb-1"
-                              style={{ color: "#2c2c2c" }}>
+                           <div className="sm:text-lg md:text-2xl  font-anodina-extrabold mb-1">
                               {evento.hora}
                            </div>
 
                            {/* Título y subtítulo */}
-                           <div className="text-sm md:text-base">
-                              <div
-                                 className="font-medium"
-                                 style={{ color: "#2c2c2c" }}>
-                                 {evento.titulo}
-                              </div>
-                              <div
-                                 className="text-xs md:text-sm"
-                                 style={{ color: "#8b7355" }}>
-                                 {evento.subtitulo}
-                              </div>
+                           <div className="sm:text-lg md:text-1xl font-mayoritte">
+                              <div className="">{evento.titulo}</div>
+                              <div className="">{evento.subtitulo}</div>
                            </div>
                         </motion.div>
                      ))}
@@ -161,20 +195,20 @@ const TimelineBoda: React.FC = () => {
             </div>
 
             {/* Nota al pie */}
-            <div className="text-center mt-12">
-               <p className="text-sm italic" style={{ color: "#8b7355" }}>
+            <div className="text-center mt-6">
+               <p className="text-sm font-marcellus italic text-primary">
                   *Los horarios pueden variar ligeramente
                </p>
             </div>
          </div>
 
-         <style jsx>{`
+         {/* <style jsx>{`
             @media (max-width: 768px) {
                .min-w-[800px] {
                   min-width: 600px;
                }
             }
-         `}</style>
+         `}</style> */}
       </>
    );
 };

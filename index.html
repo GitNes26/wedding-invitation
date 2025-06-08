@@ -2,9 +2,9 @@
 <html lang="es">
    <head>
       <meta charset="UTF-8" />
-      <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+      <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Vite + React</title>
+      <title>Boda | Daniela & Nestor</title>
       <script>
          // On page load or when changing themes, best to add inline in `head` to avoid FOUC
          document.documentElement.classList.toggle(
@@ -13,39 +13,17 @@
                (!("theme" in localStorage) &&
                   window.matchMedia("(prefers-color-scheme: dark)").matches),
          );
-         // Whenever the user explicitly chooses light mode
-         localStorage.theme = "light";
-         // Whenever the user explicitly chooses dark mode
-         localStorage.theme = "dark";
-         // Whenever the user explicitly chooses to respect the OS preference
-         localStorage.removeItem("theme");
+         console.log("🚀 ~ localStorage:", localStorage.theme);
+         // // Whenever the user explicitly chooses light mode
+         // localStorage.theme = "light";
+         // // Whenever the user explicitly chooses dark mode
+         // localStorage.theme = "dark";
+         // // Whenever the user explicitly chooses to respect the OS preference
+         // localStorage.removeItem("theme");
       </script>
    </head>
    <body>
       <div id="root"></div>
       <script type="module" src="/src/main.jsx"></script>
-      <!-- <script>
-         // Script para manejar el cambio de tema
-         document.addEventListener("DOMContentLoaded", () => {
-            console.log("hola bebe");
-
-            const themeToggle = document.getElementById("theme-toggle");
-            const htmlElement = document.documentElement;
-
-            // Verificar si hay un tema guardado en localStorage
-            const savedTheme = localStorage.getItem("theme");
-            if (savedTheme) {
-               htmlElement.setAttribute("data-theme", savedTheme);
-            }
-
-            themeToggle?.addEventListener("click", () => {
-               const currentTheme = htmlElement.getAttribute("data-theme");
-               const newTheme = currentTheme === "light" ? "dark" : "light";
-
-               htmlElement.setAttribute("data-theme", newTheme);
-               localStorage.setItem("theme", newTheme);
-            });
-         });
-      </script> -->
    </body>
 </html>

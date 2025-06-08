@@ -46,11 +46,12 @@ export default function CountdownTimer({
    }, [targetDate]);
 
    // Estilos condicionales basados en si es sticky o no
+   // bg-[#f8f5f2]/90 dark:bg-slate-900/90
    const containerClasses = isSticky
-      ? "bg-[#f8f5f2]/90 dark:bg-slate-900/90 p-3 rounded-lg shadow-md backdrop-blur-sm"
+      ? "bg-base-300 p-3 rounded-lg shadow-lg backdrop-blur-sm"
       : "";
 
-   const titleClasses = isSticky
+   const titleClasses = isSticky //bg-neutral rounded-sm
       ? "font-anodina-extrabold text-xs text-center text-primary font-medium mb-1"
       : "font-anodina-bold text-2xl text-center text-primary font-medium mb-4";
 
@@ -71,7 +72,7 @@ export default function CountdownTimer({
          <h2 className={titleClasses}>FALTAN:</h2>
          <div className={gridClasses}>
             {/* <div
-               className={`flex flex-col p-2 bg-neutral rounded-sm ${labelClasses}`}>
+               className={`flex flex-col p-2 ${labelClasses}`}>
                <span
                   className={`countdown text-center auto-cols-max justify-center ${numberClasses}`}>
                   <span

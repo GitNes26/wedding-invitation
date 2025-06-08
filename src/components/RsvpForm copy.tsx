@@ -95,10 +95,19 @@ export default function RsvpForm({ weddingDate, onComplete }: RsvpFormProps) {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
             className="text-center mb-12">
-            <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
+            <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-2 text-primary">
                Confirma tu Asistencia
             </h2>
-            <Divider />
+            <motion.div
+               initial={{ opacity: 0, scale: 0, x: 50 }}
+               whileInView={{ opacity: 1, scale: 1 }}
+               transition={{
+                  delay: 0.5,
+                  duration: 1,
+                  type: "spring",
+               }}>
+               <Divider color="primary" />
+            </motion.div>
             <p className="font-marcellus text-slate-700 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto">
                Por favor, confirma tu asistencia antes del{" "}
                {dayjs(weddingDate)

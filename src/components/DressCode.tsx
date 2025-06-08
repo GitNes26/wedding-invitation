@@ -2,8 +2,12 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Shirt } from "lucide-react";
 import Divider from "./Divider";
+import images from "../constants/images";
+import { useGlobalContext } from "../contexts/GlobalContext";
 
 const DressCode = ({}) => {
+   const { themeActive } = useGlobalContext();
+
    // Definir los colores recomendados
    const coloresRecomendados = [
       { nombre: "Azul marino", hex: "#0a2463" },
@@ -30,13 +34,22 @@ const DressCode = ({}) => {
             viewport={{ once: true }}
             className="text-center">
             <div className="flex justify-center mb-4">
-               <Shirt className="h-12 w-12 text-rose-600 dark:text-rose-400" />
+               <Shirt className="h-12 w-12 text-primary/75" />
             </div>
-            <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
+            <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-2 text-primary">
                Código de Vestimenta
             </h2>
-            <Divider />
-            <p className="font-marcellus text-slate-700 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto mb-8">
+            <motion.div
+               initial={{ opacity: 0, scale: 0, x: 50 }}
+               whileInView={{ opacity: 1, scale: 1 }}
+               transition={{
+                  delay: 0.5,
+                  duration: 1,
+                  type: "spring",
+               }}>
+               <Divider color="primary" />
+            </motion.div>
+            <p className="font-marcellus text-base-content leading-relaxed max-w-3xl mx-auto mb-8">
                Nos encantaría que nos acompañes con{" "}
                <span className="font-bold">vestimenta formal</span> para
                celebrar nuestro día especial.
@@ -53,10 +66,22 @@ const DressCode = ({}) => {
                className="text-center">
                <div className="text-center">
                   <div className="flex justify-center mb-4">
-                     <i className="fa-solid fa-person-dress text-3xl text-primary"></i>
+                     <img
+                        src={
+                           themeActive === "dark"
+                              ? images.weddingDressDark
+                              : images.weddingDressLight
+                        }
+                        alt="Novio y Novia"
+                        className="text-center w-12 h-12 transition-all text-primary"
+                     />
                   </div>
-                  <h3 className="text-xl font-medium mb-3">Damas</h3>
-                  <p>Vestido largo o midi, traje sastre elegante</p>
+                  <h3 className="text-3xl font-medium font-mayoritte mb-3">
+                     Damas
+                  </h3>
+                  <p className="font-marcellus">
+                     Vestido largo o midi, traje sastre elegante
+                  </p>
                </div>
             </motion.div>
 
@@ -68,10 +93,22 @@ const DressCode = ({}) => {
                className="text-center">
                <div className="text-center">
                   <div className="flex justify-center mb-4">
-                     <i className="fa-solid fa-person text-3xl text-primary"></i>
+                     <img
+                        src={
+                           themeActive === "dark"
+                              ? images.suitDark
+                              : images.suitLight
+                        }
+                        alt="Novio y Novia"
+                        className="text-center w-12 h-12 transition-all text-primary"
+                     />
                   </div>
-                  <h3 className="text-xl font-medium mb-3">Caballeros</h3>
-                  <p>Traje formal con corbata o moño</p>
+                  <h3 className="text-3xl font-medium font-mayoritte mb-3">
+                     Caballeros
+                  </h3>
+                  <p className="font-marcellus">
+                     Traje formal con corbata o moño
+                  </p>
                </div>
             </motion.div>
          </div>
@@ -83,7 +120,7 @@ const DressCode = ({}) => {
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}>
             <div className="mb-10">
-               <h3 className="text-xl font-medium text-center mb-6">
+               <h3 className="text-xl font-medium font-marcellus text-center mb-6">
                   Colores Recomendados
                </h3>
                <div className="flex flex-wrap justify-center ">

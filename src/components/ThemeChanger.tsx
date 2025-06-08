@@ -1,6 +1,16 @@
 import React from "react";
+import { useGlobalContext } from "../contexts/GlobalContext";
 
+// const theme = localStorage.getItem("theme");
 const ThemeChanger = ({}) => {
+   const { themeActive, setThemeActive } = useGlobalContext();
+   const handleClick = (e: any) => {
+      const check = e.target.checked; // true:light | false:dark
+      const theme = check ? "light" : "dark";
+      localStorage.setItem("theme", theme);
+      setThemeActive(theme);
+   };
+
    return (
       <div className="">
          <div className="tooltip tooltip-left" data-tip="Cambiar tema">
@@ -10,7 +20,9 @@ const ThemeChanger = ({}) => {
                   id="theme-toggle"
                   type="checkbox"
                   className="theme-controller"
+                  defaultChecked={themeActive === "light" ? true : false}
                   value="light"
+                  onClick={handleClick}
                />
 
                {/* sun icon */}

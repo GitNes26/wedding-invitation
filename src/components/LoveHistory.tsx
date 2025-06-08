@@ -1,5 +1,6 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Divider from "./Divider";
 
 const LoveHistory = ({}) => {
    // Definir los eventos de la historia de amor
@@ -38,7 +39,111 @@ const LoveHistory = ({}) => {
       },
    ];
    return (
-      <section className="py-20 px-6">
+      <div className="max-w-4xl mx-auto">
+         <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16">
+            <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-2 text-primary">
+               Nuestra Historia de Amor
+            </h2>
+            <motion.div
+               initial={{ opacity: 0, scale: 0, x: 50 }}
+               whileInView={{ opacity: 1, scale: 1 }}
+               transition={{
+                  delay: 0.5,
+                  duration: 1,
+                  type: "spring",
+               }}>
+               <Divider color="primary" />
+            </motion.div>
+            <p className="font-marcellus text-base-content leading-relaxed max-w-3xl mx-auto">
+               Nos conocimos hace 5 años en una tarde de otoño. Desde entonces,
+               hemos compartido innumerables momentos que nos han llevado a este
+               día tan especial. Ahora queremos celebrar nuestro amor rodeados
+               de las personas más importantes en nuestras vidas.
+            </p>
+         </motion.div>
+
+         {/* Seccion Opcion 1 */}
+         <div
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            style={{ display: "none" }}>
+            <motion.div
+               initial={{ opacity: 0, x: -50 }}
+               whileInView={{ opacity: 1, x: 0 }}
+               transition={{ duration: 0.6, delay: 0.1 }}
+               viewport={{ once: true }}>
+               <div className="card overflow-hidden backdrop-blur-sm border-none shadow-lg">
+                  <div className="aspect-square relative">
+                     <img
+                        src="https://picsum.photos/400/400"
+                        alt="Primer encuentro"
+                        className="object-cover"
+                     />
+                  </div>
+                  <div className="p-4 text-center">
+                     <h3 className="font-medium text-rose-700 dark:text-rose-400 mb-2">
+                        Primer Encuentro
+                     </h3>
+                     <p className="text-sm text-slate-600 dark:text-slate-300">
+                        Octubre 2020
+                     </p>
+                  </div>
+               </div>
+            </motion.div>
+
+            <motion.div
+               initial={{ opacity: 0, y: 50 }}
+               whileInView={{ opacity: 1, y: 0 }}
+               transition={{ duration: 0.6, delay: 0.3 }}
+               viewport={{ once: true }}>
+               <div className="card overflow-hidden bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-none shadow-lg">
+                  <div className="aspect-square relative">
+                     <img
+                        src="https://picsum.photos/400/401"
+                        alt="Compromiso"
+                        className="object-cover"
+                     />
+                  </div>
+                  <div className="p-4 text-center">
+                     <h3 className="font-medium text-rose-700 dark:text-rose-400 mb-2">
+                        Compromiso
+                     </h3>
+                     <p className="text-sm text-slate-600 dark:text-slate-300">
+                        Febrero 2024
+                     </p>
+                  </div>
+               </div>
+            </motion.div>
+
+            <motion.div
+               initial={{ opacity: 0, x: 50 }}
+               whileInView={{ opacity: 1, x: 0 }}
+               transition={{ duration: 0.6, delay: 0.5 }}
+               viewport={{ once: true }}>
+               <div className="card overflow-hidden bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-none shadow-lg">
+                  <div className="aspect-square relative">
+                     <img
+                        src="https://picsum.photos/400/402"
+                        alt="Boda"
+                        className="object-cover"
+                     />
+                  </div>
+                  <div className="p-4 text-center">
+                     <h3 className="font-medium text-rose-700 dark:text-rose-400 mb-2">
+                        Nuestra Boda
+                     </h3>
+                     <p className="text-sm text-slate-600 dark:text-slate-300">
+                        Junio 2025
+                     </p>
+                  </div>
+               </div>
+            </motion.div>
+         </div>
+
          <div className="relative">
             {/* <!-- Línea vertical central --> */}
             <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-primary/30"></div>
@@ -50,7 +155,7 @@ const LoveHistory = ({}) => {
                      key={`motion-event-item-${index}`}
                      initial={{ opacity: 0, y: -50 }}
                      whileInView={{ opacity: 1, y: 0 }}
-                     transition={{ duration: 0.6, delay: 0.1 }}
+                     transition={{ duration: 0.6, delay: 0.25 }}
                      viewport={{ once: true }}>
                      <div
                         className={`flex flex-col md:flex-row items-center ${
@@ -101,7 +206,7 @@ const LoveHistory = ({}) => {
                ))}
             </div>
          </div>
-      </section>
+      </div>
    );
 };
 

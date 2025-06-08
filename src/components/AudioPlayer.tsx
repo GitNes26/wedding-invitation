@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Volume2 } from "lucide-react";
+import { Heart, Volume2 } from "lucide-react";
 
 /**
  * Props para el componente AudioPlayer.
@@ -71,13 +71,20 @@ export default function AudioPlayer({ audios }: AudioPlayerProps) {
             <button
                className={`btn ${
                   isPlaying ? "btn-circle" : ""
-               } rounded-full bg-background/80 bg-error backdrop-blur-sm transition-all duration-300 hover:scale-110`}
+               } rounded-full btn-primary backdrop-blur-sm transition-all hover:scale-105 `}
                onClick={togglePlay}
                aria-label={isPlaying ? "Mutear música" : "Reproducir música"}>
                {isPlaying ? (
-                  <Volume2 className="h-5 w-5 text-error-content" />
+                  <Volume2 className="h-5 w-5" />
                ) : (
-                  <>💗 Reproducir música</>
+                  <>
+                     <Heart
+                        className="text-primary-content h-4 w-4 animate-pulse"
+                        fill="currentColor"
+                     />{" "}
+                     Reproducir música
+                  </>
+                  // <>💗 Reproducir música</>
                )}
             </button>
          </div>
@@ -92,7 +99,7 @@ export default function AudioPlayer({ audios }: AudioPlayerProps) {
                   step={0.01}
                   value={volume}
                   onChange={(e) => setVolume(parseFloat(e.target.value))}
-                  className="range range-error range-xs flex-1"
+                  className="range range-primary range-xs flex-1"
                />
                <span className="text-sm">🔊</span>
             </div>

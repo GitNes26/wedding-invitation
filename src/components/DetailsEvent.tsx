@@ -9,7 +9,7 @@ const DetailsEvent = ({
    googleCalendarUrl,
    weddingPlace,
    location,
-   googleMapsUrl
+   googleMapsUrl,
 }) => {
    return (
       <div className="max-w-4xl mx-auto">
@@ -19,13 +19,23 @@ const DetailsEvent = ({
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
             className="text-center mb-16">
-            <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
+            <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-2 text-primary">
                Detalles del Evento
             </h2>
-            <Divider />
+            <motion.div
+               initial={{ opacity: 0, scale: 0, x: 50 }}
+               whileInView={{ opacity: 1, scale: 1 }}
+               transition={{
+                  delay: 0.5,
+                  duration: 1,
+                  type: "spring",
+               }}>
+               <Divider color="primary" />
+            </motion.div>
          </motion.div>
 
          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {/* Calendario */}
             <motion.div
                initial={{ opacity: 0, x: -50 }}
                whileInView={{ opacity: 1, x: 0 }}
@@ -33,23 +43,19 @@ const DetailsEvent = ({
                viewport={{ once: true }}
                className="text-center">
                <div className="flex justify-center mb-4">
-                  <Calendar className="h-12 w-12 text-rose-600 dark:text-rose-400" />
+                  <Calendar className="h-12 w-12 text-primary" />
                </div>
-               <h3 className="text-xl font-medium mb-4 text-slate-800 dark:text-slate-200">
+               <h3 className="text-xl font-bold font-marcellus   mb-4">
                   Fecha y Hora
                </h3>
-               <p className="text-slate-700 dark:text-slate-300 mb-4">
-                  {formattedDate}
-               </p>
-               <p className="text-slate-700 dark:text-slate-300 mb-6">
-                  {formattedTime} hrs
-               </p>
+               <p className="font-anodina-regular">{formattedDate}</p>
+               <p className="mb-6 font-anodina-regular">{formattedTime} hrs</p>
                <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}>
                   <button
                      // variant="outline"
-                     className="btn btn-outline rounded-full border-rose-300 dark:border-rose-700 text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30">
+                     className="btn btn-outline rounded-full btn-primary">
                      <a
                         href={googleCalendarUrl}
                         target="_blank"
@@ -60,6 +66,7 @@ const DetailsEvent = ({
                </motion.div>
             </motion.div>
 
+            {/* Ubicación */}
             <motion.div
                initial={{ opacity: 0, x: 50 }}
                whileInView={{ opacity: 1, x: 0 }}
@@ -67,23 +74,19 @@ const DetailsEvent = ({
                viewport={{ once: true }}
                className="text-center">
                <div className="flex justify-center mb-4">
-                  <MapPin   className="h-12 w-12 text-rose-600 dark:text-rose-400" />
+                  <MapPin className="h-12 w-12 text-primary" />
                </div>
-               <h3 className="text-xl font-medium mb-4 text-slate-800 dark:text-slate-200">
+               <h3 className="text-xl font-bold font-marcellus   mb-4">
                   Ubicación
                </h3>
-               <p className="text-slate-700 dark:text-slate-300 mb-4">
-                  {weddingPlace}
-               </p>
-               <p className="text-slate-700 dark:text-slate-300 mb-6">
-                  {location}
-               </p>
+               <p className="font-anodina-regular">{weddingPlace}</p>
+               <p className="font-anodina-regular mb-6">{location}</p>
                <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}>
                   <button
                      // variant="outline"
-                     className="btn btn-outline rounded-full border-rose-300 dark:border-rose-700 text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30">
+                     className="btn btn-outline rounded-full btn-primary">
                      <a
                         href={googleMapsUrl}
                         target="_blank"

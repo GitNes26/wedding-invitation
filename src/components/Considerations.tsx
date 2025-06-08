@@ -1,6 +1,6 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { TicketIcon } from "lucide-react";
+import { BadgeAlert, TicketIcon } from "lucide-react";
 import Divider from "./Divider";
 
 const Considerations = ({ giftRegistryUrl }) => {
@@ -13,23 +13,32 @@ const Considerations = ({ giftRegistryUrl }) => {
             viewport={{ once: true }}
             className="text-center">
             <div className="flex justify-center mb-4">
-               <TicketIcon className="h-12 w-12 text-rose-600 dark:text-rose-400" />
+               <BadgeAlert className="h-12 w-12 text-primary/75" />
             </div>
-            <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
+            <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-2 text-primary">
                Consideraciones
             </h2>
-            <Divider />
-            <p className="font-marcellus text-slate-700 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto mb-8">
+            <motion.div
+               initial={{ opacity: 0, scale: 0, x: 50 }}
+               whileInView={{ opacity: 1, scale: 1 }}
+               transition={{
+                  delay: 0.5,
+                  duration: 1,
+                  type: "spring",
+               }}>
+               <Divider color="primary" />
+            </motion.div>
+            <p className="font-marcellus leading-relaxed max-w-3xl mx-auto mb-8">
                "Para que todos podamos disfrutar de este día especial, les
                compartimos algunas consideraciones:"
             </p>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-               <div className="text-white rounded-full px-8 py-6">
+               <div className="text-base-content/75 rounded-full px-8 py-6">
                   La celebración está pensada únicamente para adultos.
                </div>
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-               <div className="text-white rounded-full px-8 py-6">
+               <div className="text-base-content/75 rounded-full px-8 py-6">
                   Aunque no habrá alcohol incluido, son bienvenidos a traer sus
                   bebidas favoritas.
                </div>

@@ -18,14 +18,21 @@ import GiftTable from "./components/GiftTable";
 import DetailsEvent from "./components/DetailsEvent";
 import InvitationCard from "./components/InvitationCard";
 import Considerations from "./components/Considerations";
+import { useGlobalContext } from "./contexts/GlobalContext";
 
 export default function App() {
    // const { theme, setTheme } = useTheme();
+   const { themeActive } = useGlobalContext();
+
    const [showRsvp, setShowRsvp] = useState(false);
    const isMobile = useMobile();
    const [isScrolled, setIsScrolled] = useState(false);
    const mainRef = useRef(null);
    const rsvpRef = useRef(null);
+
+   useEffect(() => {
+      // console.log(`🚀 ~ App ~ themeActive:`, themeActive);
+   }, [themeActive]);
 
    useEffect(() => {
       const handleScroll = () => {
@@ -38,7 +45,7 @@ export default function App() {
    }, []);
 
    // Variables
-   const weddingDate = new Date("2025-10-03T19:00:00");
+   const weddingDate = new Date("2025-10-03T20:00:00");
    const weddingPlace = "Hacienda Elegancia";
    const location = "Torreón, Coahuila";
    const girlfriend = "Daniela",
@@ -97,14 +104,14 @@ export default function App() {
    return (
       <div
          ref={mainRef}
-         className="min-h-screen bg-gradient-to-b from-rose-50 to-rose-100 dark:from-slate-900 dark:to-slate-800 transition-colors duration-500 relative overflow-hidden">
+         className="min-h-screen bg-gradient-to-b from-base-200 to-base-300 transition-colors duration-500 relative overflow-hidden">
          {/* <!-- Elementos decorativos laterales --> */}
-         <div className="decorative-element top-left"></div>
+         {/* <div className="decorative-element top-left"></div>
          <div className="decorative-element top-right"></div>
          <div className="decorative-element middle-left"></div>
          <div className="decorative-element middle-right"></div>
          <div className="decorative-element bottom-left"></div>
-         <div className="decorative-element bottom-right"></div>
+         <div className="decorative-element bottom-right"></div> */}
 
          {/* Botones flotantes */}
          <div className="fixed top-4 right-4 z-50 flex gap-2">
@@ -138,7 +145,7 @@ export default function App() {
          />
 
          {/* Sección de cuenta regresiva */}
-         <section className="py-10 px-6 relative bg-white/50 dark:bg-slate-900/50">
+         <section className="py-10 px-6 relative bg-base-100">
             <div className="max-w-4xl mx-auto">
                <motion.div
                   initial={{ opacity: 0, y: 50 }}
@@ -152,116 +159,12 @@ export default function App() {
 
          {/* Sección de historia */}
          <section className="py-20 px-6 relative">
-            <div className="max-w-4xl mx-auto">
-               <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                  viewport={{ once: true }}
-                  className="text-center mb-16">
-                  <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
-                     Nuestra Historia de Amor
-                  </h2>
-                  <Divider />
-                  <p className="font-marcellus text-slate-700 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto">
-                     Nos conocimos hace 5 años en una tarde de otoño. Desde
-                     entonces, hemos compartido innumerables momentos que nos
-                     han llevado a este día tan especial. Ahora queremos
-                     celebrar nuestro amor rodeados de las personas más
-                     importantes en nuestras vidas.
-                  </p>
-               </motion.div>
-
-               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  <motion.div
-                     initial={{ opacity: 0, x: -50 }}
-                     whileInView={{ opacity: 1, x: 0 }}
-                     transition={{ duration: 0.6, delay: 0.1 }}
-                     viewport={{ once: true }}>
-                     <div className="card overflow-hidden bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-none shadow-lg">
-                        <div className="aspect-square relative">
-                           <img
-                              src="https://picsum.photos/400/400"
-                              alt="Primer encuentro"
-                              className="object-cover"
-                           />
-                        </div>
-                        <div className="p-4 text-center">
-                           <h3 className="font-medium text-rose-700 dark:text-rose-400 mb-2">
-                              Primer Encuentro
-                           </h3>
-                           <p className="text-sm text-slate-600 dark:text-slate-300">
-                              Octubre 2020
-                           </p>
-                        </div>
-                     </div>
-                  </motion.div>
-
-                  <motion.div
-                     initial={{ opacity: 0, y: 50 }}
-                     whileInView={{ opacity: 1, y: 0 }}
-                     transition={{ duration: 0.6, delay: 0.3 }}
-                     viewport={{ once: true }}>
-                     <div className="card overflow-hidden bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-none shadow-lg">
-                        <div className="aspect-square relative">
-                           <img
-                              src="https://picsum.photos/400/401"
-                              alt="Compromiso"
-                              className="object-cover"
-                           />
-                        </div>
-                        <div className="p-4 text-center">
-                           <h3 className="font-medium text-rose-700 dark:text-rose-400 mb-2">
-                              Compromiso
-                           </h3>
-                           <p className="text-sm text-slate-600 dark:text-slate-300">
-                              Febrero 2024
-                           </p>
-                        </div>
-                     </div>
-                  </motion.div>
-
-                  <motion.div
-                     initial={{ opacity: 0, x: 50 }}
-                     whileInView={{ opacity: 1, x: 0 }}
-                     transition={{ duration: 0.6, delay: 0.5 }}
-                     viewport={{ once: true }}>
-                     <div className="card overflow-hidden bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-none shadow-lg">
-                        <div className="aspect-square relative">
-                           <img
-                              src="https://picsum.photos/400/402"
-                              alt="Boda"
-                              className="object-cover"
-                           />
-                        </div>
-                        <div className="p-4 text-center">
-                           <h3 className="font-medium text-rose-700 dark:text-rose-400 mb-2">
-                              Nuestra Boda
-                           </h3>
-                           <p className="text-sm text-slate-600 dark:text-slate-300">
-                              Junio 2025
-                           </p>
-                        </div>
-                     </div>
-                  </motion.div>
-               </div>
-
-               <LoveHistory />
-            </div>
+            <LoveHistory />
          </section>
 
          {/* Sección de Linea de tiempo */}
-         <section className="py-20 px-6  bg-white/50 dark:bg-slate-900/50 relative">
-            <div className="max-w-4xl mx-auto">
-               <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                  viewport={{ once: true }}
-                  className="text-center mb-16">
-                  <TimelineBoda />
-               </motion.div>
-            </div>
+         <section className="py-20 px-6 bg-base-100 relative">
+            <TimelineBoda />
          </section>
 
          {/* Sección de detalles */}
@@ -277,7 +180,7 @@ export default function App() {
          </section>
 
          {/* Sección de mesa de regalos */}
-         <section className="py-20 px-6  bg-white/50 dark:bg-slate-900/50 relative">
+         <section className="py-20 px-6  bg-base-100 relative">
             <GiftTable giftRegistryUrl={giftRegistryUrl} />
          </section>
 
@@ -287,33 +190,33 @@ export default function App() {
          </section>
 
          {/* Sección de mesa de reglamento */}
-         <section className="py-20 px-6  bg-white/50 dark:bg-slate-900/50 relative">
+         <section className="py-20 px-6 bg-base-100 relative">
             <Considerations giftRegistryUrl={giftRegistryUrl} />
          </section>
 
          {/* Sección de RSVP */}
-         <section className="py-20 px-6bg-white/50 relative" ref={rsvpRef}>
+         <section className="py-20 px-6 relative" ref={rsvpRef}>
             <RsvpForm weddingInfo={weddingInfo} />
          </section>
 
          {/* Footer */}
-         <footer className="py-12 px-6 text-center dark:bg-slate-900/50">
-            <p className="mb-4">Con amor,</p>
-            <h2 className="font-dashing text-2xl mb-8 text-rose-700 dark:text-rose-400">
+         <footer className="py-2 px-6 text-center font-marcellus bg-base-100">
+            <p className="">Con amor,</p>
+            <h2 className="font-dashing text-2xl mb-4 text-primary">
                {girlfriend} & {boyfriend}
             </h2>
-            <p className="text-sm">
+            <p className="text-sm font-marcellus">
                &copy; {new Date().getFullYear()} | Diseñado con ♥
             </p>
          </footer>
 
          {/* Modal de RSVP para móviles */}
-         {isMobile && showRsvp && (
-            <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+         {/* {isMobile && showRsvp && (
+            <div className="fixed inset-0 bg-base-100 z-50 flex items-center justify-center p-4">
                <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="bg-white dark:bg-slate-800 rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-auto">
+                  className="bg-base-100 rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-auto">
                   <div className="flex justify-between items-center mb-4">
                      <h3 className="font-serif text-xl text-rose-800 dark:text-rose-300">
                         Confirma tu Asistencia
@@ -322,7 +225,7 @@ export default function App() {
                         variant="ghost"
                         size="icon"
                         onClick={() => setShowRsvp(false)}
-                        className="text-slate-500">
+                        className="text-base-content">
                         <svg
                            xmlns="http://www.w3.org/2000/svg"
                            width="24"
@@ -341,7 +244,7 @@ export default function App() {
                   <RsvpForm onComplete={() => setShowRsvp(false)} />
                </motion.div>
             </div>
-         )}
+         )} */}
 
          {/* Botón para volver arriba */}
          <ScrollToTopButton />

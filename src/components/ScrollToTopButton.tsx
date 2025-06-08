@@ -35,7 +35,7 @@ export default function ScrollToTopButton() {
                animate={{ opacity: 1, scale: 1 }}
                exit={{ opacity: 0, scale: 0.5 }}
                onClick={scrollToTop}
-               className="btn btn-circle fixed bottom-6 right-6 z-50 bg-rose-600 dark:bg-rose-500 text-white rounded-full  shadow-lg hover:bg-rose-700 dark:hover:bg-rose-600 transition-colors"
+               className="btn btn-circle fixed bottom-6 right-6 z-50 bg-accent text-accent-content rounded-full shadow-lg transition-colors"
                aria-label="Volver arriba">
                <svg
                   xmlns="http://www.w3.org/2000/svg"

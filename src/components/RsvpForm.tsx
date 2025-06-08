@@ -5,6 +5,9 @@ import { motion } from "framer-motion";
 import Divider from "./Divider";
 import dayjs from "dayjs";
 import env from "../constants/env";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import InvitationPDF from "./InvitationPDF";
+import images from "../constants/images";
 
 interface RsvpFormProps {
    weddingInfo: {
@@ -26,10 +29,10 @@ interface RsvpFormProps {
 export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
    const [formData, setFormData] = useState({
       name: "",
-      email: "",
+      // email: "",
       phone: "",
       attendance: "yes",
-      guests: "0",
+      guests: 0,
       message: "",
    });
    const [authorized, setAuthorized] = useState<boolean | null>(null);
@@ -38,25 +41,36 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
    const [isSubmitted, setIsSubmitted] = useState(false);
    const [errorMsg, setErrorMsg] = useState("");
 
-   const endpoint = env.TU_WEB_APP_URL;
-
    useEffect(() => {
+      console.log(
+         "🚀 ~ useEffect ~ formData.phone.length:",
+         formData.phone.length,
+      );
+      if (formData.phone.length < 10) setAuthorized(false);
+
       const checkPhone = async () => {
          if (formData.phone.length < 10) return;
          try {
-            const res = await fetch(`${endpoint}?telefono=${formData.phone}`);
+            setIsSubmitting(true);
+            const res = await fetch(
+               `${env.TU_WEB_APP_URL}?telefono=${formData.phone}`,
+            );
             const data = await res.json();
             console.log("🚀 ~ checkPhone ~ data:", data);
-            setAuthorized(data.autorizado);
+            setAuthorized(data);
             if (data.autorizado) {
                setMaxGuests(data.max);
+               setFormData({ ...formData, name: "Chulada mijo" });
                setErrorMsg("");
             } else {
                setErrorMsg("Este número no está autorizado.");
                setMaxGuests(null);
             }
+            setIsSubmitting(false);
          } catch {
             setErrorMsg("Error validando el teléfono.");
+         } finally {
+            setIsSubmitting(false);
          }
       };
       checkPhone();
@@ -72,29 +86,29 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
    const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
       setIsSubmitting(true);
+      setErrorMsg("");
+
+      const formUrl = env.API_GOOGE_FORMS;
+
+      const formDataEncoded = new URLSearchParams();
+      formDataEncoded.append("entry.1769558488", formData.name); // Nombre
+      formDataEncoded.append("entry.1364175035", formData.phone); // Teléfono
+      formDataEncoded.append("entry.548501519", formData.attendance); // Asistir
+      formDataEncoded.append("entry.31601261", String(formData.guests)); // Nº personas
+      formDataEncoded.append("entry.1736560134", formData.message); // Mensaje
 
       try {
-         const res = await fetch(endpoint, {
+         await fetch(formUrl, {
             method: "POST",
-            body: JSON.stringify({
-               nombre: formData.name,
-               email: formData.email,
-               telefono: formData.phone,
-               asistencia: formData.attendance,
-               acompanantes: formData.guests,
-               mensaje: formData.message,
-            }),
-            headers: { "Content-Type": "application/json" },
+            body: formDataEncoded,
+            mode: "no-cors", // obligatorio para evitar CORS
          });
 
-         const result = await res.json();
-         if (result.success) {
-            setIsSubmitted(true);
-            if (onComplete) setTimeout(onComplete, 2000);
-         } else {
-            setErrorMsg(result.error || "Error desconocido");
-         }
-      } catch {
+         // No podemos verificar respuesta, asumimos éxito
+         setIsSubmitted(true);
+         if (onComplete) setTimeout(onComplete, 2000);
+      } catch (err) {
+         console.error(err);
          setErrorMsg("No se pudo enviar el formulario");
       } finally {
          setIsSubmitting(false);
@@ -105,30 +119,10 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
       return (
          <>
             <motion.div
-               className="text-center p-8"
-               initial={{ opacity: 0 }}
-               animate={{ opacity: 1 }}>
-               <div className="mb-6 text-green-600">
-                  <svg
-                     className="mx-auto"
-                     width="48"
-                     height="48"
-                     stroke="currentColor"
-                     fill="none"
-                     viewBox="0 0 24 24">
-                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                     <polyline points="22 4 12 14.01 9 11.01" />
-                  </svg>
-               </div>
-               <h3 className="text-xl font-bold">¡Gracias por confirmar!</h3>
-               <p>Nos vemos en la boda 🎉</p>
-            </motion.div>
-            <Divider />
-            <motion.div
                initial={{ opacity: 0 }}
                animate={{ opacity: 1 }}
-               className="text-center p-8">
-               <div className="mb-6 text-green-600 dark:text-green-400">
+               className="text-center py-2">
+               <div className="mb-6 text-success">
                   <svg
                      xmlns="http://www.w3.org/2000/svg"
                      width="48"
@@ -144,36 +138,94 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                      <polyline points="22 4 12 14.01 9 11.01" />
                   </svg>
                </div>
-               <h3 className="text-xl font-marcellus font-bold mb-2 text-slate-800 dark:text-slate-200">
+               <h3 className="text-xl font-marcellus font-bold mb-2 text-primary">
                   ¡Gracias por confirmar!
                </h3>
-               <p className="font-marcellus text-slate-600 dark:text-slate-400">
-                  Hemos recibido tu respuesta. Nos vemos en nuestra boda.
+               <p className="font-marcellus text-primary/75">
+                  {formData.attendance == "yes"
+                     ? "Hemos recibido tu respuesta. Nos vemos en nuestra boda."
+                     : "Es una pena enterarnos de que no podras asistir."}
                </p>
+               <motion.div
+                  initial={{ opacity: 0, scale: 0, x: 50 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{
+                     delay: 0.5,
+                     duration: 0.5,
+                     type: "spring",
+                  }}>
+                  <Divider color="primary" />
+               </motion.div>
+            </motion.div>
+            <motion.div
+               initial={{ opacity: 0, scale: 0, y: 50 }}
+               whileInView={{ opacity: 1, scale: 1 }}
+               transition={{
+                  delay: 0.5,
+                  duration: 1,
+                  type: "spring",
+               }}>
+               <div className="text-center">
+                  <PDFDownloadLink
+                     document={
+                        <InvitationPDF
+                           name={formData.name}
+                           weddingInfo={weddingInfo}
+                           qrUrl={env.API_GOOGLE_SHEET}
+                        />
+                     }
+                     fileName={`Invitacion_${formData.name.replaceAll(
+                        " ",
+                        "_",
+                     )}.pdf`}
+                     className="btn btn-outline btn-primary btn-xl">
+                     {({ loading }) =>
+                        loading
+                           ? "Generando invitación..."
+                           : "🎟️ Descargar tu boleto"
+                     }
+                  </PDFDownloadLink>
+               </div>
             </motion.div>
          </>
       );
    }
 
    return (
-      <div className="max-w-4xl mx-auto">
+      <div
+         className={`max-w-4xl mx-auto ${
+            isSubmitting ? "cursor-wait" : "cursor-auto"
+         }`}>
          <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
             className="text-center mb-12">
-            <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-6 text-rose-800 dark:text-rose-300">
+            <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-2 text-primary">
                Confirma tu Asistencia
             </h2>
-            <Divider />
-            <p className="font-marcellus text-slate-700 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto">
+            <motion.div
+               initial={{ opacity: 0, scale: 0, x: 50 }}
+               whileInView={{ opacity: 1, scale: 1 }}
+               transition={{
+                  delay: 0.5,
+                  duration: 1,
+                  type: "spring",
+               }}>
+               <Divider color="primary" />
+            </motion.div>
+            <p className="font-marcellus leading-relaxed max-w-3xl mx-auto">
                Por favor, confirma tu asistencia antes del{" "}
                {dayjs(weddingInfo.theDate)
                   .subtract(32, "days")
                   .format("dddd DD [de] MMMM [de] YYYY")}
                .
             </p>
+            <small className="font-marcellus text-xs">
+               Al no enviar tu respuesta a tiempo, se considerará que hubo un
+               inconveniente para asistir.
+            </small>
          </motion.div>
          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -200,7 +252,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                   </div>
 
                   {/* Línea de separación vertical decorativa */}
-                  <div className="absolute left-1/3 top-6 bottom-6 w-px border-l-2 border-dashed border-primary/30"></div>
+                  <div className="absolute left-1/3 top-6 bottom-6 w-px border-l-2 my-2 border-dashed border-primary/30"></div>
 
                   <div className="flex min-h-[500px]">
                      {/* Sección izquierda - Información del evento */}
@@ -212,7 +264,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                               </span>
                            </div>
 
-                           <h3 className="text-2xl font-bold text-primary">
+                           <h3 className="text-2xl font-marcellus font-bold text-primary">
                               Invitación de Boda
                            </h3>
 
@@ -229,10 +281,10 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                            <div className="divider divider-primary opacity-50"></div>
 
                            <div className="space-y-1">
-                              <p className="text-xs font-medium">
+                              <p className="text-xs font-marcellus font-medium">
                                  {weddingInfo.place.toUpperCase()}
                               </p>
-                              <p className="text-xs opacity-60">
+                              <p className="text-xs font-marcellus opacity-60">
                                  {weddingInfo.location}
                               </p>
                            </div>
@@ -253,21 +305,23 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                      {/* Sección derecha - Formulario */}
                      <div className="w-2/3 p-8">
                         <div className="mb-6">
-                           <h4 className="text-xl font-bold text-center mb-2">
+                           <h4 className="text-xl font-marcellus font-bold text-center mb-2">
                               Confirmación de Asistencia
                            </h4>
-                           <p className="text-sm text-center opacity-70">
+                           <p className="text-sm font-marcellus text-center opacity-70">
                               Al ingresar el número telefónico podrás llenar el
                               formulario.
                            </p>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="space-y-4">
+                        <form
+                           onSubmit={handleSubmit}
+                           className="space-y-4 font-marcellus">
                            {/* Primera fila - Información básica */}
                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                              <div className="form-control">
+                              <div className="form-control col-span-2">
                                  <label className="label">
-                                    <span className="label-text font-medium text-sm">
+                                    <span className="label-text font-bold mr-2">
                                        📱 Teléfono
                                     </span>
                                  </label>
@@ -275,47 +329,33 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                                     name="phone"
                                     type="tel"
                                     maxLength={10}
-                                    className="input input-bordered input-sm input-primary focus:input-primary"
+                                    className={`input input-bordered input-sm input-primary focus:input-primary ${
+                                       isSubmitting
+                                          ? "cursor-wait"
+                                          : "cursor-auto"
+                                    }`}
                                     required
                                     value={formData.phone}
                                     onChange={handleChange}
                                     placeholder="10 dígitos"
                                  />
                               </div>
-{/* 
-                              <div className="form-control">
-                                 <label className="label">
-                                    <span className="label-text font-medium text-sm">
-                                       ✉️ Email
-                                    </span>
-                                 </label>
-                                 <input
-                                    name="email"
-                                    type="email"
-                                    className="input input-bordered input-sm input-primary focus:input-primary"
-                                    required
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    disabled={!authorized}
-                                    placeholder="tu@email.com"
-                                 />
-                              </div> */}
                            </div>
 
                            {/* Segunda fila - Nombre */}
                            <div className="form-control">
                               <label className="label">
-                                 <span className="label-text font-medium text-sm">
+                                 <span className="label-text font-bold mr-2">
                                     👤 Nombre del invitado o Familia
                                  </span>
                               </label>
                               <input
                                  name="name"
-                                 className="input input-bordered input-primary focus:input-primary text-center font-medium"
+                                 className="input input-bordered input-primary w-full focus:input-primary text-center font-bold"
                                  required
                                  value={formData.name}
                                  onChange={handleChange}
-                                 disabled={!authorized}
+                                 disabled={true}
                                  placeholder="Escribe tu nombre aquí"
                               />
                            </div>
@@ -352,7 +392,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                                           className="radio radio-primary radio-sm"
                                        />
                                        <span className="text-lg">✅</span>
-                                       <span className="font-medium">
+                                       <span className="font-bold">
                                           ¡Sí, asistiré!
                                        </span>
                                     </div>
@@ -380,7 +420,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                                           className="radio radio-error radio-sm"
                                        />
                                        <span className="text-lg">❌</span>
-                                       <span className="font-medium">
+                                       <span className="font-bold">
                                           No podré asistir
                                        </span>
                                     </div>
@@ -394,7 +434,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                                  formData.attendance === "yes" && (
                                     <div className="form-control">
                                        <label className="label">
-                                          <span className="label-text font-medium text-sm">
+                                          <span className="label-text font-bold mr-2">
                                              👥 Número de personas
                                           </span>
                                        </label>
@@ -402,18 +442,20 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                                           <input
                                              name="guests"
                                              type="number"
-                                             className="input input-bordered input-sm input-primary focus:input-primary w-20 text-center font-bold"
+                                             className="input input-bordered input-lg input-primary focus:input-primary w-20 text-center font-bold"
                                              min="0"
                                              max={maxGuests}
                                              value={formData.guests}
                                              onChange={handleChange}
                                              disabled={!authorized}
                                           />
-                                          <span className="text-sm">
-                                             personas
-                                          </span>
-                                          <div className="badge badge-primary badge-sm">
-                                             Max {maxGuests}
+                                          <span className="mr-2">personas</span>
+                                          <div
+                                             className="tooltip"
+                                             data-tip="Máximo de invitados incluyendote">
+                                             <div className="badge badge-primary text-primary-content ">
+                                                Max. {maxGuests}
+                                             </div>
                                           </div>
                                        </div>
                                     </div>
@@ -421,13 +463,13 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
 
                               <div className="form-control">
                                  <label className="label">
-                                    <span className="label-text font-medium text-sm">
+                                    <span className="label-text font-bold mr-2">
                                        💌 Mensaje
                                     </span>
                                  </label>
                                  <textarea
                                     name="message"
-                                    className="textarea textarea-bordered textarea-sm textarea-primary focus:textarea-primary"
+                                    className="textarea textarea-bordered textarea-primary focus:textarea-primary"
                                     rows={2}
                                     value={formData.message}
                                     onChange={handleChange}
@@ -439,8 +481,8 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
 
                            {/* Error message */}
                            {errorMsg && (
-                              <div className="alert alert-error alert-sm">
-                                 <span className="text-sm">⚠️ {errorMsg}</span>
+                              <div className="alert alert-error alert-sm py-2 my-2">
+                                 <span className="mr-2">⚠️ {errorMsg}</span>
                               </div>
                            )}
 
@@ -449,7 +491,9 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                               <button
                                  className="btn btn-primary btn-wide rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                                  disabled={isSubmitting || maxGuests === null}>
-                                 {isSubmitting ? (
+                                 {isSubmitting &&
+                                 formData.attendance == "yes" &&
+                                 formData.guests > 0 ? (
                                     <>
                                        <span className="loading loading-spinner loading-sm"></span>
                                        Enviando...
@@ -466,7 +510,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                         </form>
 
                         {/* Pie del formulario */}
-                        <div className="text-center mt-6 pt-4 border-t border-dashed border-primary/20">
+                        <div className="text-center font-marcellus mt-6 pt-4 border-t border-dashed border-primary/20">
                            <p className="text-xs opacity-60">
                               Gracias por confirmar tu asistencia • Conserva
                               este boleto como recuerdo ♥
