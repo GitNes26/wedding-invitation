@@ -10,6 +10,7 @@ import {
    pdf,
 } from "@react-pdf/renderer";
 import QRCode from "react-qr-code";
+import { formatDatetime } from "../utils/formats";
 
 // Estilos para el PDF
 const styles = StyleSheet.create({
@@ -104,7 +105,9 @@ const InvitationPDF = ({ name, weddingInfo, qrUrl }) => (
             </Text>
             <Text style={styles.text}></Text>
 
-            <Text style={styles.text}>Fecha: {weddingInfo.fullDate}</Text>
+            <Text style={styles.text}>
+               Fecha: {`${weddingInfo.date} ${weddingInfo.time} hrs`}
+            </Text>
             <Text style={styles.text}>
                Lugar: {`${weddingInfo.place}, ${weddingInfo.location}`}
             </Text>
@@ -112,7 +115,7 @@ const InvitationPDF = ({ name, weddingInfo, qrUrl }) => (
                Por favor, presenta este código QR al ingresar:
             </Text>
             <View style={styles.qrContainer}>
-               <QRCode value={qrUrl} size={128} />
+               <QRCode value={qrUrl} size={128} height={50} width={50} />
             </View>
             <Text style={[styles.text, { marginTop: 12 }]}>
                Tus anfitrionas escanearán este código para validar tu

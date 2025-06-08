@@ -40,27 +40,32 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
    const [isSubmitting, setIsSubmitting] = useState(false);
    const [isSubmitted, setIsSubmitted] = useState(false);
    const [errorMsg, setErrorMsg] = useState("");
+   const [qrUrl, setQrUrl] = useState("");
 
    useEffect(() => {
-      console.log(
-         "🚀 ~ useEffect ~ formData.phone.length:",
-         formData.phone.length,
-      );
-      if (formData.phone.length < 10) setAuthorized(false);
-
+      if (formData.phone.length < 10) {
+         setFormData({
+            name: "",
+            phone: formData.phone,
+            attendance: "yes",
+            guests: 0,
+            message: "",
+         });
+         setAuthorized(false);
+      }
       const checkPhone = async () => {
          if (formData.phone.length < 10) return;
          try {
             setIsSubmitting(true);
             const res = await fetch(
-               `${env.TU_WEB_APP_URL}?telefono=${formData.phone}`,
+               `${env.API_MACRO}?telefono=${formData.phone}&action=getGuest`,
             );
             const data = await res.json();
-            console.log("🚀 ~ checkPhone ~ data:", data);
-            setAuthorized(data);
+            // console.log("🚀 ~ checkPhone ~ data:", data);
+            setAuthorized(data.autorizado);
             if (data.autorizado) {
                setMaxGuests(data.max);
-               setFormData({ ...formData, name: "Chulada mijo" });
+               setFormData({ ...formData, name: data.name });
                setErrorMsg("");
             } else {
                setErrorMsg("Este número no está autorizado.");
@@ -88,23 +93,45 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
       setIsSubmitting(true);
       setErrorMsg("");
 
-      const formUrl = env.API_GOOGE_FORMS;
+      // const formUrl = env.API_GOOGE_FORMS_2;
+      // const formDataEncoded = new URLSearchParams();
+      // formDataEncoded.append("entry.1769558488", formData.name); // Nombre
+      // formDataEncoded.append("entry.1364175035", formData.phone); // Teléfono
+      // formDataEncoded.append("entry.548501519", formData.attendance); // Asistir
+      // formDataEncoded.append("entry.31601261", String(formData.guests)); // Nº personas
+      // formDataEncoded.append("entry.1736560134", formData.message); // Mensaje
 
-      const formDataEncoded = new URLSearchParams();
-      formDataEncoded.append("entry.1769558488", formData.name); // Nombre
-      formDataEncoded.append("entry.1364175035", formData.phone); // Teléfono
-      formDataEncoded.append("entry.548501519", formData.attendance); // Asistir
-      formDataEncoded.append("entry.31601261", String(formData.guests)); // Nº personas
-      formDataEncoded.append("entry.1736560134", formData.message); // Mensaje
+      const formUrl = env.API_MACRO;
+      const body = {
+         name: formData.name,
+         phone: formData.phone,
+         attendance: formData.attendance,
+         guests: formData.guests,
+         message: formData.message,
+      };
 
       try {
-         await fetch(formUrl, {
+         // await fetch(formUrl, {
+         //    method: "POST",
+         //    body: formDataEncoded,
+         //    mode: "no-cors", // obligatorio para evitar CORS
+         // });
+         const response = await fetch(formUrl, {
             method: "POST",
-            body: formDataEncoded,
-            mode: "no-cors", // obligatorio para evitar CORS
+            body: JSON.stringify(body),
+            headers: {
+               "Content-Type": "application/json",
+            },
+            mode: "no-cors",
          });
-
+         console.log("🚀 ~ handleSubmit ~ response:", response)
+         // const result = await response.json();
+         // console.log("🚀 ~ handleSubmit ~ result:", result);
          // No podemos verificar respuesta, asumimos éxito
+         // `https://tuboda.com/validar?id=${result.guestCode}`
+         setQrUrl(
+            `https://docs.google.com/spreadsheets/d/e/${env.ID_MACRO_SCRIPT}/pubhtml?phone=${formData.phone}`,
+         );
          setIsSubmitted(true);
          if (onComplete) setTimeout(onComplete, 2000);
       } catch (err) {
