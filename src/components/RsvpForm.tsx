@@ -348,7 +348,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                               <div className="form-control col-span-2">
                                  <label className="label">
-                                    <span className="label-text font-bold mr-2">
+                                    <span className="label-text font-bold mr-2 mb-2">
                                        📱 Teléfono
                                     </span>
                                  </label>
@@ -372,7 +372,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                            {/* Segunda fila - Nombre */}
                            <div className="form-control">
                               <label className="label">
-                                 <span className="label-text font-bold mr-2">
+                                 <span className="label-text font-bold mr-2 mb-2">
                                     👤 Nombre del invitado o Familia
                                  </span>
                               </label>
