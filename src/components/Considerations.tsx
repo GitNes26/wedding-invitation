@@ -34,7 +34,7 @@ const Considerations = ({ giftRegistryUrl }) => {
             </p>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                <div className="text-base-content/75 rounded-full px-8 py-6">
-                  La celebración está pensada únicamente para adultos.
+                  La celebración está pensada únicamente para adultos (no niños).
                </div>
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>

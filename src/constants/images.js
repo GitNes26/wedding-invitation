@@ -1,4 +1,5 @@
 import hero from "../assets/images/bg-hero.jpg";
+import fondoInvitacion from "../assets/images/FondoInvitacion.png";
 import floral from "../assets/images/floral.jpg";
 import icecream from "../assets/images/icecream.png";
 import suit from "../assets/images/suit.svg";
@@ -21,6 +22,7 @@ import arch from "../assets/images/arch.png";
 
 const images = {
    hero,
+   fondoInvitacion,
    floral,
    icecream,
    suit,

@@ -43,6 +43,11 @@
    src: url("./assets/fonts/Mayoritte-Swash.ttf") format("opentype");
 }
 
+@font-face {
+   font-family: TT-Drugs-Trial-Bold;
+   src: url("./assets/fonts/TT-Drugs-Trial-Bold.otf") format("opentype");
+}
+
 
 @import "tailwindcss";
 /* @custom-variant dark (&:where(.dark, .dark *));
@@ -58,6 +63,7 @@
    --font-marcellus: Marcellus;
    --font-mayoritte: Mayoritte;
    --font-mayoritte-swash: Mayoritte-Swash;
+   --font-tt-drugs-bold: TT-Drugs-Trial-Bold;
 }
 
 /* Animaciones personalizadas */

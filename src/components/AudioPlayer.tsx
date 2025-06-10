@@ -9,13 +9,19 @@ import { Heart, Volume2 } from "lucide-react";
  */
 interface AudioPlayerProps {
    audios: string[];
+   isPlaying: boolean;
+   setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 /**
  * Componente de reproducción de audio con control de volumen.
  */
-export default function AudioPlayer({ audios }: AudioPlayerProps) {
-   const [isPlaying, setIsPlaying] = useState(false);
+export default function AudioPlayer({
+   audios,
+   isPlaying,
+   setIsPlaying,
+}: AudioPlayerProps) {
+   // const [isPlaying, setIsPlaying] = useState(false);
    const [currentIndex, setCurrentIndex] = useState(0);
    const [volume, setVolume] = useState(0.3); // Estado de volumen
    const audioRef = useRef<HTMLAudioElement | null>(null);

@@ -27,15 +27,15 @@ export default function InvitationCard({
    onConfirmClick,
 }: InvitationCardProps) {
    return option == 1 ? (
-      <motion.header
+      <motion.section
          className="relative h-screen flex flex-col items-center justify-center text-center p-6"
          initial={{ opacity: 0 }}
          animate={{ opacity: 1 }}
-         transition={{ duration: 1.5 }}>
+         transition={{ duration: 2 }}>
          <motion.div
-            initial={{ scale: 0.7, opacity: 0 }}
+            initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.5, duration: 1.5 }}
+            transition={{ delay: 1, duration: 2 }}
             className="absolute inset-0 overflow-hidden z-0">
             <img
                src={images.hero}
@@ -108,7 +108,7 @@ export default function InvitationCard({
 
          {/* <!-- Efecto de papel rasgado en la parte inferior --> */}
          <div className="torn-paper-effect"></div>
-      </motion.header>
+      </motion.section>
    ) : (
       <motion.section
          className="relative bg-primary py-20 px-6 text-center overflow-hidden"

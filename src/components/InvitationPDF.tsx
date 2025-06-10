@@ -1,4 +1,3 @@
-// components/InvitationPDF.tsx
 import React from "react";
 import {
    Document,
@@ -8,15 +7,49 @@ import {
    StyleSheet,
    Font,
    pdf,
+   Image,
+   Svg,
+   Rect,
 } from "@react-pdf/renderer";
-import QRCode from "react-qr-code";
 import { formatDatetime } from "../utils/formats";
+// import { QRCode } from "react-qrcode";
+// import QRCode from "qrcode";
+import QRCode from "qrcode-generator";
+import images from "../constants/images";
+import TTDrugsTrialBold from "../assets/fonts/TT-Drugs-Trial-Bold.otf";
+import TTDrugsTrialRegular from "../assets/fonts/TT-Drugs-Trial-Regular.otf";
+
+// Registrar fuentes
+Font.register({
+   family: "TTDrugsTrialBold",
+   src: TTDrugsTrialBold,
+});
+Font.register({
+   family: "TTDrugsTrialRegular",
+   src: TTDrugsTrialRegular,
+});
 
 // Estilos para el PDF
 const styles = StyleSheet.create({
    page: {
-      backgroundColor: "#fff0f5", //fffafc fontFamily: 'Helvetica'
+      backgroundColor: "transparent", //"#fff0f5",
       padding: 30,
+      position: "relative",
+      fontFamily: "TTDrugsTrialRegular", // Fuente por defecto
+   },
+   bold: {
+      fontFamily: "TTDrugsTrialBold", // Fuente por defecto
+   },
+   backgroundImage: {
+      position: "absolute",
+      minWidth: "100%",
+      minHeight: "100%",
+      top: 0,
+      left: 0,
+      opacity: 1, // Ajusta la opacidad según necesites
+   },
+   content: {
+      position: "relative", // Para que aparezca sobre el fondo
    },
    section: {
       margin: 10,
@@ -32,158 +65,182 @@ const styles = StyleSheet.create({
       fontSize: 14,
       margin: 5,
    },
-   qrContainer: {
-      alignItems: "center",
-      marginTop: 20,
+   textMuted: {
+      fontSize: 10,
+      margin: 1,
+      color: "#fff",
    },
-   qr: { width: 150, height: 150, marginTop: 20, alignSelf: "center" },
+   qrContainer: {
+      position: "absolute",
+      top: 370,
+      left: 110,
+      alignItems: "center",
+   },
+   qr: {
+      width: 128,
+      height: 128,
+      marginTop: 20,
+      alignSelf: "center",
+   },
 });
 
-export const generateQRValue = (guestPhone: string) => {
-   return `https://tusitio.com/verificar-asistencia/${guestPhone}`;
-};
+// Componente QRCode con SVG nativo
+const PDFQRCode = ({ value, size = 90 }: { value: string; size?: number }) => {
+   // Esta es una implementación simplificada. En producción, usa una librería para generar el patrón QR real
+   const qrData = generateQRMatrix(value); // Función que convierte el texto en matriz QR
 
-export const generatePDFInvitation = (
-   formData: { phone: string; name: string },
-   weddingInfo: {
-      bride: string;
-      groom: string;
-      date: string;
-      time: string;
-      fullDate: string;
-      theDate: Date;
-      place: string;
-      location: string;
-      calendarUrl: string;
-      mapsUrl: string;
-      giftTable: string;
-   },
-) => {
-   const qrUrl = generateQRValue(formData.phone); // o cualquier identificador único
+   const cellSize = size / qrData.length;
 
-   const pdfDocument = (
-      <InvitationPDF
-         name={formData.name}
-         weddingInfo={weddingInfo}
-         qrUrl={qrUrl}
-      />
+   return (
+      <Svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+         {qrData.map((row, y) =>
+            row.map((cell, x) => (
+               <Rect
+                  key={`${x}-${y}`}
+                  x={x * cellSize}
+                  y={y * cellSize}
+                  width={cellSize}
+                  height={cellSize}
+                  fill={cell ? "#000" : "#FFF"} //#b28121 | #9C7014
+               />
+            )),
+         )}
+      </Svg>
    );
-
-   // Descargar el PDF
-   pdf(
-      <InvitationPDF
-         name={formData.name}
-         weddingInfo={weddingInfo}
-         qrUrl={qrUrl}
-      />,
-   )
-      .toBlob()
-      .then((blob) => {
-         const url = URL.createObjectURL(blob);
-         const link = document.createElement("a");
-         link.href = url;
-         link.download = `Invitacion_${formData.name}.pdf`;
-         document.body.appendChild(link);
-         link.click();
-         document.body.removeChild(link);
-      });
 };
+
+// Función simplificada para generar matriz QR (debes reemplazarla con un generador real)
+function generateQRMatrix(text: string): number[][] {
+   const qr = QRCode(0, "L"); // Tipo L (Low error correction)
+   qr.addData(text);
+   qr.make();
+
+   const size = qr.getModuleCount();
+   const matrix: number[][] = [];
+
+   for (let y = 0; y < size; y++) {
+      matrix[y] = [];
+      for (let x = 0; x < size; x++) {
+         matrix[y][x] = qr.isDark(y, x) ? 1 : 0;
+      }
+   }
+
+   return matrix;
+}
+
+// export const generateQRValue = async (text: string) => {
+//    try {
+//       return await QRCode.toDataURL(text, {
+//          width: 100, //400
+//          margin: 2,
+//          color: {
+//             dark: "#000000", // Puntos oscuros
+//             light: "#b28121", // Fondo
+//          },
+//       });
+//    } catch (error) {
+//       console.error("Error generando QR:", error);
+//       return "";
+//    }
+// };
 
 // Componente del documento PDF
-const InvitationPDF = ({ name, weddingInfo, qrUrl }) => (
+// export const generatePDFInvitation = async (
+//    formData: { phone: string; name: string },
+//    weddingInfo: {
+//       bride: string;
+//       groom: string;
+//       date: string;
+//       time: string;
+//       fullDate: string;
+//       theDate: Date;
+//       place: string;
+//       location: string;
+//       calendarUrl: string;
+//       mapsUrl: string;
+//       giftTable: string;
+//    },
+//    backgroundImagePath: string,
+//    guestCode: string,
+//    guests: number,
+//    table: number,
+// ) => {
+//    try {
+//       const qrValue = await generateQRValue(guestCode);
+
+//       // Descargar el PDF
+//       const blob = await pdf(
+//          <InvitationPDF
+//             backgroundImage={backgroundImagePath}
+//             name={formData.name}
+//             weddingInfo={weddingInfo}
+//             qrValue={qrValue}
+//             guests={guests}
+//             table={table}
+//          />,
+//       ).toBlob();
+
+//       const url = URL.createObjectURL(blob);
+//       const link = document.createElement("a");
+//       link.href = url;
+//       link.download = `Invitacion_${formData.name}.pdf`;
+//       document.body.appendChild(link);
+//       link.click();
+//       document.body.removeChild(link);
+//       URL.revokeObjectURL(url);
+//    } catch (error) {
+//       console.error("Error generando PDF:", error);
+//       alert("Ocurrió un error al generar el PDF");
+//    }
+// };
+
+const InvitationPDF = ({
+   backgroundImage,
+   name,
+   weddingInfo,
+   qrValue,
+   guests = 0,
+   table = 0,
+}) => (
    <Document>
       <Page size="A5" style={styles.page}>
-         <View style={styles.section}>
-            <Text style={styles.title}>Invitación a Nuestra Boda</Text>
-            <Text style={styles.text}>!hola {name}!,</Text>
-            <Text style={styles.text}>
-               Nos complace invitarte a nuestra boda.
-            </Text>
-            <Text style={styles.text}>
-               Este es tu boleto de acceso para nuestra boda. Por favor,
-               preséntalo el día del evento.
-            </Text>
-            <Text style={styles.text}></Text>
+         {/* Imagen de fondo */}
+         {backgroundImage && (
+            <Image
+               src={backgroundImage}
+               style={styles.backgroundImage}
+               fixed // Evita que se repita
+            />
+         )}
 
-            <Text style={styles.text}>
-               Fecha: {`${weddingInfo.date} ${weddingInfo.time} hrs`}
-            </Text>
-            <Text style={styles.text}>
-               Lugar: {`${weddingInfo.place}, ${weddingInfo.location}`}
-            </Text>
-            <Text style={styles.text}>
-               Por favor, presenta este código QR al ingresar:
-            </Text>
-            <View style={styles.qrContainer}>
-               <QRCode value={qrUrl} size={128} height={50} width={50} />
+         {/* Contenido principal */}
+         <View style={styles.content}>
+            <View style={styles.section}>
+               {/* <Text style={styles.title}>Invitación a Nuestra Boda</Text>
+               <Text style={styles.text}>¡Hola {name}!,</Text>
+               <Text style={styles.text}>
+                  Nos complace invitarte a nuestra boda.
+               </Text>
+               <Text style={styles.text}>
+                  Este es tu boleto de acceso para nuestra boda. Por favor,
+                  preséntalo el día del evento.
+               </Text>*/}
+               <View style={styles.qrContainer}>
+                  {/* Mostrar el QR como imagen */}
+                  {/* {qrValue && <Image src={qrValue} style={styles.qr} />} */}
+                  <PDFQRCode value={qrValue} />
+                  <Text style={styles.textMuted}>
+                     Pase para: <Text style={styles.bold}>{guests}</Text>{" "}
+                     personas
+                  </Text>
+                  <Text style={styles.textMuted}>
+                     Mesa: <Text style={styles.bold}>{table}</Text>
+                  </Text>
+               </View>
             </View>
-            <Text style={[styles.text, { marginTop: 12 }]}>
-               Tus anfitrionas escanearán este código para validar tu
-               asistencia.
-            </Text>
          </View>
       </Page>
    </Document>
 );
 
 export default InvitationPDF;
-
-// // components/InvitationPDF.tsx
-// import React from 'react';
-// import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
-// import QRCode from 'react-qr-code';
-
-// const styles = StyleSheet.create({
-//   page: {
-//     backgroundColor: '#fff',
-//     padding: 40,
-//     fontFamily: 'Helvetica',
-//   },
-//   container: {
-//     flexDirection: 'column',
-//     alignItems: 'center',
-//   },
-//   header: {
-//     fontSize: 24,
-//     marginBottom: 8,
-//     color: '#d6336c', // un rosa elegante
-//     textAlign: 'center',
-//   },
-//   bodyText: {
-//     fontSize: 14,
-//     marginVertical: 4,
-//     textAlign: 'center',
-//   },
-//   qrContainer: {
-//     marginTop: 20,
-//     padding: 10,
-//     border: '1px solid #ccc',
-//   },
-// });
-
-// interface InvitationPDFProps {
-//   name: string;
-//   qrUrl: string;
-// }
-
-// const InvitationPDF: React.FC<InvitationPDFProps> = ({ name, qrUrl }) => (
-//   <Document>
-//     <Page size="A5" style={styles.page}>
-//       <View style={styles.container}>
-//         <Text style={styles.header}>¡Hola {name}!</Text>
-//         <Text style={styles.bodyText}>
-//           Este es tu boleto de acceso para nuestra boda. Por favor, preséntalo el día del evento.
-//         </Text>
-//         <Text style={styles.bodyText}></Text>
-//         <View style={styles.qrContainer}>
-//           <QRCode value={qrUrl} size={150} />
-//         </View>
-//         <Text style={[styles.bodyText, { marginTop: 12 }]}>
-//           Tus anfitrionas escanearán este código para validar tu asistencia.
-//         </Text>
-//       </View>
-//     </Page>
-//   </Document>
-// );
-
-// export default InvitationPDF;

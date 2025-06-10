@@ -597,6 +597,23 @@ export const getKeysBy = (data, refValue) => {
    return keysEnTrue;
 };
 
+/**
+ * Obtener el navegador usado en el dispositivo
+ * @returns
+ */
+export const detectOS = () => {
+   const userAgent = navigator.userAgent || navigator.vendor;
+
+   if (/android/i.test(userAgent)) return "Android";
+   if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) return "iOS";
+   if (/Windows NT/.test(userAgent)) return "Windows";
+   if (/Macintosh/.test(userAgent)) return "MacOS";
+   if (/Linux/.test(userAgent)) return "Linux";
+   if (/HarmonyOS/i.test(userAgent)) return "HarmonyOS";
+
+   return "Other";
+};
+
 // export const RenderJsonComponent = ({ jsonData }) => {
 //    return (
 //       <div>

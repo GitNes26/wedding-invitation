@@ -2,12 +2,14 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Divider from "./Divider";
 import { Calendar, MapPin } from "lucide-react";
+import LinkServiceOptions from "./LinkServiceOptions";
 
 const DetailsEvent = ({
    formattedDate,
    formattedTime,
    googleCalendarUrl,
    weddingPlace,
+   weddingDate,
    location,
    googleMapsUrl,
 }) => {
@@ -33,7 +35,6 @@ const DetailsEvent = ({
                <Divider color="primary" />
             </motion.div>
          </motion.div>
-
          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Calendario */}
             <motion.div
@@ -53,7 +54,16 @@ const DetailsEvent = ({
                <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}>
-                  <button
+                  <LinkServiceOptions
+                     key={"caldendar"}
+                     type={"calendar"}
+                     calendarUrl={googleCalendarUrl}
+                     mapsUrl={googleMapsUrl}
+                     weddingDate={weddingDate}
+                     weddingPlace={weddingPlace}
+                  />
+                  
+                  {/* <button
                      // variant="outline"
                      className="btn btn-outline rounded-full btn-primary">
                      <a
@@ -62,7 +72,7 @@ const DetailsEvent = ({
                         rel="noopener noreferrer">
                         Agregar a Google Calendar
                      </a>
-                  </button>
+                  </button> */}
                </motion.div>
             </motion.div>
 
@@ -84,7 +94,15 @@ const DetailsEvent = ({
                <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}>
-                  <button
+                  <LinkServiceOptions
+                     key={"maps"}
+                     type={"maps"}
+                     calendarUrl={googleCalendarUrl}
+                     mapsUrl={googleMapsUrl}
+                     weddingDate={weddingDate}
+                     weddingPlace={weddingPlace}
+                  />
+                  {/* <button
                      // variant="outline"
                      className="btn btn-outline rounded-full btn-primary">
                      <a
@@ -93,7 +111,7 @@ const DetailsEvent = ({
                         rel="noopener noreferrer">
                         Ver en Google Maps
                      </a>
-                  </button>
+                  </button> */}
                </motion.div>
             </motion.div>
          </div>

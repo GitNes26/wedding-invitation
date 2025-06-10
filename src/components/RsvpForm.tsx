@@ -40,7 +40,9 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
    const [isSubmitting, setIsSubmitting] = useState(false);
    const [isSubmitted, setIsSubmitted] = useState(false);
    const [errorMsg, setErrorMsg] = useState("");
-   const [qrUrl, setQrUrl] = useState("");
+   const [guestCode, setGuestCode] = useState("");
+   const [guests, setGuests] = useState(0);
+   const [table, setTable] = useState(0);
 
    useEffect(() => {
       if (formData.phone.length < 10) {
@@ -65,6 +67,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
             setAuthorized(data.autorizado);
             if (data.autorizado) {
                setMaxGuests(data.max);
+               setTable(data.table);
                setFormData({ ...formData, name: data.name });
                setErrorMsg("");
             } else {
@@ -93,16 +96,8 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
       setIsSubmitting(true);
       setErrorMsg("");
 
-      // const formUrl = env.API_GOOGE_FORMS_2;
-      // const formDataEncoded = new URLSearchParams();
-      // formDataEncoded.append("entry.1769558488", formData.name); // Nombre
-      // formDataEncoded.append("entry.1364175035", formData.phone); // Teléfono
-      // formDataEncoded.append("entry.548501519", formData.attendance); // Asistir
-      // formDataEncoded.append("entry.31601261", String(formData.guests)); // Nº personas
-      // formDataEncoded.append("entry.1736560134", formData.message); // Mensaje
-
-      const formUrl = env.API_MACRO;
       const body = {
+         action: "registerRequest",
          name: formData.name,
          phone: formData.phone,
          attendance: formData.attendance,
@@ -116,22 +111,26 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
          //    body: formDataEncoded,
          //    mode: "no-cors", // obligatorio para evitar CORS
          // });
-         const response = await fetch(formUrl, {
-            method: "POST",
-            body: JSON.stringify(body),
-            headers: {
-               "Content-Type": "application/json",
-            },
-            mode: "no-cors",
-         });
-         console.log("🚀 ~ handleSubmit ~ response:", response)
-         // const result = await response.json();
-         // console.log("🚀 ~ handleSubmit ~ result:", result);
-         // No podemos verificar respuesta, asumimos éxito
-         // `https://tuboda.com/validar?id=${result.guestCode}`
-         setQrUrl(
-            `https://docs.google.com/spreadsheets/d/e/${env.ID_MACRO_SCRIPT}/pubhtml?phone=${formData.phone}`,
+         const res = await fetch(
+            `${env.API_MACRO}?telefono=${body.phone}&action=${
+               body.action
+            }&name=${encodeURIComponent(body.name)}&phone=${encodeURIComponent(
+               body.phone,
+            )}&attendance=${encodeURIComponent(
+               body.attendance,
+            )}&guests=${encodeURIComponent(
+               body.guests,
+            )}&message=${encodeURIComponent(body.message)}`,
          );
+         console.log("🚀 ~ handleSubmit ~ res:", res);
+         const data = await res.json();
+         console.log("🚀 ~ handleSubmit ~ data:", data);
+         if (!data.success) {
+            setErrorMsg(data.error);
+            return;
+         }
+         setGuestCode(data.guestCode);
+         setGuests(data.guests);
          setIsSubmitted(true);
          if (onComplete) setTimeout(onComplete, 2000);
       } catch (err) {
@@ -171,7 +170,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                <p className="font-marcellus text-primary/75">
                   {formData.attendance == "yes"
                      ? "Hemos recibido tu respuesta. Nos vemos en nuestra boda."
-                     : "Es una pena enterarnos de que no podras asistir."}
+                     : "Es una pena enterarnos de que no podrás asistir."}
                </p>
                <motion.div
                   initial={{ opacity: 0, scale: 0, x: 50 }}
@@ -184,36 +183,39 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                   <Divider color="primary" />
                </motion.div>
             </motion.div>
-            <motion.div
-               initial={{ opacity: 0, scale: 0, y: 50 }}
-               whileInView={{ opacity: 1, scale: 1 }}
-               transition={{
-                  delay: 0.5,
-                  duration: 1,
-                  type: "spring",
-               }}>
-               <div className="text-center">
-                  <PDFDownloadLink
-                     document={
-                        <InvitationPDF
-                           name={formData.name}
-                           weddingInfo={weddingInfo}
-                           qrUrl={env.API_GOOGLE_SHEET}
-                        />
-                     }
-                     fileName={`Invitacion_${formData.name.replaceAll(
-                        " ",
-                        "_",
-                     )}.pdf`}
-                     className="btn btn-outline btn-primary btn-xl">
-                     {({ loading }) =>
-                        loading
-                           ? "Generando invitación..."
-                           : "🎟️ Descargar tu boleto"
-                     }
-                  </PDFDownloadLink>
-               </div>
-            </motion.div>
+            {guestCode && (
+               <motion.div
+                  initial={{ opacity: 0, scale: 0, y: 50 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{
+                     duration: 0.3,
+                  }}>
+                  <div className="text-center">
+                     <PDFDownloadLink
+                        document={
+                           <InvitationPDF
+                              name={formData.name}
+                              weddingInfo={weddingInfo}
+                              qrValue={guestCode}
+                              guests={guests}
+                              table={table}
+                              backgroundImage={images.fondoInvitacion}
+                           />
+                        }
+                        fileName={`Invitacion_${formData.name.replaceAll(
+                           " ",
+                           "_",
+                        )}.pdf`}
+                        className="btn btn-outline btn-primary btn-xl">
+                        {({ loading }) =>
+                           loading
+                              ? "Generando invitación..."
+                              : "🎟️ Descargar tu boleto"
+                        }
+                     </PDFDownloadLink>
+                  </div>
+               </motion.div>
+            )}
          </>
       );
    }
@@ -340,6 +342,19 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                               formulario.
                            </p>
                         </div>
+
+                        {/* Error message */}
+                        {errorMsg && (
+                           <motion.div
+                              initial={{ opacity: 0, scale: 0.9 }}
+                              whileInView={{ opacity: 1, scale: 1 }}
+                              transition={{ duration: 0.6 }}
+                              exit={{ opacity: 0, scale: 0 }}
+                              viewport={{ once: true }}
+                              className="alert alert-error alert-sm font-bold py-2 my-3">
+                              <span className="mr-2">⚠️ {errorMsg}</span>
+                           </motion.div>
+                        )}
 
                         <form
                            onSubmit={handleSubmit}
@@ -505,13 +520,6 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                                  />
                               </div>
                            </div>
-
-                           {/* Error message */}
-                           {errorMsg && (
-                              <div className="alert alert-error alert-sm py-2 my-2">
-                                 <span className="mr-2">⚠️ {errorMsg}</span>
-                              </div>
-                           )}
 
                            {/* Botón de envío */}
                            <div className="text-center pt-4">

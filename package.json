@@ -12,14 +12,17 @@
   "dependencies": {
     "@react-pdf/renderer": "^4.3.0",
     "@tailwindcss/vite": "^4.1.5",
+    "@types/qrcode-generator": "^0.0.16",
     "dayjs": "^1.11.13",
     "lucide-react": "^0.507.0",
     "motion": "^12.9.4",
+    "qrcode": "^1.5.4",
+    "qrcode-generator": "^1.5.0",
     "qrcode.react": "^4.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-qr-code": "^2.0.15",
     "react-qr-reader": "^3.0.0-beta-1",
+    "react-qrcode": "^0.3.6",
     "tailwindcss": "^4.1.5"
   },
   "devDependencies": {
