@@ -11,7 +11,7 @@ import ScrollToTopButton from "./components/ScrollToTopButton";
 import Divider from "./components/Divider";
 import { useMobile } from "./hooks/useMobile";
 import audios from "./constants/audios";
-import { detectOS, formatDatetime } from "./utils/formats";
+import { detectOS, formatDatetime, getLinkWhatsApp } from "./utils/formats";
 import LoveHistory from "./components/LoveHistory";
 import DressCode from "./components/DressCode";
 import GiftTable from "./components/GiftTable";
@@ -21,6 +21,7 @@ import Considerations from "./components/Considerations";
 import { useGlobalContext } from "./contexts/GlobalContext";
 import SplashLoader from "./components/SplashLoader";
 import env from "./constants/env";
+import Loading from "./components/Loading";
 
 export default function App() {
    // const { theme, setTheme } = useTheme();
@@ -33,6 +34,7 @@ export default function App() {
    const rsvpRef = useRef(null);
 
    useEffect(() => {
+      setIsLoading(false);
       // console.log(`🚀 ~ App ~ themeActive:`, themeActive);
    }, [themeActive]);
 
@@ -81,7 +83,10 @@ export default function App() {
    const googleMapsUrl = "https://maps.app.goo.gl/oX2AEVkygjnscaXo9"; //["MacOS", "iOS"].includes(detectOS()) ? `http://maps.apple.com/?q=${weddingPlace},${location}` :
 
    // Crear enlace para mesa de regalos
-   const giftRegistryUrl = "https://www.amazon.com.mx/wedding/registry";
+   const giftRegistryUrls = [
+      { site: "Cimaco", link: "https://www.cimaco.com.mx/mesa-regalo" },
+      { site: "Mercado Libre", link: "https://meli.uniko.co/Home" },
+   ];
 
    const weddingInfo = {
       bride: girlfriend,
@@ -94,7 +99,7 @@ export default function App() {
       location: location,
       calendarUrl: googleCalendarUrl,
       mapsUrl: googleMapsUrl,
-      giftTable: giftRegistryUrl,
+      giftTable: giftRegistryUrls,
    };
 
    const handleClickConfirm = () => {
@@ -105,6 +110,7 @@ export default function App() {
    };
    const [showSplash, setShowSplash] = useState(true);
    const [isPlaying, setIsPlaying] = useState(false);
+   const { isLoading, setIsLoading } = useGlobalContext();
 
    // dark:from-slate-900 dark:to-slate-800
    return (
@@ -115,130 +121,146 @@ export default function App() {
             setShow={setShowSplash}
             setIsPlaying={setIsPlaying}
          />
+
          {!showSplash && (
-            <motion.header
-               initial={{ opacity: 0 }}
-               animate={{ opacity: 1 }}
-               transition={{ duration: 1.5, ease: "easeInOut" }}
-               // exit={{ translateY: -100, scale: 0, opacity: 0 }}>
-               ref={mainRef}
-               className="min-h-screen bg-gradient-to-b from-base-200 to-base-300 transition-colors duration-500 relative overflow-hidden">
-               {/* <!-- Elementos decorativos laterales --> */}
-               {/* <div className="decorative-element top-left"></div>
+            <>
+               <Loading open={isLoading} animation="bounce" />
+               <motion.header
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1.5, ease: "easeInOut" }}
+                  // exit={{ translateY: -100, scale: 0, opacity: 0 }}>
+                  ref={mainRef}
+                  className="min-h-screen bg-gradient-to-b from-base-200 to-base-300 transition-colors duration-500 relative overflow-hidden">
+                  {/* <!-- Elementos decorativos laterales --> */}
+                  {/* <div className="decorative-element top-left"></div>
          <div className="decorative-element top-right"></div>
          <div className="decorative-element middle-left"></div>
          <div className="decorative-element middle-right"></div>
          <div className="decorative-element bottom-left"></div>
          <div className="decorative-element bottom-right"></div> */}
 
-               {/* Botones flotantes */}
-               <div className="fixed top-4 right-4 z-50 flex gap-2">
-                  <AudioPlayer
-                     audios={[audios.bailando, audios.todoVaAEstarBien]}
-                     isPlaying={isPlaying}
-                     setIsPlaying={setIsPlaying}
-                  />
-                  <ThemeChanger />
-               </div>
-
-               {/* Contador sticky */}
-               <AnimatePresence>
-                  {isScrolled && (
-                     <motion.div
-                        initial={{ opacity: 0, scale: 0.8, x: -100 }}
-                        animate={{ opacity: 1, scale: 1, x: 0 }}
-                        exit={{ opacity: 0, scale: 0.8, x: -100 }}
-                        className="fixed top-4 left-4 z-50">
-                        <CountdownTimer
-                           targetDate={weddingDate}
-                           isSticky={true}
-                        />
-                     </motion.div>
-                  )}
-               </AnimatePresence>
-
-               {/* Encabezado */}
-               <InvitationCard
-                  bride={girlfriend}
-                  groom={boyfriend}
-                  weddingDate={formattedDate}
-                  weddingTime={formattedTime}
-                  weddingPlace={weddingPlace}
-                  location={location}
-                  option={1}
-                  onConfirmClick={handleClickConfirm}
-               />
-
-               {/* Sección de cuenta regresiva */}
-               <section className="py-10 px-6 relative bg-base-100">
-                  <div className="max-w-4xl mx-auto">
-                     <motion.div
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        viewport={{ once: true }}>
-                        <CountdownTimer targetDate={weddingDate} />
-                     </motion.div>
+                  {/* Botones flotantes */}
+                  <div className="fixed top-4 right-4 z-50 flex gap-2">
+                     <AudioPlayer
+                        audios={[audios.bailando, audios.todoVaAEstarBien]}
+                        isPlaying={isPlaying}
+                        setIsPlaying={setIsPlaying}
+                     />
+                     <ThemeChanger />
                   </div>
-               </section>
 
-               {/* Sección de historia */}
-               <section className="py-20 px-6 relative">
-                  <LoveHistory />
-               </section>
+                  {/* Contador sticky */}
+                  <AnimatePresence>
+                     {isScrolled && (
+                        <motion.div
+                           initial={{ opacity: 0, scale: 0.8, x: -100 }}
+                           animate={{ opacity: 1, scale: 1, x: 0 }}
+                           exit={{ opacity: 0, scale: 0.8, x: -100 }}
+                           className="fixed top-4 left-4 z-50">
+                           <CountdownTimer
+                              targetDate={weddingDate}
+                              isSticky={true}
+                           />
+                        </motion.div>
+                     )}
+                  </AnimatePresence>
 
-               {/* Sección de Linea de tiempo */}
-               <section className="py-20 px-6 bg-base-100 relative">
-                  <TimelineBoda />
-               </section>
-
-               {/* Sección de detalles */}
-               <section className="py-20 px-6 relative">
-                  <DetailsEvent
-                     formattedDate={formattedDate}
-                     formattedTime={formattedTime}
-                     googleCalendarUrl={googleCalendarUrl}
+                  {/* Encabezado */}
+                  <InvitationCard
+                     bride={girlfriend}
+                     groom={boyfriend}
+                     weddingDate={formattedDate}
+                     weddingTime={formattedTime}
                      weddingPlace={weddingPlace}
-                     weddingDate={weddingDate}
                      location={location}
-                     googleMapsUrl={googleMapsUrl}
+                     option={1}
+                     onConfirmClick={handleClickConfirm}
                   />
-               </section>
 
-               {/* Sección de mesa de regalos */}
-               <section className="py-20 px-6  bg-base-100 relative">
-                  <GiftTable giftRegistryUrl={giftRegistryUrl} />
-               </section>
+                  {/* Sección de cuenta regresiva */}
+                  <section className="py-10 px-6 relative bg-base-100">
+                     <div className="max-w-4xl mx-auto">
+                        <motion.div
+                           initial={{ opacity: 0, y: 50 }}
+                           whileInView={{ opacity: 1, y: 0 }}
+                           transition={{ duration: 0.8 }}
+                           viewport={{ once: true }}>
+                           <CountdownTimer targetDate={weddingDate} />
+                        </motion.div>
+                     </div>
+                  </section>
 
-               {/* Sección de Código de Vestimenta */}
-               <section className="py-20 px-6 relative">
-                  <DressCode />
-               </section>
+                  {/* Sección de historia */}
+                  <section className="py-20 px-6 relative">
+                     <LoveHistory />
+                  </section>
 
-               {/* Sección de mesa de reglamento */}
-               <section className="py-20 px-6 bg-base-100 relative">
-                  <Considerations giftRegistryUrl={giftRegistryUrl} />
-               </section>
+                  {/* Sección de Linea de tiempo */}
+                  <section className="py-20 px-6 bg-base-100 relative">
+                     <TimelineBoda weddingInfo={weddingInfo} />
+                  </section>
 
-               {/* Sección de RSVP */}
-               <section className="py-20 px-6 relative" ref={rsvpRef}>
-                  <RsvpForm weddingInfo={weddingInfo} />
-               </section>
+                  {/* Sección de detalles */}
+                  <section className="py-20 px-6 relative">
+                     <DetailsEvent
+                        formattedDate={formattedDate}
+                        formattedTime={formattedTime}
+                        googleCalendarUrl={googleCalendarUrl}
+                        weddingPlace={weddingPlace}
+                        weddingDate={weddingDate}
+                        location={location}
+                        googleMapsUrl={googleMapsUrl}
+                     />
+                  </section>
 
-               {/* Footer */}
-               <footer className="py-2 px-6 text-center font-marcellus bg-base-100">
-                  <p className="">Con amor,</p>
-                  <h2 className="font-dashing text-2xl mb-4 text-primary">
-                     {girlfriend} & {boyfriend}
-                  </h2>
-                  <p className="text-sm font-marcellus">
-                     &copy; {new Date().getFullYear()} | Diseñado con ♥ |{" "}
-                     {env.VERSION}
-                  </p>
-               </footer>
+                  {/* Sección de mesa de regalos */}
+                  <section className="py-20 px-6  bg-base-100 relative">
+                     <GiftTable giftRegistryUrls={giftRegistryUrls} />
+                  </section>
 
-               {/* Modal de RSVP para móviles */}
-               {/* {isMobile && showRsvp && (
+                  {/* Sección de Código de Vestimenta */}
+                  <section className="py-20 px-6 relative">
+                     <DressCode />
+                  </section>
+
+                  {/* Sección de mesa de reglamento */}
+                  <section className="py-20 px-6 bg-base-100 relative">
+                     <Considerations giftRegistryUrls={giftRegistryUrls} />
+                  </section>
+
+                  {/* Sección de RSVP */}
+                  <section className="py-20 px-6 relative" ref={rsvpRef}>
+                     <RsvpForm weddingInfo={weddingInfo} />
+                  </section>
+
+                  {/* Footer */}
+                  <footer className="py-2 px-6 text-center font-marcellus bg-base-100">
+                     <p className="">Con amor,</p>
+                     <h2 className="font-dashing text-2xl mb-4 text-primary">
+                        {girlfriend} & {boyfriend}
+                     </h2>
+                     <p className="text-sm font-marcellus">
+                        &copy; {new Date().getFullYear()} | Diseñado con ♥{" "}
+                        <span
+                           className="link hover:animate-pulse"
+                           onClick={() =>
+                              window.open(
+                                 getLinkWhatsApp(
+                                    "8715265468",
+                                    "Hola, vi tu invitación dígital y quisiera saber más información",
+                                 ),
+                                 "_blank",
+                              )
+                           }>
+                           WhatsApp
+                        </span>{" "}
+                        | {env.VERSION}
+                     </p>
+                  </footer>
+
+                  {/* Modal de RSVP para móviles */}
+                  {/* {isMobile && showRsvp && (
             <div className="fixed inset-0 bg-base-100 z-50 flex items-center justify-center p-4">
                <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -273,9 +295,10 @@ export default function App() {
             </div>
          )} */}
 
-               {/* Botón para volver arriba */}
-               <ScrollToTopButton />
-            </motion.header>
+                  {/* Botón para volver arriba */}
+                  <ScrollToTopButton />
+               </motion.header>
+            </>
          )}
       </>
    );

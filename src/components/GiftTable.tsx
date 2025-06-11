@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Gift } from "lucide-react";
 import Divider from "./Divider";
 
-const GiftTable = ({ giftRegistryUrl }) => {
+const GiftTable = ({ giftRegistryUrls }) => {
    return (
       <div className="max-w-4xl mx-auto">
          <motion.div
@@ -33,16 +33,25 @@ const GiftTable = ({ giftRegistryUrl }) => {
                obsequiarnos algo, hemos creado una mesa de regalos para
                facilitar tu elección.
             </p>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-               <button className="btn btn-primary rounded-full px-8 py-6">
-                  <a
-                     href={giftRegistryUrl}
-                     target="_blank"
-                     rel="noopener noreferrer">
-                     Ver Mesa de Regalos
-                  </a>
-               </button>
-            </motion.div>
+            <div className="flex justify-center">
+               {giftRegistryUrls.map(
+                  (item: { site: string; link: string | undefined }) => (
+                     <motion.div
+                        key={`key-${item.site}`}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}>
+                        <button className="btn btn-primary btn-outline rounded-full m-2">
+                           <a
+                              href={item.link}
+                              target="_blank"
+                              rel="noopener noreferrer">
+                              {item.site}
+                           </a>
+                        </button>
+                     </motion.div>
+                  ),
+               )}
+            </div>
          </motion.div>
       </div>
    );

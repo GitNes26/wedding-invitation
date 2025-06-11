@@ -1,3 +1,4 @@
+import logo from "../assets/images/logo.png";
 import hero from "../assets/images/bg-hero.jpg";
 import fondoInvitacion from "../assets/images/FondoInvitacion.png";
 import floral from "../assets/images/floral.jpg";
@@ -19,8 +20,10 @@ import camera from "../assets/images/camera.png";
 import music from "../assets/images/music.png";
 import vinyl from "../assets/images/vinyl.png";
 import arch from "../assets/images/arch.png";
+import coche from "../assets/images/coche-de-boda.png";
 
 const images = {
+   logo,
    hero,
    fondoInvitacion,
    floral,
@@ -42,5 +45,6 @@ const images = {
    music,
    vinyl,
    arch,
+   coche,
 };
 export default images;

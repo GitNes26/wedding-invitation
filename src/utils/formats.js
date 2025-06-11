@@ -614,6 +614,12 @@ export const detectOS = () => {
    return "Other";
 };
 
+export const getLinkWhatsApp = (phone, message) => {
+   const phoneNumber = `521${phone}`;
+   const messageEncode = encodeURIComponent(message);
+   return `https://wa.me/${phoneNumber}?text=${messageEncode}`;
+};
+
 // export const RenderJsonComponent = ({ jsonData }) => {
 //    return (
 //       <div>

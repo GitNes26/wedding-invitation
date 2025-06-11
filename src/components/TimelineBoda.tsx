@@ -7,7 +7,7 @@ import { useGlobalContext } from "../contexts/GlobalContext";
 import images from "../constants/images";
 import { image } from "motion/react-client";
 
-const TimelineBoda: React.FC = () => {
+const TimelineBoda = ({ weddingInfo }) => {
    // const { themeActive } = useGlobalContext();
 
    // Definir los eventos de la boda
@@ -49,40 +49,46 @@ const TimelineBoda: React.FC = () => {
          icono: images.weddingGramophone,
       },
       {
-         hora: "17:00",
+         hora: "21:50",
          titulo: "Baile del billete",
          subtitulo: "",
          icono: images.weddingGramophone,
       },
       {
-         hora: "17:00",
+         hora: "22:30",
          titulo: "Brindis",
          subtitulo: "de Honor",
          icono: images.brindis,
       },
       {
-         hora: "17:30",
+         hora: "22:40",
          titulo: "Cena",
          subtitulo: "Especial",
          icono: images.dinner,
       },
       {
-         hora: "18:00",
-         titulo: "Pastel",
-         subtitulo: "de Bodas",
-         icono: images.weddingCake,
-      },
-      {
-         hora: "18:30",
+         hora: "23:20",
          titulo: "¡A Bailar",
          subtitulo: "Todos!",
          icono: images.music,
       },
       {
-         hora: "18:00",
+         hora: "00:00",
+         titulo: "Pastel",
+         subtitulo: "de Bodas",
+         icono: images.weddingCake,
+      },
+      {
+         hora: "01:00",
          titulo: "Helado!",
          subtitulo: "",
          icono: images.icecream,
+      },
+      {
+         hora: "02:00",
+         titulo: "Fin",
+         subtitulo: "",
+         icono: images.coche,
       },
    ];
 
@@ -96,7 +102,7 @@ const TimelineBoda: React.FC = () => {
                viewport={{ once: true }}
                className="text-center mb-2">
                <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-2 text-primary">
-                  Eventos del Día
+                  Itinerario del Evento
                </h2>
                <motion.div
                   initial={{ opacity: 0, scale: 0, x: 50 }}
@@ -108,6 +114,15 @@ const TimelineBoda: React.FC = () => {
                   }}>
                   <Divider color="primary" />
                </motion.div>
+               <p className="font-marcellus italic leading-relaxed max-w-3xl mx-auto mb-2">
+                  ¿Lo mejor? ¡No necesitarás moverte de lugar! Hemos preparado
+                  todo en{" "}
+                  <span className="font-bold">
+                     {weddingInfo.place}, {weddingInfo.location}
+                  </span>{" "}
+                  para que disfrutes la velada sin complicaciones. Ceremonia,
+                  fiesta y sorpresas... ¡todo en el mismo sitio! .
+               </p>
             </motion.div>
 
             {/* Timeline horizontal */}

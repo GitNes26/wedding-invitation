@@ -45,7 +45,7 @@ export const GlobalContextProvider = ({ children }) => {
    const [themeActive, setThemeActive] = useState(theme);
    const [colorTableHeader, setColorTableHeader] = useState(false);
 
-   const [isLoading, setIsLoading] = useState(true);
+   const [isLoading, setIsLoading] = useState(false);
    const [cursorLoading, setCursorLoading] = useState(false);
    const [openDialog, setOpenDialog] = useState(false);
 

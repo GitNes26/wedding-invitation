@@ -39,7 +39,7 @@ export default function InvitationCard({
             className="absolute inset-0 overflow-hidden z-0">
             <img
                src={images.hero}
-               alt="Novio y Novia"
+               alt="Foto Principal"
                className="object-cover w-full h-full transition-all opacity-20 dark:opacity-50 "
             />
          </motion.div>
@@ -49,7 +49,7 @@ export default function InvitationCard({
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 1, duration: 0.8 }}>
-            <h1 className="font-dashing text-3xl md:text-9xl mb-4 text-secondary">
+            <h1 className="font-dashing text-7xl md:text-9xl mb-4 text-secondary">
                {bride} & {groom}
             </h1>
             {/* <h1 className="font-mayoritte text-3xl md:text-9xl mb-4 text-rose-800 dark:text-rose-300">
@@ -76,7 +76,7 @@ export default function InvitationCard({
             </p>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                <button
-                  className="btn bg-primary text-primary-content rounded-full px-8 py-6 text-lg"
+                  className="btn btn-primary rounded-full px-8 py-6 text-lg"
                   onClick={onConfirmClick}>
                   Confirmar Asistencia
                </button>
@@ -107,7 +107,7 @@ export default function InvitationCard({
          </motion.div>
 
          {/* <!-- Efecto de papel rasgado en la parte inferior --> */}
-         <div className="torn-paper-effect"></div>
+         {/* <div className="torn-paper-effect"></div> */}
       </motion.section>
    ) : (
       <motion.section
@@ -135,7 +135,7 @@ export default function InvitationCard({
             <div className="mt-8">
                <button
                   onClick={onConfirmClick}
-                  className="btn bg-primary text-primary-content px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105">
+                  className="btn btn-primary px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105">
                   Confirmar Asistencia
                </button>
             </div>

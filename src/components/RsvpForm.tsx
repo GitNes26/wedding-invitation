@@ -9,6 +9,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import InvitationPDF from "./InvitationPDF";
 import images from "../constants/images";
 import { useMobile } from "../hooks/useMobile";
+import { useGlobalContext } from "../contexts/GlobalContext";
 
 interface RsvpFormProps {
    weddingInfo: {
@@ -28,6 +29,8 @@ interface RsvpFormProps {
 }
 
 export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
+   const { setIsLoading } = useGlobalContext();
+
    const isMobile = useMobile();
 
    const [formData, setFormData] = useState({
@@ -61,6 +64,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
       const checkPhone = async () => {
          if (formData.phone.length < 10) return;
          try {
+            setIsLoading(true);
             setIsSubmitting(true);
             const res = await fetch(
                `${env.API_MACRO}?telefono=${formData.phone}&action=getGuest`,
@@ -78,10 +82,12 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                setMaxGuests(null);
             }
             setIsSubmitting(false);
+            setIsLoading(false);
          } catch {
             setErrorMsg("Error validando el teléfono.");
          } finally {
             setIsSubmitting(false);
+            setIsLoading(false);
          }
       };
       checkPhone();
@@ -96,6 +102,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
 
    const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
+      setIsLoading(true);
       setIsSubmitting(true);
       setErrorMsg("");
 
@@ -109,7 +116,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
          name: formData.name,
          phone: formData.phone,
          attendance: formData.attendance,
-         guests: formData.guests,
+         guests: formData.attendance == "no" ? 0 : formData.guests,
          message: formData.message,
       };
 
@@ -137,17 +144,20 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
          // console.log("🚀 ~ handleSubmit ~ data:", data);
          if (!data.success) {
             setErrorMsg(data.error);
+            setIsLoading(false);
             return;
          }
          setGuestCode(data.guestCode);
          setGuests(data.guests);
          setIsSubmitted(true);
+         setIsLoading(false);
          if (onComplete) setTimeout(onComplete, 2000);
       } catch (err) {
          console.error(err);
          setErrorMsg("No se pudo enviar el formulario");
       } finally {
          setIsSubmitting(false);
+         setIsLoading(false);
       }
    };
 
@@ -177,10 +187,10 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                <h3 className="text-xl font-marcellus font-bold mb-2 text-primary">
                   ¡Gracias por confirmar!
                </h3>
-               <p className="font-marcellus text-primary/85">
+               <p className="font-marcellus text-primary/90">
                   {formData.attendance == "yes"
-                     ? "Hemos recibido tu respuesta. Nos vemos en nuestra boda, no olvides descargar tu invitación y presentarla en recepción para accesar."
-                     : "Es una pena enterarnos de que no podrás asistir."}
+                     ? "¡Confirmación recibida! Estamos emocionados de contar con tu presencia. No olvides descargar y llevar contigo la invitación digital al evento."
+                     : "Lamentamos saber que no podrás acompañarnos, pero agradecemos que nos lo hayas hecho saber."}
                </p>
                <motion.div
                   initial={{ opacity: 0, scale: 0, x: 50 }}
@@ -208,7 +218,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                            weddingInfo={weddingInfo}
                            qrValue={guestCode}
                            guests={guests}
-                           table={table}
+                           table={formData.attendance == "no" ? 0 : table}
                            backgroundImage={images.fondoInvitacion}
                         />
                      }
@@ -262,8 +272,8 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                .
             </p>
             <small className="font-marcellus text-xs">
-               Al no enviar tu respuesta a tiempo, se considerará que hubo un
-               inconveniente para asistir.
+               Si no recibimos tu confirmación, asumiremos que surgió algún
+               imprevisto que te impedirá acompañarnos.
             </small>
          </motion.div>
          <motion.div
@@ -408,7 +418,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                                  value={formData.name}
                                  onChange={handleChange}
                                  disabled={true}
-                                 placeholder="Escribe tu nombre aquí"
+                                 placeholder="Invitado..."
                               />
                            </div>
 
@@ -492,7 +502,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                                     <div className="form-control">
                                        <label className="label">
                                           <span className="label-text font-bold mr-2 mb-1">
-                                             👥 Número de personas
+                                             👥 Número de pases
                                           </span>
                                        </label>
                                        <div className="flex items-center gap-2">
@@ -510,7 +520,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                                              onChange={handleChange}
                                              disabled={!authorized}
                                           />
-                                          <span className="mr-2">personas</span>
+                                          <span className="mr-2">pases</span>
                                           <div
                                              className="tooltip"
                                              data-tip="Máximo de pases (incluyendote)">

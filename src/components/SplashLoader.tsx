@@ -46,7 +46,7 @@ export default function SplashLoader({
                   className="absolute inset-0 overflow-hidden z-0">
                   <img
                      src={images.fondoInvitacion}
-                     alt="Novio y Novia"
+                     alt="Imagen Splash"
                      className="object-cover w-full h-full transition-all"
                   />
                </motion.div>
@@ -117,7 +117,7 @@ export default function SplashLoader({
                      whileTap={{ scale: 0.95 }}
                      className="">
                      <button
-                        className="btn bg-primary text-primary-content font-marcellus rounded-full px-8 py-6 text-lg "
+                        className="btn btn-primary font-marcellus rounded-full px-8 py-6 text-lg "
                         onClick={() => {
                            setShow(false);
                            setIsPlaying(true);

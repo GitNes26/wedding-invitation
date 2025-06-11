@@ -79,7 +79,7 @@ export default function WeddingInvitation() {
    const googleMapsUrl = "https://maps.app.goo.gl/oX2AEVkygjnscaXo9";
 
    // Crear enlace para mesa de regalos
-   const giftRegistryUrl = "https://www.amazon.com.mx/wedding/registry";
+   const giftRegistryUrls = "https://www.amazon.com.mx/wedding/registry";
 
    return (
       <div
@@ -465,7 +465,7 @@ export default function WeddingInvitation() {
                      whileTap={{ scale: 0.95 }}>
                      <button className="btn bg-rose-600 hover:bg-rose-700 text-white rounded-full px-8 py-6">
                         <a
-                           href={giftRegistryUrl}
+                           href={giftRegistryUrls}
                            target="_blank"
                            rel="noopener noreferrer">
                            Ver Mesa de Regalos

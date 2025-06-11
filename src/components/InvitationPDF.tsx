@@ -64,7 +64,14 @@ const styles = StyleSheet.create({
    },
    text: {
       fontSize: 14,
-      margin: 5,
+      margin: 2,
+      color: "#fff",
+      fontFamily: "TTDrugsTrialBold", // Fuente por defecto
+   },
+   textBold: {
+      fontSize: 14,
+      margin: 2,
+      color: "#fff",
    },
    textMuted: {
       fontSize: 10,
@@ -169,7 +176,7 @@ const InvitationPDF = ({
                      ${weddingInfo.weddingPlace}, ${weddingInfo.location}
                   </Link> */}
                   {/* Mostrar el QR como imagen */}
-                  {/* {qrValue && <Image src={qrValue} style={styles.qr} />} */}
+                  <Text style={styles.textBold}>{name}</Text>
                   <PDFQRCode value={qrValue} />
                   <Text style={styles.textMuted}>
                      Pase para: <Text style={styles.bold}>{guests}</Text>{" "}
