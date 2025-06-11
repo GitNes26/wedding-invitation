@@ -19,7 +19,7 @@ const DetailsEvent = ({
 
    return (
       <>
-         <motion.div
+         {/* <motion.div
             initial={{ opacity: 0, scale: 0 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: "easeInOut" }}
@@ -29,7 +29,7 @@ const DetailsEvent = ({
                alt="Hacienda Elegancia"
                className="absolute object-center opacity-25 w-full -mt-20 left-0 right-0"
             />
-         </motion.div>
+         </motion.div> */}
          <div className="max-w-4xl mx-auto relative">
             <motion.div
                initial={{ opacity: 0, y: 50 }}

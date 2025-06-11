@@ -24,7 +24,7 @@ const LinkServiceOptions = ({
       <>
          {/* Open the modal using document.getElementById('ID').showModal() method */}
          <button
-            className="btn rounded-full btn-primary"
+            className="btn btn-outline rounded-full btn-primary"
             onClick={() =>
                document.getElementById(`my_modal_2_${type}`).showModal()
             }>
