@@ -2,15 +2,21 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Gift } from "lucide-react";
 import Divider from "./Divider";
+import { useMobile } from "../hooks/useMobile";
 
 const GiftTable = ({ giftRegistryUrls }) => {
+   const isMobile = useMobile();
+
    return (
       <div className="max-w-4xl mx-auto">
          <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+            viewport={{
+               once: false,
+               margin: isMobile ? "0px" : "-25% 0px",
+            }}
             className="text-center">
             <div className="flex justify-center mb-4">
                <Gift className="h-12 w-12 text-primary/75" />

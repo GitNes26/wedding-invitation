@@ -47,7 +47,7 @@ const LoveHistory = ({}) => {
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, margin: "-25% 0px" }}
             className="text-center mb-16">
             <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-2 text-primary">
                Nuestra Historia de Amor
@@ -78,7 +78,10 @@ const LoveHistory = ({}) => {
                initial={{ opacity: 0, x: -50 }}
                whileInView={{ opacity: 1, x: 0 }}
                transition={{ duration: 0.6, delay: 0.1 }}
-               viewport={{ once: true }}>
+               viewport={{
+                  once: false,
+                  margin: isMobile ? "0px" : "-25% 0px",
+               }}>
                <div className="card overflow-hidden backdrop-blur-sm border-none shadow-lg">
                   <div className="aspect-square relative">
                      <img
@@ -102,7 +105,10 @@ const LoveHistory = ({}) => {
                initial={{ opacity: 0, y: 50 }}
                whileInView={{ opacity: 1, y: 0 }}
                transition={{ duration: 0.6, delay: 0.3 }}
-               viewport={{ once: true }}>
+               viewport={{
+                  once: false,
+                  margin: isMobile ? "0px" : "-25% 0px",
+               }}>
                <div className="card overflow-hidden bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-none shadow-lg">
                   <div className="aspect-square relative">
                      <img
@@ -126,7 +132,10 @@ const LoveHistory = ({}) => {
                initial={{ opacity: 0, x: 50 }}
                whileInView={{ opacity: 1, x: 0 }}
                transition={{ duration: 0.6, delay: 0.5 }}
-               viewport={{ once: true }}>
+               viewport={{
+                  once: false,
+                  margin: isMobile ? "0px" : "-25% 0px",
+               }}>
                <div className="card overflow-hidden bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-none shadow-lg">
                   <div className="aspect-square relative">
                      <img
@@ -156,10 +165,12 @@ const LoveHistory = ({}) => {
                {historiaEvents.map((evento, index) => (
                   <motion.div
                      key={`motion-event-item-${index}`}
-                     initial={{ opacity: 0, y: -50 }}
-                     whileInView={{ opacity: 1, y: 0 }}
+                     initial={{ opacity: 0, scale: 0, y: -50 }}
+                     whileInView={{ opacity: 1, scale: 1, y: 0 }}
                      transition={{ duration: 0.6, delay: 0.25 }}
-                     viewport={{ once: true }}>
+                     viewport={{
+                        once: false,
+                     }}>
                      <div
                         className={`flex flex-col md:flex-row items-center ${
                            index % 2 === 0

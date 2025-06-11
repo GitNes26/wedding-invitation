@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { formatDatetime } from "../utils/formats";
 import { useMobile } from "../hooks/useMobile";
+import { motion } from "framer-motion";
 
 interface CountdownTimerProps {
    targetDate: Date;

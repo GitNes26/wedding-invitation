@@ -22,6 +22,8 @@ import vinyl from "../assets/images/vinyl.png";
 import arch from "../assets/images/arch.png";
 import coche from "../assets/images/coche-de-boda.png";
 
+import haciendaElegancia from "../assets/images/HaciendaElegancia.jpg";
+
 const images = {
    logo,
    hero,
@@ -46,5 +48,6 @@ const images = {
    vinyl,
    arch,
    coche,
+   haciendaElegancia,
 };
 export default images;

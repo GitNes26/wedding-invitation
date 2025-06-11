@@ -30,7 +30,6 @@ interface RsvpFormProps {
 
 export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
    const { setIsLoading } = useGlobalContext();
-
    const isMobile = useMobile();
 
    const [formData, setFormData] = useState({
@@ -280,7 +279,10 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
-            viewport={{ once: true }}>
+            viewport={{
+               once: false,
+               margin: isMobile ? "0px" : "-25% 0px",
+            }}>
             <div className="relative max-w-6xl mx-auto">
                {/* Contenedor principal del boleto horizontal */}
                <div className="ticket-horizontal relative bg-gradient-to-r from-base-100 via-base-50 to-base-100 shadow-2xl overflow-hidden">
@@ -370,7 +372,10 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                               whileInView={{ opacity: 1, scale: 1 }}
                               transition={{ duration: 0.6 }}
                               exit={{ opacity: 0, scale: 0 }}
-                              viewport={{ once: true }}
+                              viewport={{
+                                 once: false,
+                                 margin: isMobile ? "0px" : "-25% 0px",
+                              }}
                               className="alert alert-error alert-sm font-bold py-2 my-3">
                               <span className="mr-2">⚠️ {errorMsg}</span>
                            </motion.div>
@@ -580,7 +585,10 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                               whileInView={{ opacity: 1, scale: 1 }}
                               transition={{ duration: 0.6 }}
                               exit={{ opacity: 0, scale: 0 }}
-                              viewport={{ once: true }}
+                              viewport={{
+                                 once: false,
+                                 margin: isMobile ? "0px" : "-25% 0px",
+                              }}
                               className="alert alert-error alert-sm font-bold py-2 my-3">
                               <span className="mr-2">⚠️ {errorMsg}</span>
                            </motion.div>

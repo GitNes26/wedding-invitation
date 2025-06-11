@@ -4,9 +4,12 @@ import { Shirt } from "lucide-react";
 import Divider from "./Divider";
 import images from "../constants/images";
 import { useGlobalContext } from "../contexts/GlobalContext";
+import { useMobile } from "../hooks/useMobile";
 
 const DressCode = ({}) => {
    const { themeActive } = useGlobalContext();
+      const isMobile = useMobile();
+
 
    // Definir los colores recomendados
    const coloresRecomendados = [
@@ -31,7 +34,10 @@ const DressCode = ({}) => {
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+            viewport={{
+               once: false,
+               margin: isMobile ? "0px" : "-25% 0px",
+            }}
             className="text-center">
             <div className="flex justify-center mb-4">
                <Shirt className="h-12 w-12 text-primary/75" />
@@ -62,7 +68,10 @@ const DressCode = ({}) => {
                initial={{ opacity: 0, x: -50 }}
                whileInView={{ opacity: 1, x: 0 }}
                transition={{ duration: 0.6, delay: 0.1 }}
-               viewport={{ once: true }}
+               viewport={{
+                  once: false,
+                  margin: isMobile ? "0px" : "-25% 0px",
+               }}
                className="text-center">
                <div className="text-center">
                   <div className="flex justify-center mb-4">
@@ -89,7 +98,10 @@ const DressCode = ({}) => {
                initial={{ opacity: 0, x: 50 }}
                whileInView={{ opacity: 1, x: 0 }}
                transition={{ duration: 0.6, delay: 0.5 }}
-               viewport={{ once: true }}
+               viewport={{
+                  once: false,
+                  margin: isMobile ? "0px" : "-25% 0px",
+               }}
                className="text-center">
                <div className="text-center">
                   <div className="flex justify-center mb-4">
@@ -118,7 +130,10 @@ const DressCode = ({}) => {
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}>
+            viewport={{
+               once: false,
+               margin: isMobile ? "0px" : "-25% 0px",
+            }}>
             <div className="mb-10">
                <h3 className="text-xl font-medium font-marcellus text-center mb-6">
                   Colores Recomendados
@@ -150,7 +165,10 @@ const DressCode = ({}) => {
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}>
+            viewport={{
+                        once: false,
+                        margin: isMobile ? "0px" : "-25% 0px",
+                     }}>
             <div>
                <h3 className="text-xl font-medium text-center mb-6">
                   Colores a Evitar
@@ -184,7 +202,10 @@ const DressCode = ({}) => {
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}>
+            viewport={{
+                        once: false,
+                        margin: isMobile ? "0px" : "-25% 0px",
+                     }}>
             <div className="mt-10 text-center">
                <div className="alert bg-primary/10 max-w-lg mx-auto">
                   <i className="fa-solid fa-circle-info text-primary"></i>

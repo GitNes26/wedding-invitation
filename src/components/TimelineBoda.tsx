@@ -6,9 +6,11 @@ import Divider from "./Divider";
 import { useGlobalContext } from "../contexts/GlobalContext";
 import images from "../constants/images";
 import { image } from "motion/react-client";
+import { useMobile } from "../hooks/useMobile";
 
 const TimelineBoda = ({ weddingInfo }) => {
    // const { themeActive } = useGlobalContext();
+   const isMobile = useMobile();
 
    // Definir los eventos de la boda
    const eventos = [
@@ -99,7 +101,10 @@ const TimelineBoda = ({ weddingInfo }) => {
                initial={{ opacity: 0, y: 50 }}
                whileInView={{ opacity: 1, y: 0 }}
                transition={{ duration: 0.8 }}
-               viewport={{ once: true }}
+               viewport={{
+                  once: false,
+                  margin: isMobile ? "0px" : "-25% 0px",
+               }}
                className="text-center mb-2">
                <h2 className="font-marcellus font-black text-2xl md:text-4xl mb-2 text-primary">
                   Itinerario del Evento
@@ -168,7 +173,10 @@ const TimelineBoda = ({ weddingInfo }) => {
                               delay: index * 0.35,
                               easings: [easeInOut],
                            }}
-                           viewport={{ once: true }}
+                           viewport={{
+                              once: false,
+                              margin: isMobile ? "0px" : "-25% 0px",
+                           }}
                            className="flex flex-col items-center text-center w-24 md:w-32 px-3 transition-all ease-in-out hover:duration-300 hover:-translate-y-2">
                            {/* Icono */}
                            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white border-primary border-2 flex items-center justify-center mb-4 shadow-sm">
@@ -216,14 +224,6 @@ const TimelineBoda = ({ weddingInfo }) => {
                </p>
             </div>
          </div>
-
-         {/* <style jsx>{`
-            @media (max-width: 768px) {
-               .min-w-[800px] {
-                  min-width: 600px;
-               }
-            }
-         `}</style> */}
       </>
    );
 };
