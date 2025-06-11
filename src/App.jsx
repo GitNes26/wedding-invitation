@@ -20,6 +20,7 @@ import InvitationCard from "./components/InvitationCard";
 import Considerations from "./components/Considerations";
 import { useGlobalContext } from "./contexts/GlobalContext";
 import SplashLoader from "./components/SplashLoader";
+import env from "./constants/env";
 
 export default function App() {
    // const { theme, setTheme } = useTheme();
@@ -231,7 +232,8 @@ export default function App() {
                      {girlfriend} & {boyfriend}
                   </h2>
                   <p className="text-sm font-marcellus">
-                     &copy; {new Date().getFullYear()} | Diseñado con ♥
+                     &copy; {new Date().getFullYear()} | Diseñado con ♥ |{" "}
+                     {env.VERSION}
                   </p>
                </footer>
 

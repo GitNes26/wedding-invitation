@@ -1,8 +1,11 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Divider from "./Divider";
+import { useMobile } from "../hooks/useMobile";
 
 const LoveHistory = ({}) => {
+   const isMobile = useMobile();
+
    // Definir los eventos de la historia de amor
    const historiaEvents = [
       {
@@ -169,13 +172,14 @@ const LoveHistory = ({}) => {
                                  ? "md:text-right md:pr-8"
                                  : "md:text-left md:pl-8"
                            } mb-6 md:mb-0`}>
-                           <h3 className="text-3xl font-mayoritte text-[#e5b168] mb-1">
+                           <h3
+                              className={`text-3xl font-mayoritte text-[#e5b168] bg-base-200 md:bg-transparent`}>
                               {evento.titulo}
                            </h3>
-                           <p className="font-anodina-regular text-primary/80 mb-3">
+                           <p className="font-anodina-regular text-primary/80 mb-3 bg-base-200 md:bg-transparent">
                               {evento.fecha}
                            </p>
-                           <p className="font-marcellus italic text-base-content leading-relaxed opacity-80">
+                           <p className="font-marcellus italic text-base-content leading-relaxed opacity-80 bg-base-200 md:bg-transparent">
                               {evento.descripcion}
                            </p>
                         </div>

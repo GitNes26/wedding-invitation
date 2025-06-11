@@ -38,10 +38,8 @@ const LinkServiceOptions = ({
                      <button
                         className="btn btn-outline rounded-full btn-secondary mx-1"
                         key={name}
-                        fullWidth
                         onClick={() => {
                            window.open(link, "_blank");
-                           setShowDialog(false);
                         }}
                         sx={{ mb: 1 }}>
                         {name}

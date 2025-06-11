@@ -10,6 +10,7 @@ import {
    Image,
    Svg,
    Rect,
+   Link,
 } from "@react-pdf/renderer";
 import { formatDatetime } from "../utils/formats";
 // import { QRCode } from "react-qrcode";
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
    qrContainer: {
       position: "absolute",
       top: 370,
-      left: 110,
+      left: 120,
       alignItems: "center",
    },
    qr: {
@@ -85,14 +86,18 @@ const styles = StyleSheet.create({
 });
 
 // Componente QRCode con SVG nativo
-const PDFQRCode = ({ value, size = 90 }: { value: string; size?: number }) => {
+const PDFQRCode = ({ value, size = 110 }: { value: string; size?: number }) => {
    // Esta es una implementación simplificada. En producción, usa una librería para generar el patrón QR real
    const qrData = generateQRMatrix(value); // Función que convierte el texto en matriz QR
 
    const cellSize = size / qrData.length;
 
    return (
-      <Svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+      <Svg
+         width={size}
+         height={size}
+         viewBox={`0 0 ${size} ${size}`}
+         opacity={0.8}>
          {qrData.map((row, y) =>
             row.map((cell, x) => (
                <Rect
@@ -128,72 +133,6 @@ function generateQRMatrix(text: string): number[][] {
    return matrix;
 }
 
-// export const generateQRValue = async (text: string) => {
-//    try {
-//       return await QRCode.toDataURL(text, {
-//          width: 100, //400
-//          margin: 2,
-//          color: {
-//             dark: "#000000", // Puntos oscuros
-//             light: "#b28121", // Fondo
-//          },
-//       });
-//    } catch (error) {
-//       console.error("Error generando QR:", error);
-//       return "";
-//    }
-// };
-
-// Componente del documento PDF
-// export const generatePDFInvitation = async (
-//    formData: { phone: string; name: string },
-//    weddingInfo: {
-//       bride: string;
-//       groom: string;
-//       date: string;
-//       time: string;
-//       fullDate: string;
-//       theDate: Date;
-//       place: string;
-//       location: string;
-//       calendarUrl: string;
-//       mapsUrl: string;
-//       giftTable: string;
-//    },
-//    backgroundImagePath: string,
-//    guestCode: string,
-//    guests: number,
-//    table: number,
-// ) => {
-//    try {
-//       const qrValue = await generateQRValue(guestCode);
-
-//       // Descargar el PDF
-//       const blob = await pdf(
-//          <InvitationPDF
-//             backgroundImage={backgroundImagePath}
-//             name={formData.name}
-//             weddingInfo={weddingInfo}
-//             qrValue={qrValue}
-//             guests={guests}
-//             table={table}
-//          />,
-//       ).toBlob();
-
-//       const url = URL.createObjectURL(blob);
-//       const link = document.createElement("a");
-//       link.href = url;
-//       link.download = `Invitacion_${formData.name}.pdf`;
-//       document.body.appendChild(link);
-//       link.click();
-//       document.body.removeChild(link);
-//       URL.revokeObjectURL(url);
-//    } catch (error) {
-//       console.error("Error generando PDF:", error);
-//       alert("Ocurrió un error al generar el PDF");
-//    }
-// };
-
 const InvitationPDF = ({
    backgroundImage,
    name,
@@ -226,6 +165,9 @@ const InvitationPDF = ({
                   preséntalo el día del evento.
                </Text>*/}
                <View style={styles.qrContainer}>
+                  {/* <Link href={weddingInfo.mapsUrl}>
+                     ${weddingInfo.weddingPlace}, ${weddingInfo.location}
+                  </Link> */}
                   {/* Mostrar el QR como imagen */}
                   {/* {qrValue && <Image src={qrValue} style={styles.qr} />} */}
                   <PDFQRCode value={qrValue} />
@@ -234,7 +176,7 @@ const InvitationPDF = ({
                      personas
                   </Text>
                   <Text style={styles.textMuted}>
-                     Mesa: <Text style={styles.bold}>{table}</Text>
+                     N° Mesa: <Text style={styles.bold}>{table}</Text>
                   </Text>
                </View>
             </View>

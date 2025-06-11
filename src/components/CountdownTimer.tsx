@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { formatDatetime } from "../utils/formats";
+import { useMobile } from "../hooks/useMobile";
 
 interface CountdownTimerProps {
    targetDate: Date;
@@ -18,6 +19,7 @@ export default function CountdownTimer({
       minutes: 0,
       seconds: 0,
    });
+   const isMobile = useMobile();
 
    useEffect(() => {
       const calculateTimeLeft = () => {
@@ -48,7 +50,10 @@ export default function CountdownTimer({
    // Estilos condicionales basados en si es sticky o no
    // bg-[#f8f5f2]/90 dark:bg-slate-900/90
    const containerClasses = isSticky
-      ? "bg-base-300 p-3 rounded-lg shadow-lg backdrop-blur-sm"
+      ? `bg-base-300 p-3 rounded-lg shadow-lg backdrop-blur-sm ${
+           isMobile &&
+           "opacity-35 active:opacity-100 hover:opacity-100 transition-opacity"
+        }`
       : "";
 
    const titleClasses = isSticky //bg-neutral rounded-sm
@@ -56,15 +61,15 @@ export default function CountdownTimer({
       : "font-anodina-bold text-2xl text-center text-primary font-medium mb-4";
 
    const numberClasses = isSticky
-      ? "text-2xl font-anodina-bold text-primary"
-      : "text-5xl font-anodina-extrabold text-primary";
+      ? "sm:text-sm md:text-2xl font-anodina-bold text-primary"
+      : "text-4xl md:text-7xl font-anodina-extrabold text-primary";
 
    const labelClasses = isSticky
       ? "font-anodina-regular text-[10px] text-primary"
-      : "font-anodina-light text-xs text-primary";
+      : "font-anodina-light text-primary";
 
    const gridClasses = isSticky
-      ? "grid grid-cols-4 gap-1 text-center"
+      ? `grid ${isMobile ? "grid-rows-4" : "grid-cols-4"} gap-1 text-center`
       : "grid grid-cols-4 gap-2 text-center";
 
    return (
