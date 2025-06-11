@@ -189,7 +189,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                </h3>
                <p className="font-marcellus text-primary/90">
                   {formData.attendance == "yes"
-                     ? "¡Confirmación recibida! Estamos emocionados de contar con tu presencia. No olvides descargar y llevar contigo la invitación digital al evento."
+                     ? "Estamos emocionados de contar con tu presencia. No olvides descargar y llevar contigo la invitación digital al evento."
                      : "Lamentamos saber que no podrás acompañarnos, pero agradecemos que nos lo hayas hecho saber."}
                </p>
                <motion.div

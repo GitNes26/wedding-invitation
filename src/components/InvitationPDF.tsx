@@ -78,11 +78,24 @@ const styles = StyleSheet.create({
       margin: 1,
       color: "#fff",
    },
+   textContainer: {
+      display: "flex",
+      justifyContent: "center", // Centrado horizontal
+      // position: "absolute", // Necesario para el hijo absoluto
+      alignItems: "center", // Opcional: si usas flexbox dentro
+      top: 370 + 100,
+      // left: "50%", // Punto de partida al 50% del padre
+      // transform: "translateX(-50%)", // Retrocede el 50% de su propio ancho
+   },
    qrContainer: {
+      display: "flex",
+      justifyContent: "center", // Centrado horizontal
       position: "absolute",
       top: 370,
-      left: 120,
-      alignItems: "center",
+      left: "50%", // Punto de partida al 50% del padre
+      transform: "translateX(-50%)", // Retrocede el 50% de su propio ancho
+      // alignItems: "center", // Opcional: si usas flexbox dentro
+      // // width: "auto" // Opcional: si necesitas límite de ancho
    },
    qr: {
       width: 128,
@@ -176,8 +189,12 @@ const InvitationPDF = ({
                      ${weddingInfo.weddingPlace}, ${weddingInfo.location}
                   </Link> */}
                   {/* Mostrar el QR como imagen */}
-                  <Text style={styles.textBold}>{name}</Text>
                   <PDFQRCode value={qrValue} />
+               </View>
+               <View style={styles.textContainer}>
+                  <Text style={styles.textMuted}>
+                     <Text style={styles.bold}>{name}</Text>
+                  </Text>
                   <Text style={styles.textMuted}>
                      Pase para: <Text style={styles.bold}>{guests}</Text>{" "}
                      personas
