@@ -1,7 +1,12 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import {
+   motion,
+   AnimatePresence,
+   useScroll,
+   useTransform,
+} from "framer-motion";
 import AudioPlayer from "./components/AudioPlayer";
 import ThemeChanger from "./components/ThemeChanger";
 import CountdownTimer from "./components/CountdownTimer";
@@ -26,6 +31,44 @@ import PhotosThrown from "./components/PhotosThrown";
 import images from "./constants/images";
 
 export default function App() {
+   //#region SCROLL DENSO
+   // const containerRef = useRef(null);
+   // // 1. Obtenemos el progreso del scroll (0 a 1)
+   // const { scrollYProgress } = useScroll({
+   //    container: containerRef, // Contenedor personalizado
+   // });
+
+   // // 2. Aplicamos una transformación no lineal para hacerlo más lento
+   // const denseScroll = useTransform(
+   //    scrollYProgress,
+   //    [0, 1], // Rango de entrada
+   //    [0, 1], // Rango de salida
+   //    { clamp: false }, // Permite valores fuera del rango
+   // );
+
+   // // 3. Mapeamos a un desplazamiento "más lento"
+   // const y = useTransform(denseScroll, [0, 1], ["0%", "-50%"]);
+
+   //OPCION 2
+   // const containerRef = useRef(null);
+   // const contentRef = useRef(null);
+
+   // useEffect(() => {
+   //    const container = containerRef.current;
+   //    const content = contentRef.current;
+
+   //    const handleScroll = () => {
+   //       console.log("🚀 ~ handleScroll ~ handleScroll:");
+   //       const scrollY = container.scrollTop;
+   //       // Ajusta la velocidad (0.5 = 50% más lento)
+   //       content.style.transform = `translateY(${scrollY * 0.5}px)`;
+   //    };
+
+   //    container?.addEventListener("scroll", handleScroll);
+   //    return () => container?.removeEventListener("scroll", handleScroll);
+   // }, []);
+   //#endregion SCROLL DENSO
+
    // const { theme, setTheme } = useTheme();
    const { themeActive } = useGlobalContext();
 
@@ -141,11 +184,45 @@ export default function App() {
          src: images.heroWallpaper,
          alt: "Concierto favorito",
       },
+      { src: images.heroWallpaper, alt: "Viaje a París" },
+      {
+         src: images.haciendaElegancia,
+         alt: "Cumpleaños juntos",
+      },
+      {
+         src: images.fondoInvitacion,
+         alt: "Navidad en familia",
+      },
+      { src: images.hero, alt: "Día de lluvia" },
+      {
+         src: images.heroWallpaper,
+         alt: "Atardecer perfecto",
+      },
+      {
+         src: images.haciendaElegancia,
+         alt: "Picnic en el parque",
+      },
+      {
+         src: images.fondoInvitacion,
+         alt: "Concierto favorito",
+      },
+      {
+         src: images.hero,
+         alt: "Picnic en el parque",
+      },
+      {
+         src: images.heroWallpaper,
+         alt: "Concierto favorito",
+      },
       // Puedes añadir tantas como quieras...
    ];
-
    // Textos personalizados
    const customTexts = [
+      {
+         text: `🎵Y así te fui queriendo a diario Sin una ley sin un horario🎶`,
+         position: { x: 40, y: 10 },
+         delay: 0.1,
+      },
       {
          text: "Cada foto cuenta nuestra historia",
          position: { x: 80, y: 20 },
@@ -154,12 +231,12 @@ export default function App() {
       {
          text: "Momentos que atesoramos para siempre",
          position: { x: 20, y: 50 },
-         delay: 0.45,
+         delay: 0.3,
       },
       {
          text: "Cada foto es un latido de nuestro corazón",
          position: { x: 10, y: 10 },
-         delay: 0.1,
+         delay: 0.4,
       },
       {
          text: "Momentos que se vuelven eternos",
@@ -169,12 +246,12 @@ export default function App() {
       {
          text: "Nuestra historia de amor en imágenes",
          position: { x: 70, y: 85 },
-         delay: 0.09,
+         delay: 0.6,
       },
       {
          text: "Amor capturado en cada imagen",
          position: { x: 60, y: 45 },
-         delay: 0.55,
+         delay: 0.7,
       },
    ];
 
@@ -200,13 +277,23 @@ export default function App() {
 
          {!showSplash && (
             <>
+               {/* <div ref={containerRef} className="dense-scroll-container">
+                  <div ref={contentRef} className="dense-content"> */}
                <Loading open={isLoading} animation="bounce" />
+               {/* <div
+                  ref={containerRef}
+                  style={{
+                     height: "100vh",
+                     overflow: "auto",
+                     scrollBehavior: "smooth",
+                  }}> */}
                <motion.header
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 1.5, ease: "easeInOut" }}
                   // exit={{ translateY: -100, scale: 0, opacity: 0 }}>
                   ref={mainRef}
+                  // style={{ y }}
                   className="min-h-screen bg-gradient-to-b from-base-200 to-base-300 transition-colors duration-500 relative">
                   {/* <!-- Elementos decorativos laterales --> */}
                   {/* <div className="decorative-element top-left"></div>
@@ -366,6 +453,9 @@ export default function App() {
                   {/* Botón para volver arriba */}
                   <ScrollToTopButton />
                </motion.header>
+               {/* </div> */}
+               {/* </div>
+               </div> */}
             </>
          )}
       </>
