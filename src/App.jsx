@@ -22,6 +22,8 @@ import { useGlobalContext } from "./contexts/GlobalContext";
 import SplashLoader from "./components/SplashLoader";
 import env from "./constants/env";
 import Loading from "./components/Loading";
+import PhotosThrown from "./components/PhotosThrown";
+import images from "./constants/images";
 
 export default function App() {
    // const { theme, setTheme } = useTheme();
@@ -102,6 +104,80 @@ export default function App() {
       giftTable: giftRegistryUrls,
    };
 
+   const photos = [
+      {
+         src: images.haciendaElegancia,
+         alt: "Nuestra primera cita",
+      },
+      { src: images.fondoInvitacion, alt: "Día en la playa" },
+      { src: images.hero, alt: "Cena romántica" },
+      { src: images.heroWallpaper, alt: "Viaje a París" },
+      {
+         src: images.haciendaElegancia,
+         alt: "Cumpleaños juntos",
+      },
+      {
+         src: images.fondoInvitacion,
+         alt: "Navidad en familia",
+      },
+      { src: images.hero, alt: "Día de lluvia" },
+      {
+         src: images.heroWallpaper,
+         alt: "Atardecer perfecto",
+      },
+      {
+         src: images.haciendaElegancia,
+         alt: "Picnic en el parque",
+      },
+      {
+         src: images.fondoInvitacion,
+         alt: "Concierto favorito",
+      },
+      {
+         src: images.hero,
+         alt: "Picnic en el parque",
+      },
+      {
+         src: images.heroWallpaper,
+         alt: "Concierto favorito",
+      },
+      // Puedes añadir tantas como quieras...
+   ];
+
+   // Textos personalizados
+   const customTexts = [
+      {
+         text: "Cada foto cuenta nuestra historia",
+         position: { x: 80, y: 20 },
+         delay: 0.2,
+      },
+      {
+         text: "Momentos que atesoramos para siempre",
+         position: { x: 20, y: 50 },
+         delay: 0.45,
+      },
+      {
+         text: "Cada foto es un latido de nuestro corazón",
+         position: { x: 10, y: 10 },
+         delay: 0.1,
+      },
+      {
+         text: "Momentos que se vuelven eternos",
+         position: { x: 20, y: 90 },
+         delay: 0.5,
+      },
+      {
+         text: "Nuestra historia de amor en imágenes",
+         position: { x: 70, y: 85 },
+         delay: 0.09,
+      },
+      {
+         text: "Amor capturado en cada imagen",
+         position: { x: 60, y: 45 },
+         delay: 0.55,
+      },
+   ];
+
    const handleClickConfirm = () => {
       setShowRsvp(true);
       setTimeout(() => {
@@ -131,14 +207,14 @@ export default function App() {
                   transition={{ duration: 1.5, ease: "easeInOut" }}
                   // exit={{ translateY: -100, scale: 0, opacity: 0 }}>
                   ref={mainRef}
-                  className="min-h-screen bg-gradient-to-b from-base-200 to-base-300 transition-colors duration-500 relative overflow-hidden">
+                  className="min-h-screen bg-gradient-to-b from-base-200 to-base-300 transition-colors duration-500 relative">
                   {/* <!-- Elementos decorativos laterales --> */}
                   {/* <div className="decorative-element top-left"></div>
-         <div className="decorative-element top-right"></div>
-         <div className="decorative-element middle-left"></div>
-         <div className="decorative-element middle-right"></div>
-         <div className="decorative-element bottom-left"></div>
-         <div className="decorative-element bottom-right"></div> */}
+                  <div className="decorative-element top-right"></div>
+                  <div className="decorative-element middle-left"></div>
+                  <div className="decorative-element middle-right"></div>
+                  <div className="decorative-element bottom-left"></div>
+                  <div className="decorative-element bottom-right"></div> */}
 
                   {/* Botones flotantes */}
                   <div className="fixed top-4 right-4 z-50 flex gap-2">
@@ -195,9 +271,34 @@ export default function App() {
                   </section>
 
                   {/* Sección de historia */}
-                  <section className="py-20 px-6 relative">
+                  {/* <section className="py-20 px-6 relative">
                      <LoveHistory />
-                  </section>
+                  </section> */}
+
+                  {/* Sección de Fotografias */}
+                  {/* <section className="py-20 px-6 relative"> */}
+                  {/* <PhotosThrown /> */}
+                  {/* Sección dinámica de fotos aventadas */}
+                  <PhotosThrown
+                     photos={photos}
+                     title="Aventando Nuestros Recuerdos"
+                     subtitle={`${photos.length} momentos especiales volando hacia la mesa`}
+                     sectionHeight="auto" // Se calcula automáticamente basado en número de fotos
+                     animationSpeed={0.04} // Más rápido para muchas fotos
+                     photoSizes={{
+                        minWidth: 100,
+                        maxWidth: 180,
+                        minHeight: 100,
+                        maxHeight: 200,
+                     }}
+                     floatingTexts={customTexts}
+                     finalMessage={{
+                        title: "Mesa Completa de Amor",
+                        description: `${photos.length} fotografías esparcidas con amor, cada una un tesoro de nuestra historia juntos.`,
+                     }}
+                     backgroundImage={images.bgTable}
+                  />
+                  {/* </section> */}
 
                   {/* Sección de Linea de tiempo */}
                   <section className="py-20 px-6 bg-base-100 relative">
@@ -261,42 +362,6 @@ export default function App() {
                         | {env.VERSION}
                      </p>
                   </footer>
-
-                  {/* Modal de RSVP para móviles */}
-                  {/* {isMobile && showRsvp && (
-            <div className="fixed inset-0 bg-base-100 z-50 flex items-center justify-center p-4">
-               <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="bg-base-100 rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-auto">
-                  <div className="flex justify-between items-center mb-4">
-                     <h3 className="font-serif text-xl text-rose-800 dark:text-rose-300">
-                        Confirma tu Asistencia
-                     </h3>
-                     <button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => setShowRsvp(false)}
-                        className="text-base-content">
-                        <svg
-                           xmlns="http://www.w3.org/2000/svg"
-                           width="24"
-                           height="24"
-                           viewBox="0 0 24 24"
-                           fill="none"
-                           stroke="currentColor"
-                           strokeWidth="2"
-                           strokeLinecap="round"
-                           strokeLinejoin="round">
-                           <path d="M18 6 6 18" />
-                           <path d="m6 6 12 12" />
-                        </svg>
-                     </button>
-                  </div>
-                  <RsvpForm onComplete={() => setShowRsvp(false)} />
-               </motion.div>
-            </div>
-         )} */}
 
                   {/* Botón para volver arriba */}
                   <ScrollToTopButton />

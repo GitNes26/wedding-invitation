@@ -21,6 +21,9 @@ import music from "../assets/images/music.png";
 import vinyl from "../assets/images/vinyl.png";
 import arch from "../assets/images/arch.png";
 import coche from "../assets/images/coche-de-boda.png";
+import bgTable from "../assets/images/bgTable.jpg";
+import bgTableLove from "../assets/images/bgTableLove.png";
+import heroWallpaper from "../assets/images/hero.jpg";
 
 import haciendaElegancia from "../assets/images/HaciendaElegancia.jpg";
 
@@ -49,5 +52,8 @@ const images = {
    arch,
    coche,
    haciendaElegancia,
+   bgTable,
+   bgTableLove,
+   heroWallpaper,
 };
 export default images;

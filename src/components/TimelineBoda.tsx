@@ -170,7 +170,7 @@ const TimelineBoda = ({ weddingInfo }) => {
                            whileInView={{ opacity: 1, y: 0 }}
                            transition={{
                               duration: 0.5,
-                              delay: index * 0.35,
+                              delay: index < 10 ? index * 0.35 : index * 0.06,
                               easings: [easeInOut],
                            }}
                            viewport={{
