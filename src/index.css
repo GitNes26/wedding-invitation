@@ -2,7 +2,11 @@
 @import url(./assets/styles/loading.css);
 /* @import url(./assets/styles/scrolling.css); */
 
-
+html,
+body {
+   /* overflow-x: hidden; */
+   scroll-behavior: smooth;
+}
 
 /* Tipografias */
 @font-face {

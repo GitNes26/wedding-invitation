@@ -129,8 +129,31 @@ export default function App() {
 
    // Crear enlace para mesa de regalos
    const giftRegistryUrls = [
-      { site: "Cimaco", link: "https://www.cimaco.com.mx/mesa-regalo" },
-      { site: "Mercado Libre", link: "https://meli.uniko.co/Home" },
+      {
+         site: "Cimaco",
+         link: "https://www.cimaco.com.mx/mesa-regalo/45392",
+         image: images.cimaco,
+         color: "white",
+         type: "link",
+      },
+      // {
+      //    site: "Mercado Libre",
+      //    link: "https://meli.uniko.co/Home",
+      //    image: "",
+      //    color: "yellow-500",
+      //    type: "link",
+      // },
+      {
+         type: "transferencia",
+         bankData: {
+            banco: "BBVA",
+            nombre: "Néstor Josue Puentes Inchaurregui",
+            numeroTarjeta: "4152 3139 8353 6074",
+            clabe: "012 078 02895772494 9",
+            concepto: "Regalo boda de [Tu Nombre]",
+            linkCobro: null, //"https://bbva.mx/tu-link-de-cobro",
+         },
+      },
    ];
 
    const weddingInfo = {
@@ -149,70 +172,45 @@ export default function App() {
 
    const photos = [
       {
-         src: images.haciendaElegancia,
+         src: images.memory1,
          alt: "Nuestra primera cita",
       },
-      { src: images.fondoInvitacion, alt: "Día en la playa" },
-      { src: images.hero, alt: "Cena romántica" },
-      { src: images.heroWallpaper, alt: "Viaje a París" },
+      { src: images.memory2, alt: "Día en la playa" },
+      { src: images.memory3, alt: "Cena romántica" },
+      { src: images.memory4, alt: "Viaje a París" },
       {
-         src: images.haciendaElegancia,
+         src: images.memory5,
          alt: "Cumpleaños juntos",
       },
       {
-         src: images.fondoInvitacion,
+         src: images.memory6,
          alt: "Navidad en familia",
       },
-      { src: images.hero, alt: "Día de lluvia" },
+      { src: images.memory7, alt: "Día de lluvia" },
       {
-         src: images.heroWallpaper,
+         src: images.memory8,
          alt: "Atardecer perfecto",
       },
       {
-         src: images.haciendaElegancia,
+         src: images.memory9,
          alt: "Picnic en el parque",
       },
       {
-         src: images.fondoInvitacion,
+         src: images.memory10,
          alt: "Concierto favorito",
       },
       {
-         src: images.hero,
+         src: images.memory11,
          alt: "Picnic en el parque",
       },
       {
-         src: images.heroWallpaper,
+         src: images.memory12,
          alt: "Concierto favorito",
       },
-      { src: images.heroWallpaper, alt: "Viaje a París" },
+      { src: images.memory13, alt: "Viaje a París" },
       {
-         src: images.haciendaElegancia,
+         src: images.memory14,
          alt: "Cumpleaños juntos",
-      },
-      {
-         src: images.fondoInvitacion,
-         alt: "Navidad en familia",
-      },
-      { src: images.hero, alt: "Día de lluvia" },
-      {
-         src: images.heroWallpaper,
-         alt: "Atardecer perfecto",
-      },
-      {
-         src: images.haciendaElegancia,
-         alt: "Picnic en el parque",
-      },
-      {
-         src: images.fondoInvitacion,
-         alt: "Concierto favorito",
-      },
-      {
-         src: images.hero,
-         alt: "Picnic en el parque",
-      },
-      {
-         src: images.heroWallpaper,
-         alt: "Concierto favorito",
       },
       // Puedes añadir tantas como quieras...
    ];
@@ -277,16 +275,7 @@ export default function App() {
 
          {!showSplash && (
             <>
-               {/* <div ref={containerRef} className="dense-scroll-container">
-                  <div ref={contentRef} className="dense-content"> */}
                <Loading open={isLoading} animation="bounce" />
-               {/* <div
-                  ref={containerRef}
-                  style={{
-                     height: "100vh",
-                     overflow: "auto",
-                     scrollBehavior: "smooth",
-                  }}> */}
                <motion.header
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -294,7 +283,7 @@ export default function App() {
                   // exit={{ translateY: -100, scale: 0, opacity: 0 }}>
                   ref={mainRef}
                   // style={{ y }}
-                  className="min-h-screen bg-gradient-to-b from-base-200 to-base-300 transition-colors duration-500 relative">
+                  className="min-h-screen bg-gradient-to-b from-base-200 to-base-300 transition-colors duration-500 relative ">
                   {/* <!-- Elementos decorativos laterales --> */}
                   {/* <div className="decorative-element top-left"></div>
                   <div className="decorative-element top-right"></div>
@@ -304,7 +293,7 @@ export default function App() {
                   <div className="decorative-element bottom-right"></div> */}
 
                   {/* Botones flotantes */}
-                  <div className="fixed top-4 right-4 z-50 flex gap-2">
+                  <div className="fixed top-4 right-6 z-50 flex gap-2">
                      <AudioPlayer
                         audios={[audios.bailando, audios.todoVaAEstarBien]}
                         isPlaying={isPlaying}
@@ -363,15 +352,13 @@ export default function App() {
                   </section> */}
 
                   {/* Sección de Fotografias */}
-                  {/* <section className="py-20 px-6 relative"> */}
-                  {/* <PhotosThrown /> */}
-                  {/* Sección dinámica de fotos aventadas */}
+                  {/* <section className="py-10 px-6 relative bg-base-100"> */}
                   <PhotosThrown
                      photos={photos}
                      title="Aventando Nuestros Recuerdos"
                      subtitle={`${photos.length} momentos especiales volando hacia la mesa`}
                      sectionHeight="auto" // Se calcula automáticamente basado en número de fotos
-                     animationSpeed={0.04} // Más rápido para muchas fotos
+                     animationSpeed={0.05} // Más rápido para muchas fotos
                      photoSizes={{
                         minWidth: 100,
                         maxWidth: 180,
@@ -415,9 +402,9 @@ export default function App() {
                      <DressCode />
                   </section>
 
-                  {/* Sección de mesa de reglamento */}
+                  {/* Sección de Consideraciones */}
                   <section className="py-20 px-6 bg-base-100 relative">
-                     <Considerations giftRegistryUrls={giftRegistryUrls} />
+                     <Considerations />
                   </section>
 
                   {/* Sección de RSVP */}
@@ -451,11 +438,8 @@ export default function App() {
                   </footer>
 
                   {/* Botón para volver arriba */}
-                  <ScrollToTopButton />
+                  {/* <ScrollToTopButton /> */}
                </motion.header>
-               {/* </div> */}
-               {/* </div>
-               </div> */}
             </>
          )}
       </>

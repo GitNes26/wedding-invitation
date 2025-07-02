@@ -8,17 +8,26 @@ import { useMobile } from "../hooks/useMobile";
 
 const DressCode = ({}) => {
    const { themeActive } = useGlobalContext();
-      const isMobile = useMobile();
-
+   const isMobile = useMobile();
 
    // Definir los colores recomendados
    const coloresRecomendados = [
       { nombre: "Azul marino", hex: "#0a2463" },
-      { nombre: "Gris", hex: "#8d99ae" },
-      { nombre: "Beige", hex: "#d6ccc2" },
-      { nombre: "Verde oliva", hex: "#606c38" },
       { nombre: "Borgoña", hex: "#800020" },
-      { nombre: "Dorado", hex: "#d4af37" },
+      { nombre: "Burdeos", hex: "#6d1a36" },
+      { nombre: "Verde esmeralda", hex: "#046307" },
+      { nombre: "Terracota", hex: "#cc4a3a" },
+      { nombre: "Mostaza", hex: "#d4a017" },
+      { nombre: "Dorado viejo", hex: "#d4af37" },
+      { nombre: "Marrón chocolate", hex: "#5c4033" },
+      { nombre: "Gris marengo", hex: "#4a4a4a" },
+      { nombre: "Óxido", hex: "#b7410e" },
+      { nombre: "Vino tinto", hex: "#722f37" },
+      { nombre: "Cobre", hex: "#b87333" },
+      { nombre: "Verde bosque", hex: "#0b6623" },
+      { nombre: "Azul petróleo", hex: "#003b4d" },
+      { nombre: "Beige arena", hex: "#d2b48c" },
+      { nombre: "Camel", hex: "#c19a6b" },
    ];
 
    // Definir los colores prohibidos
@@ -47,7 +56,7 @@ const DressCode = ({}) => {
             </h2>
             <motion.div
                initial={{ opacity: 0, scale: 0, x: 50 }}
-               whileInView={{ opacity: 1, scale: 1 }}
+               whileInView={{ opacity: 1, scale: 1, x: 0 }}
                transition={{
                   delay: 0.5,
                   duration: 1,
@@ -148,9 +157,13 @@ const DressCode = ({}) => {
                         <div className="text-center">
                            <div
                               className="tooltip tooltip-bottom"
-                              data-tip={color.nombre}>
+                              data-tip={`${
+                                 color.nombre
+                              } - ${color.hex.toUpperCase()}`}>
                               <div
-                                 className="w-16 h-16 rounded-full mb-2 border border-base-300 shadow-sm -mx-2"
+                                 className={`${
+                                    isMobile ? "w-14 h-14" : "w-16 h-16"
+                                 } rounded-full mb-2 border border-base-300 shadow-sm -mx-2`}
                                  style={{ backgroundColor: color.hex }}></div>
                            </div>
                         </div>

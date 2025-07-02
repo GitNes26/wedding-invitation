@@ -111,7 +111,7 @@ const TimelineBoda = ({ weddingInfo }) => {
                </h2>
                <motion.div
                   initial={{ opacity: 0, scale: 0, x: 50 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
+                  whileInView={{ opacity: 1, scale: 1, x: 0 }}
                   transition={{
                      delay: 0.5,
                      duration: 1,
@@ -125,8 +125,8 @@ const TimelineBoda = ({ weddingInfo }) => {
                   <span className="font-bold">
                      {weddingInfo.place}, {weddingInfo.location}
                   </span>{" "}
-                  para que disfrutes la velada sin complicaciones. Ceremonia,
-                  fiesta y sorpresas... ¡todo en el mismo sitio! .
+                  para que disfrutes la velada sin complicaciones. Ceremonia y
+                  fiesta... ¡todo en el mismo sitio! .
                </p>
             </motion.div>
 

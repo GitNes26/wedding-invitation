@@ -225,7 +225,7 @@ export default function WeddingInvitation() {
                   </h2>
                   <motion.div
                      initial={{ opacity: 0, scale: 0, x: 50 }}
-                     whileInView={{ opacity: 1, scale: 1 }}
+                     whileInView={{ opacity: 1, scale: 1, x: 0 }}
                      transition={{
                         delay: 0.5,
                         duration: 1,
@@ -348,7 +348,7 @@ export default function WeddingInvitation() {
                   </h2>
                   <motion.div
                      initial={{ opacity: 0, scale: 0, x: 50 }}
-                     whileInView={{ opacity: 1, scale: 1 }}
+                     whileInView={{ opacity: 1, scale: 1, x: 0 }}
                      transition={{
                         delay: 0.5,
                         duration: 1,
@@ -447,7 +447,7 @@ export default function WeddingInvitation() {
                   </h2>
                   <motion.div
                      initial={{ opacity: 0, scale: 0, x: 50 }}
-                     whileInView={{ opacity: 1, scale: 1 }}
+                     whileInView={{ opacity: 1, scale: 1, x: 0 }}
                      transition={{
                         delay: 0.5,
                         duration: 1,
@@ -495,7 +495,7 @@ export default function WeddingInvitation() {
                   </h2>
                   <motion.div
                      initial={{ opacity: 0, scale: 0, x: 50 }}
-                     whileInView={{ opacity: 1, scale: 1 }}
+                     whileInView={{ opacity: 1, scale: 1, x: 0 }}
                      transition={{
                         delay: 0.5,
                         duration: 1,

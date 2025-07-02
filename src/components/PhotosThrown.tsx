@@ -209,6 +209,7 @@ const DynamicPhotosThrown = ({
       maxHeight: 250,
    },
 }: DynamicPhotosThrownProps) => {
+   const isMobile = useMobile();
    const containerRef = useRef<HTMLDivElement>(null);
    const [windowDimensions, setWindowDimensions] = useState({
       width: 0,
@@ -316,11 +317,11 @@ const DynamicPhotosThrown = ({
 
          // Posición base en grid
          const baseX = (col / (gridCols - 1)) * 80 + 10; // 10% a 90%
-         const baseY = (row / (gridRows - 1)) * 70 + 15; // 15% a 85%
+         const baseY = (row / (gridRows - 1)) * 70 + (isMobile ? 10 : 15); // 15% a 85%
 
          // Añadir variación aleatoria para naturalidad
          const randomOffsetX = (Math.random() - 0.5) * 15;
-         const randomOffsetY = (Math.random() - 0.5) * 15;
+         const randomOffsetY = (Math.random() - 0.5) * (isMobile ? 25 : 15);
 
          positions.push({
             x: Math.max(5, Math.min(90, baseX + randomOffsetX)),
@@ -386,7 +387,7 @@ const DynamicPhotosThrown = ({
          className="relative"
          style={{ height: dynamicHeight }}>
          {/* Sección fija */}
-         <div className="sticky top-0 h-screen overflow-hidden">
+         <div className="sticky top-0 h-screen w-full overflow-hidden z-30">
             {/* Fondo fijo */}
             <div
                className="absolute inset-0 w-full h-full dark:opacity-90"
@@ -446,7 +447,7 @@ const DynamicPhotosThrown = ({
             </div>
 
             {/* Textos flotantes */}
-            {floatingTexts.length > 0 && (
+            {!isMobile && floatingTexts.length > 0 && (
                <div className="absolute inset-0 pointer-events-none">
                   {floatingTexts.map((cfg, idx) => (
                      <FloatingText

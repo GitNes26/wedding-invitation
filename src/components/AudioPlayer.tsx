@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { Heart, Volume2 } from "lucide-react";
+import { useMobile } from "../hooks/useMobile";
 
 /**
  * Props para el componente AudioPlayer.
@@ -25,6 +26,7 @@ export default function AudioPlayer({
    const [currentIndex, setCurrentIndex] = useState(0);
    const [volume, setVolume] = useState(0.3); // Estado de volumen
    const audioRef = useRef<HTMLAudioElement | null>(null);
+   const isMobile = useMobile();
 
    useEffect(() => {
       if (!audios.length) return;
@@ -75,17 +77,19 @@ export default function AudioPlayer({
             className="tooltip tooltip-bottom"
             data-tip={isPlaying ? "Mutear música" : "Reproducir música"}>
             <button
-               className={`btn ${
+               className={`btn ${isMobile ? "btn-xs" : "btn-md"} ${
                   isPlaying ? "btn-circle" : ""
                } rounded-full btn-primary backdrop-blur-sm transition-all hover:scale-105 `}
                onClick={togglePlay}
                aria-label={isPlaying ? "Mutear música" : "Reproducir música"}>
                {isPlaying ? (
-                  <Volume2 className="h-5 w-5" />
+                  <Volume2 className={isMobile ? "h-3 w-3" : "h-5 w-5"} />
                ) : (
                   <>
                      <Heart
-                        className="text-primary-content h-4 w-4 animate-pulse"
+                        className={`text-primary-content ${
+                           isMobile ? "h-3 w-3" : "h-4 w-4"
+                        } animate-pulse`}
                         fill="currentColor"
                      />{" "}
                      Reproducir música

@@ -26,10 +26,10 @@ export default function SplashLoader({
    }, []);
 
    return (
-      <AnimatePresence>
-         {show && (
+      show && (
+         <AnimatePresence>
             <motion.header
-               className="fixed inset-0 z-[9999] flex flex-col items-center justify-center text-center cursor-pointer"
+               className="fixed inset-0 z-[9999] flex flex-col items-center justify-center text-center cursor-pointer overflow-x-hidden p-6"
                onClick={() => {
                   setShow(false);
                   setIsPlaying(true);
@@ -127,7 +127,7 @@ export default function SplashLoader({
                   </motion.div>
                </motion.div>
             </motion.header>
-         )}
-      </AnimatePresence>
+         </AnimatePresence>
+      )
    );
 }

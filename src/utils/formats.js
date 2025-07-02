@@ -124,6 +124,13 @@ export function formatPhone(phone) {
       8,
    )}${phone.slice(-2)}`;
 }
+export function formatCardNumber(cardNumber) {
+   if (!cardNumber) return "0000 0000 0000 0000";
+   return `${cardNumber.slice(0, 4)} ${cardNumber.slice(
+      4,
+      8,
+   )} ${cardNumber.slice(8, 12)} ${cardNumber.slice(-4)}`;
+}
 export const handlePhoneChange = (e, setFieldValue, input) => {
    // console.log("🚀 ~ handlePhoneChange ~ e:", e.target.value.replace(/[^\d]/g, ""));
    // Reemplaza los caracteres no numéricos en el input

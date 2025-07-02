@@ -25,7 +25,23 @@ import bgTable from "../assets/images/bgTable.jpg";
 import bgTableLove from "../assets/images/bgTableLove.png";
 import heroWallpaper from "../assets/images/hero.jpg";
 
+import memory1 from "../assets/images/memories/foto1.jpg";
+import memory2 from "../assets/images/memories/foto2.jpg";
+import memory3 from "../assets/images/memories/foto3.jpg";
+import memory4 from "../assets/images/memories/foto4.jpg";
+import memory5 from "../assets/images/memories/foto5.jpg";
+import memory6 from "../assets/images/memories/foto6.jpg";
+import memory7 from "../assets/images/memories/foto7.jpg";
+import memory8 from "../assets/images/memories/foto8.jpg";
+import memory9 from "../assets/images/memories/foto9.jpg";
+import memory10 from "../assets/images/memories/foto10.jpg";
+import memory11 from "../assets/images/memories/foto11.jpg";
+import memory12 from "../assets/images/memories/foto12.jpg";
+import memory13 from "../assets/images/memories/foto13.jpg";
+import memory14 from "../assets/images/memories/foto14.jpg";
+
 import haciendaElegancia from "../assets/images/HaciendaElegancia.jpg";
+import cimaco from "../assets/images/cimaco.png";
 
 const images = {
    logo,
@@ -55,5 +71,20 @@ const images = {
    bgTable,
    bgTableLove,
    heroWallpaper,
+   memory1,
+   memory2,
+   memory3,
+   memory4,
+   memory5,
+   memory6,
+   memory7,
+   memory8,
+   memory9,
+   memory10,
+   memory11,
+   memory12,
+   memory13,
+   memory14,
+   cimaco,
 };
 export default images;

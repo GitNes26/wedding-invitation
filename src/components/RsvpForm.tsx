@@ -255,7 +255,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
             </h2>
             <motion.div
                initial={{ opacity: 0, scale: 0, x: 50 }}
-               whileInView={{ opacity: 1, scale: 1 }}
+               whileInView={{ opacity: 1, scale: 1, x: 0 }}
                transition={{
                   delay: 0.5,
                   duration: 1,
@@ -342,7 +342,7 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
 
                            <div className="mt-6 p-3 bg-base-100 rounded-lg shadow-inner">
                               <p className="text-xs font-mono">
-                                 TICKET
+                                 - TICKET -
                                  {/* #WED
                                  {Math.random()
                                     .toString(36)
