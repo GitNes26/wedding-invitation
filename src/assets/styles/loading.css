@@ -22,7 +22,7 @@
  }
 
 .icon-loader {
-   width: 350px;
+   width: 850px;
    aspect-ratio: 1;
    display: grid;
    place-items: center; /* Centra la imagen */
@@ -31,7 +31,7 @@
 
  /* HTML: <div class="loader-circle-spinner"></div> */
  .loader-circle-spinner {
-   width: 350px;
+   width: 850px;
    aspect-ratio: 1;
    display: grid;
    place-items: center; /* Centra la imagen */

@@ -1,5 +1,6 @@
 import React, { JSX } from "react";
 import images from "../constants/images";
+import { useGlobalContext } from "../contexts/GlobalContext";
 
 interface LoadingProps {
    /** Indica si el componente debe estar visible o no. */
@@ -19,6 +20,9 @@ const Loading: React.FC<LoadingProps> = ({
    open,
    animation = "default",
 }): JSX.Element => {
+   const { themeActive } = useGlobalContext();
+   console.log("🚀 ~ themeActive:", themeActive);
+
    return (
       <>
          {open && (
@@ -26,7 +30,11 @@ const Loading: React.FC<LoadingProps> = ({
                {animation === "spin" ? (
                   <div className="loader-circle-spinner">
                      <img
-                        src={images.logo}
+                        src={
+                           themeActive == "dark"
+                              ? images.logoDark
+                              : images.logoLight
+                        }
                         alt="logo"
                         className="loader-image"
                      />
@@ -35,13 +43,21 @@ const Loading: React.FC<LoadingProps> = ({
                   <span className="relative flex  items-center justify-center text-center">
                      <div className="icon-loader inline-flex animate-[pulse_1.6s_infinite] opacity-5">
                         <img
-                           src={images.logo}
+                           src={
+                              themeActive == "dark"
+                                 ? images.logoDark
+                                 : images.logoLight
+                           }
                            alt="logo"
                            className="loader-image"
                         />
                      </div>
                      <img
-                        src={images.logo}
+                        src={
+                           themeActive == "dark"
+                              ? images.logoDark
+                              : images.logoLight
+                        }
                         alt="logo"
                         className="relative inline-flex loader-image animate-[ping_1.5s_infinite]"
                      />
@@ -56,7 +72,11 @@ const Loading: React.FC<LoadingProps> = ({
                   <>
                      <div className="loader-circle-spinner">
                         <img
-                           src={images.logo}
+                           src={
+                              themeActive == "dark"
+                                 ? images.logoDark
+                                 : images.logoLight
+                           }
                            alt="logo"
                            className="loader-image"
                         />

@@ -29,6 +29,7 @@ import env from "./constants/env";
 import Loading from "./components/Loading";
 import PhotosThrown from "./components/PhotosThrown";
 import images from "./constants/images";
+import { useDynamicFavicon } from "./hooks/useDynamicFavicon";
 
 export default function App() {
    //#region SCROLL DENSO
@@ -71,6 +72,7 @@ export default function App() {
 
    // const { theme, setTheme } = useTheme();
    const { themeActive } = useGlobalContext();
+   useDynamicFavicon();
 
    const [showRsvp, setShowRsvp] = useState(false);
    const isMobile = useMobile();
@@ -218,22 +220,22 @@ export default function App() {
    const customTexts = [
       {
          text: `🎵Y así te fui queriendo a diario Sin una ley sin un horario🎶`,
-         position: { x: 40, y: 10 },
+         position: { x: 40, y: 37 },
          delay: 0.1,
       },
       {
          text: "Cada foto cuenta nuestra historia",
-         position: { x: 80, y: 20 },
+         position: { x: 80, y: 25 },
          delay: 0.2,
       },
       {
          text: "Momentos que atesoramos para siempre",
-         position: { x: 20, y: 50 },
+         position: { x: 20, y: 58 },
          delay: 0.3,
       },
       {
          text: "Cada foto es un latido de nuestro corazón",
-         position: { x: 10, y: 10 },
+         position: { x: 4, y: 20 },
          delay: 0.4,
       },
       {
@@ -247,8 +249,8 @@ export default function App() {
          delay: 0.6,
       },
       {
-         text: "Amor capturado en cada imagen",
-         position: { x: 60, y: 45 },
+         text: "Las memorias nos vuelven a enamorar",
+         position: { x: 6, y: 70 },
          delay: 0.7,
       },
    ];
@@ -283,7 +285,7 @@ export default function App() {
                   // exit={{ translateY: -100, scale: 0, opacity: 0 }}>
                   ref={mainRef}
                   // style={{ y }}
-                  className="min-h-screen bg-gradient-to-b from-base-200 to-base-300 transition-colors duration-500 relative ">
+                  className="min-h-screen bg-gradient-to-b from-base-200 to-base-300 transition-colors duration-500 max-w-[100vw] relative">
                   {/* <!-- Elementos decorativos laterales --> */}
                   {/* <div className="decorative-element top-left"></div>
                   <div className="decorative-element top-right"></div>
@@ -353,11 +355,13 @@ export default function App() {
 
                   {/* Sección de Fotografias */}
                   {/* <section className="py-10 px-6 relative bg-base-100"> */}
+                  {/* <secction className={`min-h-screen absolute`}> */}
                   <PhotosThrown
                      photos={photos}
                      title="Aventando Nuestros Recuerdos"
                      subtitle={`${photos.length} momentos especiales volando hacia la mesa`}
-                     sectionHeight="auto" // Se calcula automáticamente basado en número de fotos
+                     // sectionHeight="auto" // Se calcula automáticamente basado en número de fotos
+                     sectionHeight="2000vh"
                      animationSpeed={0.05} // Más rápido para muchas fotos
                      photoSizes={{
                         minWidth: 100,
@@ -367,12 +371,12 @@ export default function App() {
                      }}
                      floatingTexts={customTexts}
                      finalMessage={{
-                        title: "Mesa Completa de Amor",
-                        description: `${photos.length} fotografías esparcidas con amor, cada una un tesoro de nuestra historia juntos.`,
+                        title: "♥ Recuerdos que avivan nuestro amor",
+                        description: `cada memoria un tesoro de nuestra historia juntos.`,
                      }}
-                     backgroundImage={images.bgTable}
+                     backgroundImage={images.bgTableLove}
                   />
-                  {/* </section> */}
+                  {/* </secction> */}
 
                   {/* Sección de Linea de tiempo */}
                   <section className="py-20 px-6 bg-base-100 relative">

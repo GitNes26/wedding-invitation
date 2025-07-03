@@ -1,4 +1,8 @@
+import faviconLight from "../../favicon-light.ico";
+import faviconDark from "../../favicon-dark.ico";
 import logo from "../assets/images/logo.png";
+import logoLight from "../assets/images/logoLight.png";
+import logoDark from "../assets/images/logoDark.png";
 import hero from "../assets/images/bg-hero.jpg";
 import fondoInvitacion from "../assets/images/FondoInvitacion.png";
 import floral from "../assets/images/floral.jpg";
@@ -44,7 +48,11 @@ import haciendaElegancia from "../assets/images/HaciendaElegancia.jpg";
 import cimaco from "../assets/images/cimaco.png";
 
 const images = {
+   faviconLight,
+   faviconDark,
    logo,
+   logoLight,
+   logoDark,
    hero,
    fondoInvitacion,
    floral,

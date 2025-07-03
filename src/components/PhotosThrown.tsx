@@ -317,7 +317,7 @@ const DynamicPhotosThrown = ({
 
          // Posición base en grid
          const baseX = (col / (gridCols - 1)) * 80 + 10; // 10% a 90%
-         const baseY = (row / (gridRows - 1)) * 70 + (isMobile ? 10 : 15); // 15% a 85%
+         const baseY = (row / (gridRows - 1)) * 70 + 15; // 15% a 85%
 
          // Añadir variación aleatoria para naturalidad
          const randomOffsetX = (Math.random() - 0.5) * 15;
@@ -487,7 +487,7 @@ const DynamicPhotosThrown = ({
                }}>
                <div className="flex flex-col items-center text-white">
                   <span className="text-sm font-marcellus mb-2">
-                     Scroll para aventar las fotos
+                     Desliza lentamente para aventar las fotos
                   </span>
                   <motion.div
                      animate={{ y: [0, 10, 0] }}

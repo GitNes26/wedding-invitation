@@ -7,6 +7,7 @@ import { useGlobalContext } from "../contexts/GlobalContext";
 import images from "../constants/images";
 import { image } from "motion/react-client";
 import { useMobile } from "../hooks/useMobile";
+import { Pointer } from "lucide-react";
 
 const TimelineBoda = ({ weddingInfo }) => {
    // const { themeActive } = useGlobalContext();
@@ -131,7 +132,7 @@ const TimelineBoda = ({ weddingInfo }) => {
             </motion.div>
 
             {/* Timeline horizontal */}
-            <div className="relative overflow-x-auto h-fit">
+            <div className="relative overflow-x-scroll h-fit scroll-smooth">
                <div className="min-w-[800px] relative">
                   {/* Línea ondulada SVG */}
                   <svg
@@ -222,6 +223,31 @@ const TimelineBoda = ({ weddingInfo }) => {
                <p className="text-sm font-marcellus italic text-primary">
                   *Los horarios pueden variar ligeramente
                </p>
+               {/* Indicador de scroll */}
+               <motion.div
+                  className="absolute bottom-2 left-1/2 transform -translate-x-1/2 z-30"
+                  style={
+                     {
+                        // opacity: useTransform(scrollYProgress, [0, 0.2], [1, 0]),
+                     }
+                  }>
+                  <div className="flex flex-col items-center text-base-content">
+                     <span className="text-sm font-marcellus mb-2">
+                        Arrastra horizontalmente en la linea del tiempo para ver
+                        todos los eventos
+                     </span>
+                     <motion.div
+                        animate={{ x: [0, 10, 0] }}
+                        transition={{
+                           duration: 2,
+                           repeat: Number.POSITIVE_INFINITY,
+                        }}
+                        className="flex justify-center">
+                        <Pointer className="text-base-content" />
+                        {/* <div className="w-1 h-3 bg-white/70 rounded-full mt-2" /> */}
+                     </motion.div>
+                  </div>
+               </motion.div>
             </div>
          </div>
       </>
