@@ -189,10 +189,51 @@ export default function App() {
          alt: "Navidad en familia",
       },
       { src: images.memory7, alt: "Día de lluvia" },
+      // {
+      //    src: images.memory8,
+      //    alt: "Atardecer perfecto",
+      // },
       {
-         src: images.memory8,
-         alt: "Atardecer perfecto",
+         src: images.memory9,
+         alt: "Picnic en el parque",
       },
+      {
+         src: images.memory10,
+         alt: "Concierto favorito",
+      },
+      {
+         src: images.memory11,
+         alt: "Picnic en el parque",
+      },
+      {
+         src: images.memory12,
+         alt: "Concierto favorito",
+      },
+      { src: images.memory13, alt: "Viaje a París" },
+      {
+         src: images.memory14,
+         alt: "Cumpleaños juntos",
+      },
+       {
+         src: images.memory1,
+         alt: "Nuestra primera cita",
+      },
+      { src: images.memory2, alt: "Día en la playa" },
+      { src: images.memory3, alt: "Cena romántica" },
+      { src: images.memory4, alt: "Viaje a París" },
+      {
+         src: images.memory5,
+         alt: "Cumpleaños juntos",
+      },
+      {
+         src: images.memory6,
+         alt: "Navidad en familia",
+      },
+      { src: images.memory7, alt: "Día de lluvia" },
+      // {
+      //    src: images.memory8,
+      //    alt: "Atardecer perfecto",
+      // },
       {
          src: images.memory9,
          alt: "Picnic en el parque",
@@ -374,7 +415,7 @@ export default function App() {
                         title: "♥ Recuerdos que avivan nuestro amor",
                         description: `cada memoria un tesoro de nuestra historia juntos.`,
                      }}
-                     backgroundImage={images.bgTableLove}
+                     backgroundImage={images.bgTable}
                   />
                   {/* </secction> */}
 

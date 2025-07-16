@@ -13,8 +13,8 @@ const DressCode = ({}) => {
    // Definir los colores recomendados
    const coloresRecomendados = [
       { nombre: "Azul marino", hex: "#0a2463" },
-      { nombre: "Borgoña", hex: "#800020" },
-      { nombre: "Burdeos", hex: "#6d1a36" },
+      // { nombre: "Borgoña", hex: "#800020" },
+      // { nombre: "Burdeos", hex: "#6d1a36" },
       { nombre: "Verde esmeralda", hex: "#046307" },
       { nombre: "Terracota", hex: "#cc4a3a" },
       { nombre: "Mostaza", hex: "#d4a017" },
@@ -26,8 +26,8 @@ const DressCode = ({}) => {
       { nombre: "Cobre", hex: "#b87333" },
       { nombre: "Verde bosque", hex: "#0b6623" },
       { nombre: "Azul petróleo", hex: "#003b4d" },
-      { nombre: "Beige arena", hex: "#d2b48c" },
-      { nombre: "Camel", hex: "#c19a6b" },
+      // { nombre: "Beige arena", hex: "#d2b48c" },
+      // { nombre: "Camel", hex: "#c19a6b" },
    ];
 
    // Definir los colores prohibidos

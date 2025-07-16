@@ -4,6 +4,7 @@ import logo from "../assets/images/logo.png";
 import logoLight from "../assets/images/logoLight.png";
 import logoDark from "../assets/images/logoDark.png";
 import hero from "../assets/images/bg-hero.jpg";
+import fondoSplash from "../assets/images/FondoSplash.png";
 import fondoInvitacion from "../assets/images/FondoInvitacion.png";
 import floral from "../assets/images/floral.jpg";
 import icecream from "../assets/images/icecream.png";
@@ -26,6 +27,7 @@ import vinyl from "../assets/images/vinyl.png";
 import arch from "../assets/images/arch.png";
 import coche from "../assets/images/coche-de-boda.png";
 import bgTable from "../assets/images/bgTable.jpg";
+import bgTable2 from "../assets/images/bgTable2.jpg";
 import bgTableLove from "../assets/images/bgTableLove.png";
 import heroWallpaper from "../assets/images/hero.jpg";
 
@@ -54,6 +56,7 @@ const images = {
    logoLight,
    logoDark,
    hero,
+   fondoSplash,
    fondoInvitacion,
    floral,
    icecream,
@@ -77,6 +80,7 @@ const images = {
    coche,
    haciendaElegancia,
    bgTable,
+   bgTable2,
    bgTableLove,
    heroWallpaper,
    memory1,

@@ -45,18 +45,18 @@ const TimelineBoda = ({ weddingInfo }) => {
          subtitulo: "",
          icono: images.vinyl,
       },
-      {
-         hora: "21:40",
-         titulo: "Baile con los Padres",
-         subtitulo: "",
-         icono: images.weddingGramophone,
-      },
-      {
-         hora: "21:50",
-         titulo: "Baile del billete",
-         subtitulo: "",
-         icono: images.weddingGramophone,
-      },
+      // {
+      //    hora: "21:40",
+      //    titulo: "Baile con los Padres",
+      //    subtitulo: "",
+      //    icono: images.weddingGramophone,
+      // },
+      // {
+      //    hora: "21:50",
+      //    titulo: "Baile del billete",
+      //    subtitulo: "",
+      //    icono: images.weddingGramophone,
+      // },
       {
          hora: "22:30",
          titulo: "Brindis",
@@ -97,7 +97,7 @@ const TimelineBoda = ({ weddingInfo }) => {
 
    return (
       <>
-         <div className="max-w-4xl mx-auto">
+         <div className="max-w-4xl mx-auto mb-10">
             <motion.div
                initial={{ opacity: 0, y: 50 }}
                whileInView={{ opacity: 1, y: 0 }}
@@ -219,7 +219,7 @@ const TimelineBoda = ({ weddingInfo }) => {
             </div>
 
             {/* Nota al pie */}
-            <div className="text-center mt-6">
+            <div className="text-center mt-1">
                <p className="text-sm font-marcellus italic text-primary">
                   *Los horarios pueden variar ligeramente
                </p>
@@ -232,9 +232,8 @@ const TimelineBoda = ({ weddingInfo }) => {
                      }
                   }>
                   <div className="flex flex-col items-center text-base-content">
-                     <span className="text-sm font-marcellus mb-2">
-                        Arrastra horizontalmente en la linea del tiempo para ver
-                        todos los eventos
+                     <span className="text-sm font-marcellus mb-1 w-full">
+                        Arrastra horizontalmente en la linea del tiempo para ver todos los eventos
                      </span>
                      <motion.div
                         animate={{ x: [0, 10, 0] }}
