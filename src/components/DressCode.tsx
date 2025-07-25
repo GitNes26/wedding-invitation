@@ -50,7 +50,7 @@ const DressCode = ({}) => {
       { nombre: "Verde pavo real", hex: "#008080" },
       { nombre: "Verde abeto", hex: "#00585e" },
       { nombre: "Verde pino oscuro", hex: "#203a27" },
-      { nombre: "Lino", hex: "#dbe5c0" },
+      // { nombre: "Lino", hex: "#dbe5c0" },
       { nombre: "Verde pepinillo", hex: "#8a9a5b" },
       { nombre: "Oliva oscuro", hex: "#556b2f" },
       { nombre: "Verde uniforme", hex: "#4b5320" },

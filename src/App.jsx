@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
    motion,
    AnimatePresence,
@@ -318,10 +319,17 @@ export default function App() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 1.5, ease: "easeInOut" }}
-                  // exit={{ translateY: -100, scale: 0, opacity: 0 }}>
                   ref={mainRef}
-                  // style={{ y }}
                   className="min-h-screen bg-gradient-to-b from-base-200 to-base-300 transition-colors duration-500 max-w-[100vw] relative">
+                  {/* Enlace visible solo para staff/recepción */}
+                  {/* <div className="fixed bottom-10 left-4 z-50">
+                     <Link
+                        to="/validar"
+                        className="btn btn-outline btn-sm btn-primary opacity-70 hover:opacity-100"
+                        title="Ir a Validar QR">
+                        Validar QR
+                     </Link>
+                  </div> */}
                   {/* <!-- Elementos decorativos laterales --> */}
                   {/* <div className="decorative-element top-left"></div>
                   <div className="decorative-element top-right"></div>

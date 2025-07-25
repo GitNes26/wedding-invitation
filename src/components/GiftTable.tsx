@@ -100,7 +100,7 @@ const GiftTable = ({ giftRegistryUrls }) => {
                      <>
                         {item.type === "link" ? (
                            <motion.div
-                              key={`key-${item.site}`}
+                              key={`key-link-${item.site}`}
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.95 }}>
                               <a
@@ -118,7 +118,7 @@ const GiftTable = ({ giftRegistryUrls }) => {
                            </motion.div>
                         ) : (
                            <motion.div
-                              key={`key-${item.site}`}
+                              key={`key-${item.type}-${item.site}`}
                               initial={{ opacity: 0, scale: 0.95 }}
                               animate={{ opacity: 1, scale: 1 }}
                               transition={{ duration: 0.6, delay: 0.1 }}
