@@ -50,6 +50,8 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
    const [table, setTable] = useState(0);
 
    useEffect(() => {
+      // console.log("32 days", dayjs(weddingInfo.theDate).subtract(72, "days"));
+
       if (formData.phone.length < 10) {
          setFormData({
             name: "",
@@ -355,254 +357,275 @@ export default function RsvpForm({ weddingInfo, onComplete }: RsvpFormProps) {
                      </div>
 
                      {/* Sección derecha - Formulario */}
-                     <div className="w-2/3 p-8">
-                        <div className="mb-6">
-                           <h4 className="text-xl font-marcellus font-bold text-center mb-2">
-                              Confirmación de Asistencia
+                     {dayjs().isAfter(
+                        dayjs(weddingInfo.theDate).subtract(32, "days"),
+                        "D",
+                     ) ? (
+                        <div className="flex flex-col items-center justify-center h-full text-center p-8">
+                           <h4 className="text-xl font-marcellus font-bold text-error mb-4">
+                              El periodo para confirmar asistencia ha finalizado
                            </h4>
-                           <p className="text-sm font-marcellus text-center opacity-70">
-                              Al ingresar el número telefónico podrás llenar el
-                              formulario.
+                           <p className="text-base font-marcellus text-base-content/80 max-w-md mx-auto">
+                              Si tienes alguna duda o necesitas comunicarte, por
+                              favor contáctanos directamente.
+                              <br />
+                              ¡Gracias por tu interés!
                            </p>
                         </div>
+                     ) : (
+                        <div className="w-2/3 p-8">
+                           <div className="mb-6">
+                              <h4 className="text-xl font-marcellus font-bold text-center mb-2">
+                                 Confirmación de Asistencia
+                              </h4>
+                              <p className="text-sm font-marcellus text-center opacity-70">
+                                 Al ingresar el número telefónico podrás llenar
+                                 el formulario.
+                              </p>
+                           </div>
 
-                        {/* Error message */}
-                        {errorMsg && (
-                           <motion.div
-                              initial={{ opacity: 0, scale: 0.9 }}
-                              whileInView={{ opacity: 1, scale: 1 }}
-                              transition={{ duration: 0.6 }}
-                              exit={{ opacity: 0, scale: 0 }}
-                              viewport={{
-                                 once: false,
-                                 margin: isMobile ? "0px" : "-25% 0px",
-                              }}
-                              className="alert alert-error alert-sm font-bold py-2 my-3">
-                              <span className="mr-2">⚠️ {errorMsg}</span>
-                           </motion.div>
-                        )}
+                           {/* Error message */}
+                           {errorMsg && (
+                              <motion.div
+                                 initial={{ opacity: 0, scale: 0.9 }}
+                                 whileInView={{ opacity: 1, scale: 1 }}
+                                 transition={{ duration: 0.6 }}
+                                 exit={{ opacity: 0, scale: 0 }}
+                                 viewport={{
+                                    once: false,
+                                    margin: isMobile ? "0px" : "-25% 0px",
+                                 }}
+                                 className="alert alert-error alert-sm font-bold py-2 my-3">
+                                 <span className="mr-2">⚠️ {errorMsg}</span>
+                              </motion.div>
+                           )}
 
-                        <form
-                           onSubmit={handleSubmit}
-                           className="space-y-4 font-marcellus">
-                           {/* Primera fila - Información básica */}
-                           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                              <div className="form-control col-span-2">
+                           <form
+                              onSubmit={handleSubmit}
+                              className="space-y-4 font-marcellus">
+                              {/* Primera fila - Información básica */}
+                              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                 <div className="form-control col-span-2">
+                                    <label className="label">
+                                       <span className="label-text font-bold mr-2 mb-2">
+                                          📱 Teléfono
+                                       </span>
+                                    </label>
+                                    <input
+                                       name="phone"
+                                       type="tel"
+                                       maxLength={10}
+                                       className={`input input-bordered input-primary focus:input-primary ${
+                                          isSubmitting
+                                             ? "cursor-wait"
+                                             : "cursor-auto"
+                                       }`}
+                                       required
+                                       value={formData.phone}
+                                       onChange={handleChange}
+                                       placeholder="10 dígitos"
+                                    />
+                                 </div>
+                              </div>
+
+                              {/* Segunda fila - Nombre */}
+                              <div className="form-control">
                                  <label className="label">
                                     <span className="label-text font-bold mr-2 mb-2">
-                                       📱 Teléfono
+                                       👤 Nombre del invitado o Familia
                                     </span>
                                  </label>
                                  <input
-                                    name="phone"
-                                    type="tel"
-                                    maxLength={10}
-                                    className={`input input-bordered input-primary focus:input-primary ${
-                                       isSubmitting
-                                          ? "cursor-wait"
-                                          : "cursor-auto"
-                                    }`}
+                                    name="name"
+                                    className="input input-bordered input-primary w-full focus:input-primary text-center font-bold input-sm"
                                     required
-                                    value={formData.phone}
+                                    value={formData.name}
                                     onChange={handleChange}
-                                    placeholder="10 dígitos"
+                                    disabled={true}
+                                    placeholder="Invitado..."
                                  />
                               </div>
-                           </div>
 
-                           {/* Segunda fila - Nombre */}
-                           <div className="form-control">
-                              <label className="label">
-                                 <span className="label-text font-bold mr-2 mb-2">
-                                    👤 Nombre del invitado o Familia
-                                 </span>
-                              </label>
-                              <input
-                                 name="name"
-                                 className="input input-bordered input-primary w-full focus:input-primary text-center font-bold input-sm"
-                                 required
-                                 value={formData.name}
-                                 onChange={handleChange}
-                                 disabled={true}
-                                 placeholder="Invitado..."
-                              />
-                           </div>
-
-                           {/* Tercera fila - Asistencia */}
-                           <div className="form-control">
-                              <label className="label">
-                                 <span className="label-text font-bold text-center w-full">
-                                    🎉 ¿Nos acompañarás?
-                                 </span>
-                              </label>
-                              <div className="flex justify-center gap-6 mt-2">
-                                 <label className="cursor-pointer">
-                                    <div
-                                       className={`flex items-center gap-2 p-3 rounded-lg border-2 transition-all duration-300 ${
-                                          formData.attendance === "yes"
-                                             ? "border-primary bg-primary/10 shadow-md"
-                                             : "border-base-300 hover:border-primary/50"
-                                       }`}>
-                                       <input
-                                          type="radio"
-                                          name="attendance"
-                                          value="yes"
-                                          checked={
+                              {/* Tercera fila - Asistencia */}
+                              <div className="form-control">
+                                 <label className="label">
+                                    <span className="label-text font-bold text-center w-full">
+                                       🎉 ¿Nos acompañarás?
+                                    </span>
+                                 </label>
+                                 <div className="flex justify-center gap-6 mt-2">
+                                    <label className="cursor-pointer">
+                                       <div
+                                          className={`flex items-center gap-2 p-3 rounded-lg border-2 transition-all duration-300 ${
                                              formData.attendance === "yes"
-                                          }
-                                          onChange={() =>
-                                             setFormData({
-                                                ...formData,
-                                                attendance: "yes",
-                                             })
-                                          }
-                                          disabled={!authorized}
-                                          className="radio radio-primary radio-sm"
-                                       />
-                                       <span className="text-lg">✅</span>
-                                       <span className="font-bold">
-                                          ¡Sí, asistiré!
-                                       </span>
-                                    </div>
-                                 </label>
-
-                                 <label className="cursor-pointer">
-                                    <div
-                                       className={`flex items-center gap-2 p-3 rounded-lg border-2 transition-all duration-300 ${
-                                          formData.attendance === "no"
-                                             ? "border-error bg-error/10 shadow-md"
-                                             : "border-base-300 hover:border-error/50"
-                                       }`}>
-                                       <input
-                                          type="radio"
-                                          name="attendance"
-                                          value="no"
-                                          checked={formData.attendance === "no"}
-                                          disabled={!authorized}
-                                          onChange={() =>
-                                             setFormData({
-                                                ...formData,
-                                                attendance: "no",
-                                             })
-                                          }
-                                          className="radio radio-error radio-sm"
-                                       />
-                                       <span className="text-lg">❌</span>
-                                       <span className="font-bold">
-                                          No podré asistir
-                                       </span>
-                                    </div>
-                                 </label>
-                              </div>
-                           </div>
-
-                           {/* Cuarta fila - Número de invitados y mensaje */}
-                           <div
-                              className={`grid grid-cols-1 ${
-                                 formData.attendance == "yes"
-                                    ? "lg:grid-cols-2"
-                                    : "lg:grid-cols-1"
-                              } gap-4`}>
-                              {maxGuests !== null &&
-                                 formData.attendance === "yes" && (
-                                    <div className="form-control">
-                                       <label className="label">
-                                          <span className="label-text font-bold mr-2 mb-1">
-                                             👥 Número de pases
-                                          </span>
-                                       </label>
-                                       <div className="flex items-center gap-2">
+                                                ? "border-primary bg-primary/10 shadow-md"
+                                                : "border-base-300 hover:border-primary/50"
+                                          }`}>
                                           <input
-                                             name="guests"
-                                             type="number"
-                                             className="input input-bordered input-lg input-primary focus:input-primary w-20 text-center font-bold"
-                                             min={
+                                             type="radio"
+                                             name="attendance"
+                                             value="yes"
+                                             checked={
                                                 formData.attendance === "yes"
-                                                   ? 1
-                                                   : 0
                                              }
-                                             max={maxGuests}
-                                             value={formData.guests}
-                                             onChange={handleChange}
+                                             onChange={() =>
+                                                setFormData({
+                                                   ...formData,
+                                                   attendance: "yes",
+                                                })
+                                             }
                                              disabled={!authorized}
+                                             className="radio radio-primary radio-sm"
                                           />
-                                          <span className="mr-2">pases</span>
-                                          <div
-                                             className="tooltip"
-                                             data-tip="Máximo de pases (incluyendote)">
-                                             <div className="badge badge-primary text-primary-content ">
-                                                Max. {maxGuests}
+                                          <span className="text-lg">✅</span>
+                                          <span className="font-bold">
+                                             ¡Sí, asistiré!
+                                          </span>
+                                       </div>
+                                    </label>
+
+                                    <label className="cursor-pointer">
+                                       <div
+                                          className={`flex items-center gap-2 p-3 rounded-lg border-2 transition-all duration-300 ${
+                                             formData.attendance === "no"
+                                                ? "border-error bg-error/10 shadow-md"
+                                                : "border-base-300 hover:border-error/50"
+                                          }`}>
+                                          <input
+                                             type="radio"
+                                             name="attendance"
+                                             value="no"
+                                             checked={
+                                                formData.attendance === "no"
+                                             }
+                                             disabled={!authorized}
+                                             onChange={() =>
+                                                setFormData({
+                                                   ...formData,
+                                                   attendance: "no",
+                                                })
+                                             }
+                                             className="radio radio-error radio-sm"
+                                          />
+                                          <span className="text-lg">❌</span>
+                                          <span className="font-bold">
+                                             No podré asistir
+                                          </span>
+                                       </div>
+                                    </label>
+                                 </div>
+                              </div>
+
+                              {/* Cuarta fila - Número de invitados y mensaje */}
+                              <div
+                                 className={`grid grid-cols-1 ${
+                                    formData.attendance == "yes"
+                                       ? "lg:grid-cols-2"
+                                       : "lg:grid-cols-1"
+                                 } gap-4`}>
+                                 {maxGuests !== null &&
+                                    formData.attendance === "yes" && (
+                                       <div className="form-control">
+                                          <label className="label">
+                                             <span className="label-text font-bold mr-2 mb-1">
+                                                👥 Número de pases
+                                             </span>
+                                          </label>
+                                          <div className="flex items-center gap-2">
+                                             <input
+                                                name="guests"
+                                                type="number"
+                                                className="input input-bordered input-lg input-primary focus:input-primary w-20 text-center font-bold"
+                                                min={
+                                                   formData.attendance === "yes"
+                                                      ? 1
+                                                      : 0
+                                                }
+                                                max={maxGuests}
+                                                value={formData.guests}
+                                                onChange={handleChange}
+                                                disabled={!authorized}
+                                             />
+                                             <span className="mr-2">pases</span>
+                                             <div
+                                                className="tooltip"
+                                                data-tip="Máximo de pases (incluyendote)">
+                                                <div className="badge badge-primary text-primary-content ">
+                                                   Max. {maxGuests}
+                                                </div>
                                              </div>
                                           </div>
                                        </div>
-                                    </div>
-                                 )}
+                                    )}
 
-                              <div className="form-control">
-                                 <label className="label">
-                                    <span className="label-text font-bold mr-2 mb-1">
-                                       💌 Mensaje
-                                    </span>
-                                 </label>
-                                 <textarea
-                                    name="message"
-                                    className="textarea textarea-bordered textarea-primary focus:textarea-primary w-full"
-                                    rows={3}
-                                    value={formData.message}
-                                    onChange={handleChange}
-                                    disabled={!authorized}
-                                    placeholder="Buenos deseos..."
-                                 />
+                                 <div className="form-control">
+                                    <label className="label">
+                                       <span className="label-text font-bold mr-2 mb-1">
+                                          💌 Mensaje
+                                       </span>
+                                    </label>
+                                    <textarea
+                                       name="message"
+                                       className="textarea textarea-bordered textarea-primary focus:textarea-primary w-full"
+                                       rows={3}
+                                       value={formData.message}
+                                       onChange={handleChange}
+                                       disabled={!authorized}
+                                       placeholder="Buenos deseos..."
+                                    />
+                                 </div>
                               </div>
+
+                              {/* Botón de envío */}
+                              <div className="text-center pt-4">
+                                 <button
+                                    className="btn btn-primary btn-wide rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                                    disabled={
+                                       isSubmitting || maxGuests === null
+                                    }>
+                                    {isSubmitting &&
+                                    formData.attendance == "yes" &&
+                                    formData.guests > 0 ? (
+                                       <>
+                                          <span className="loading loading-spinner loading-sm"></span>
+                                          Enviando...
+                                       </>
+                                    ) : (
+                                       <>
+                                          <span>🎊</span>
+                                          Confirmar Asistencia
+                                          <span>🎊</span>
+                                       </>
+                                    )}
+                                 </button>
+                              </div>
+                           </form>
+
+                           {/* Error message */}
+                           {isMobile && errorMsg && (
+                              <motion.div
+                                 initial={{ opacity: 0, scale: 0.9 }}
+                                 whileInView={{ opacity: 1, scale: 1 }}
+                                 transition={{ duration: 0.6 }}
+                                 exit={{ opacity: 0, scale: 0 }}
+                                 viewport={{
+                                    once: false,
+                                    margin: isMobile ? "0px" : "-25% 0px",
+                                 }}
+                                 className="alert alert-error alert-sm font-bold py-2 my-3">
+                                 <span className="mr-2">⚠️ {errorMsg}</span>
+                              </motion.div>
+                           )}
+
+                           {/* Pie del formulario */}
+                           <div className="text-center font-marcellus mt-6 pt-4 border-t border-dashed border-primary/20">
+                              <p className="text-xs opacity-60">
+                                 Gracias por confirmar tu asistencia • Conserva
+                                 este boleto como recuerdo ♥
+                              </p>
                            </div>
-
-                           {/* Botón de envío */}
-                           <div className="text-center pt-4">
-                              <button
-                                 className="btn btn-primary btn-wide rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                                 disabled={isSubmitting || maxGuests === null}>
-                                 {isSubmitting &&
-                                 formData.attendance == "yes" &&
-                                 formData.guests > 0 ? (
-                                    <>
-                                       <span className="loading loading-spinner loading-sm"></span>
-                                       Enviando...
-                                    </>
-                                 ) : (
-                                    <>
-                                       <span>🎊</span>
-                                       Confirmar Asistencia
-                                       <span>🎊</span>
-                                    </>
-                                 )}
-                              </button>
-                           </div>
-                        </form>
-
-                        {/* Error message */}
-                        {isMobile && errorMsg && (
-                           <motion.div
-                              initial={{ opacity: 0, scale: 0.9 }}
-                              whileInView={{ opacity: 1, scale: 1 }}
-                              transition={{ duration: 0.6 }}
-                              exit={{ opacity: 0, scale: 0 }}
-                              viewport={{
-                                 once: false,
-                                 margin: isMobile ? "0px" : "-25% 0px",
-                              }}
-                              className="alert alert-error alert-sm font-bold py-2 my-3">
-                              <span className="mr-2">⚠️ {errorMsg}</span>
-                           </motion.div>
-                        )}
-
-                        {/* Pie del formulario */}
-                        <div className="text-center font-marcellus mt-6 pt-4 border-t border-dashed border-primary/20">
-                           <p className="text-xs opacity-60">
-                              Gracias por confirmar tu asistencia • Conserva
-                              este boleto como recuerdo ♥
-                           </p>
                         </div>
-                     </div>
+                     )}
                   </div>
                </div>
 
