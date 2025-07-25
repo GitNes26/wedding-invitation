@@ -189,10 +189,10 @@ export default function App() {
          alt: "Navidad en familia",
       },
       { src: images.memory7, alt: "Día de lluvia" },
-      // {
-      //    src: images.memory8,
-      //    alt: "Atardecer perfecto",
-      // },
+      {
+         src: images.memory8,
+         alt: "Atardecer perfecto",
+      },
       {
          src: images.memory9,
          alt: "Picnic en el parque",
@@ -214,46 +214,41 @@ export default function App() {
          src: images.memory14,
          alt: "Cumpleaños juntos",
       },
-       {
-         src: images.memory1,
+      {
+         src: images.memory15,
          alt: "Nuestra primera cita",
       },
-      { src: images.memory2, alt: "Día en la playa" },
-      { src: images.memory3, alt: "Cena romántica" },
-      { src: images.memory4, alt: "Viaje a París" },
+      { src: images.memory16, alt: "Día en la playa" },
+      { src: images.memory17, alt: "Cena romántica" },
+      { src: images.memory18, alt: "Viaje a París" },
       {
-         src: images.memory5,
+         src: images.memory19,
          alt: "Cumpleaños juntos",
       },
       {
-         src: images.memory6,
+         src: images.memory20,
          alt: "Navidad en familia",
       },
-      { src: images.memory7, alt: "Día de lluvia" },
-      // {
-      //    src: images.memory8,
-      //    alt: "Atardecer perfecto",
-      // },
+      { src: images.memory21, alt: "Día de lluvia" },
       {
-         src: images.memory9,
+         src: images.memory22,
+         alt: "Atardecer perfecto",
+      },
+      {
+         src: images.memory23,
          alt: "Picnic en el parque",
       },
       {
-         src: images.memory10,
+         src: images.memory24,
          alt: "Concierto favorito",
       },
       {
-         src: images.memory11,
+         src: images.memory25,
          alt: "Picnic en el parque",
       },
       {
-         src: images.memory12,
+         src: images.memory26,
          alt: "Concierto favorito",
-      },
-      { src: images.memory13, alt: "Viaje a París" },
-      {
-         src: images.memory14,
-         alt: "Cumpleaños juntos",
       },
       // Puedes añadir tantas como quieras...
    ];
@@ -483,7 +478,7 @@ export default function App() {
                   </footer>
 
                   {/* Botón para volver arriba */}
-                  {/* <ScrollToTopButton /> */}
+                  <ScrollToTopButton />
                </motion.header>
             </>
          )}

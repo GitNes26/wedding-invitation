@@ -45,7 +45,9 @@ export default function SplashLoader({
                   transition={{ delay: 0.5, duration: 1.5 }}
                   className="absolute inset-0 overflow-hidden z-0">
                   <img
-                     src={images.fondoSplash}
+                     src={
+                        isMobile ? images.fondoSplashMovil : images.fondoSplash
+                     }
                      alt="Imagen Splash"
                      className="object-cover w-full h-full transition-all"
                   />

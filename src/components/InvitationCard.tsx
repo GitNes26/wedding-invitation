@@ -2,9 +2,11 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import images from "../constants/images";
 import { Heart } from "lucide-react";
 import BokehCircle from "./BokehCircle";
+import { useMobile } from "../hooks/useMobile";
 
 interface InvitationCardProps {
    bride: string;
@@ -31,6 +33,23 @@ export default function InvitationCard({
       width: 0,
       height: 0,
    });
+   const isMobile = useMobile();
+
+   // Carrusel de imágenes de fondo
+   const heroImages = [
+      images.hero,
+      images.hero2,
+      isMobile ? images.hero3Movil : images.hero3,
+      // Agrega aquí más imágenes si lo deseas
+   ];
+   const [currentImage, setCurrentImage] = useState(0);
+
+   React.useEffect(() => {
+      const interval = setInterval(() => {
+         setCurrentImage((prev) => (prev + 1) % heroImages.length);
+      }, 6000); // Cambia cada N segundos
+      return () => clearInterval(interval);
+   }, [heroImages.length]);
 
    return option == 1 ? (
       <>
@@ -46,15 +65,22 @@ export default function InvitationCard({
                animate={{ scale: 1, opacity: 1 }}
                transition={{ delay: 1, duration: 2 }}
                className="absolute inset-0 overflow-hidden z-0">
-               <img
-                  src={images.hero}
-                  alt="Foto Principal"
-                  className="object-cover w-full h-full transition-all opacity-20 dark:opacity-80"
-               />
+               <AnimatePresence mode="wait">
+                  <motion.img
+                     key={heroImages[currentImage]}
+                     src={heroImages[currentImage]}
+                     alt="Foto Principal"
+                     className="object-cover object-center w-full h-full transition-all opacity-20 dark:opacity-80"
+                     style={{ objectPosition: "center center" }}
+                     initial={{ opacity: 0 }}
+                     animate={{ opacity: 1 }}
+                     exit={{ opacity: 0 }}
+                     transition={{ duration: 1.2, ease: "easeInOut" }}
+                  />
+               </AnimatePresence>
             </motion.div>
 
-            <BokehCircle // windowDimensions={windowDimensions}
-            />
+            <BokehCircle />
 
             <motion.div
                className="z-10 max-w-3xl mx-auto mt-20"
@@ -77,13 +103,13 @@ export default function InvitationCard({
                      fill="currentColor"
                   />
                </motion.div>
-               <p className="font-marcellus text-xl md:text-2xl mb-2">
+               <p className="font-marcellus text-xl md:text-2xl mb-2 text-white">
                   ¡Nos casamos!
                </p>
-               <p className="font-marcellus text-lg text-base-content">
+               <p className="font-marcellus text-lg text-white">
                   {weddingDate} - {weddingPlace} {location}
                </p>
-               <p className="text-lg md:text-xl font-marcellus mb-8">
+               <p className="text-lg md:text-xl font-marcellus mb-8 text-white">
                   {weddingTime} hrs
                </p>
                {/* <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -112,7 +138,7 @@ export default function InvitationCard({
                      strokeWidth="2"
                      strokeLinecap="round"
                      strokeLinejoin="round"
-                     className="text-primary-content">
+                     className="text-white">
                      <path d="M12 5v14M5 12l7 7 7-7" />
                   </svg>
                </div>

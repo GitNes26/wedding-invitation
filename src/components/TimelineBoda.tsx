@@ -83,7 +83,7 @@ const TimelineBoda = ({ weddingInfo }) => {
       },
       {
          hora: "01:00",
-         titulo: "Helado!",
+         titulo: "Snacks!",
          subtitulo: "",
          icono: images.icecream,
       },

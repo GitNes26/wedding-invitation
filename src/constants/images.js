@@ -4,7 +4,11 @@ import logo from "../assets/images/logo.png";
 import logoLight from "../assets/images/logoLight.png";
 import logoDark from "../assets/images/logoDark.png";
 import hero from "../assets/images/bg-hero.jpg";
+import hero2 from "../assets/images/bg-hero2.jpg";
+import hero3 from "../assets/images/bg-hero3.jpg";
+import hero3Movil from "../assets/images/bg-hero3Movil.jpg";
 import fondoSplash from "../assets/images/FondoSplash.png";
+import fondoSplashMovil from "../assets/images/FondoSplashMovil.png";
 import fondoInvitacion from "../assets/images/FondoInvitacion.png";
 import floral from "../assets/images/floral.jpg";
 import icecream from "../assets/images/icecream.png";
@@ -45,6 +49,18 @@ import memory11 from "../assets/images/memories/foto11.jpg";
 import memory12 from "../assets/images/memories/foto12.jpg";
 import memory13 from "../assets/images/memories/foto13.jpg";
 import memory14 from "../assets/images/memories/foto14.jpg";
+import memory15 from "../assets/images/memories/foto15.jpg";
+import memory16 from "../assets/images/memories/foto16.jpg";
+import memory17 from "../assets/images/memories/foto17.jpg";
+import memory18 from "../assets/images/memories/foto18.jpg";
+import memory19 from "../assets/images/memories/foto19.jpg";
+import memory20 from "../assets/images/memories/foto20.jpg";
+import memory21 from "../assets/images/memories/foto21.jpg";
+import memory22 from "../assets/images/memories/foto22.jpg";
+import memory23 from "../assets/images/memories/foto23.jpg";
+import memory24 from "../assets/images/memories/foto24.jpg";
+import memory25 from "../assets/images/memories/foto25.jpg";
+import memory26 from "../assets/images/memories/foto26.jpg";
 
 import haciendaElegancia from "../assets/images/HaciendaElegancia.jpg";
 import cimaco from "../assets/images/cimaco.png";
@@ -56,7 +72,11 @@ const images = {
    logoLight,
    logoDark,
    hero,
+   hero2,
+   hero3,
+   hero3Movil,
    fondoSplash,
+   fondoSplashMovil,
    fondoInvitacion,
    floral,
    icecream,
@@ -97,6 +117,18 @@ const images = {
    memory12,
    memory13,
    memory14,
+   memory15,
+   memory16,
+   memory17,
+   memory18,
+   memory19,
+   memory20,
+   memory21,
+   memory22,
+   memory23,
+   memory24,
+   memory25,
+   memory26,
    cimaco,
 };
 export default images;

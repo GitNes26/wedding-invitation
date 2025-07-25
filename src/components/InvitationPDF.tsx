@@ -199,9 +199,11 @@ const InvitationPDF = ({
                      Pase para: <Text style={styles.bold}>{guests}</Text>{" "}
                      personas
                   </Text>
-                  <Text style={styles.textMuted}>
-                     N° Mesa: <Text style={styles.bold}>{table}</Text>
-                  </Text>
+                  {table > 0 && (
+                     <Text style={styles.textMuted}>
+                        N° Mesa: <Text style={styles.bold}>{table}</Text>
+                     </Text>
+                  )}
                </View>
             </View>
          </View>

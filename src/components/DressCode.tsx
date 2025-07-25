@@ -26,8 +26,43 @@ const DressCode = ({}) => {
       { nombre: "Cobre", hex: "#b87333" },
       { nombre: "Verde bosque", hex: "#0b6623" },
       { nombre: "Azul petróleo", hex: "#003b4d" },
-      // { nombre: "Beige arena", hex: "#d2b48c" },
-      // { nombre: "Camel", hex: "#c19a6b" },
+      // Neutros claros
+      { nombre: "Topo cálido", hex: "#b89b82" },
+      // Neutros oscuros
+      { nombre: "Café espresso", hex: "#36241b" },
+      { nombre: "Café nuez", hex: "#4b2e2b" },
+      { nombre: "Café cedro", hex: "#6e4b3a" },
+      { nombre: "Topo oscuro", hex: "#7e5c3e" },
+      { nombre: "Carafe", hex: "#3d2c29" },
+      { nombre: "Madera oscura", hex: "#6b4f3f" },
+      { nombre: "Chocolate con leche", hex: "#7b513a" },
+      { nombre: "Café", hex: "#4b3621" },
+      { nombre: "Rocky Road", hex: "#5a3a29" },
+      { nombre: "Caoba", hex: "#4a0100" },
+      { nombre: "Chocolate oscuro", hex: "#2d1114" },
+      { nombre: "Bizancio oscuro", hex: "#5d3954" },
+      // Colores básicos
+      { nombre: "Azul clásico", hex: "#2a4d7a" },
+      { nombre: "Azul real oscuro", hex: "#0b1f4b" },
+      { nombre: "Azul medianoche", hex: "#191970" },
+      { nombre: "Azul prusia", hex: "#003153" },
+      { nombre: "Azul cadete", hex: "#5f9ea0" },
+      { nombre: "Verde pavo real", hex: "#008080" },
+      { nombre: "Verde abeto", hex: "#00585e" },
+      { nombre: "Verde pino oscuro", hex: "#203a27" },
+      { nombre: "Lino", hex: "#dbe5c0" },
+      { nombre: "Verde pepinillo", hex: "#8a9a5b" },
+      { nombre: "Oliva oscuro", hex: "#556b2f" },
+      { nombre: "Verde uniforme", hex: "#4b5320" },
+      { nombre: "Verde cazador", hex: "#355e3b" },
+      { nombre: "Verde Sacramento", hex: "#043927" },
+      { nombre: "Bosque oscuro", hex: "#0b3d2e" },
+      // Colores de acento
+      { nombre: "Castaño", hex: "#954535" },
+      { nombre: "Sombra tostada", hex: "#8a3324" },
+      { nombre: "Sangría", hex: "#5e2129" },
+      { nombre: "Palo de rosa", hex: "#65000b" },
+      { nombre: "Rojo oxblood", hex: "#4a0404" },
    ];
 
    // Definir los colores prohibidos
@@ -143,7 +178,7 @@ const DressCode = ({}) => {
                once: false,
                margin: isMobile ? "0px" : "-25% 0px",
             }}>
-            <div className="mb-10">
+            <div className="mb-10 px-8">
                <h3 className="text-xl font-medium font-marcellus text-center mb-6">
                   Colores Recomendados
                </h3>
