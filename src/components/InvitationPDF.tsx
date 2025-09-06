@@ -197,7 +197,7 @@ const InvitationPDF = ({
                   </Text>
                   <Text style={styles.textMuted}>
                      Pase para: <Text style={styles.bold}>{guests}</Text>{" "}
-                     personas
+                     {guests > 1 ? "personas" : "persona"}
                   </Text>
                   {table > 0 && (
                      <Text style={styles.textMuted}>

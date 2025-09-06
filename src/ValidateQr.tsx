@@ -4,6 +4,21 @@ import "sweetalert2/dist/sweetalert2.min.css";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import env from "./constants/env";
 import { formatDatetime } from "./utils/formats";
+import {
+   CheckCircle2Icon,
+   ListCheckIcon,
+   ListIcon,
+   RefreshCwIcon,
+} from "lucide-react";
+
+interface invitado {
+   guestCode: string;
+   nombre: string;
+   telefono: string;
+   personas: number;
+   mesa: number;
+   AsistenciaEscaneada: string;
+}
 
 export default function ValidarQR() {
    const [scannedPhone, setScannedPhone] = useState("");
@@ -13,6 +28,9 @@ export default function ValidarQR() {
    const [cameraError, setCameraError] = useState(false);
    const [scannerActive, setScannerActive] = useState(true);
    const scannerRef = useRef<HTMLDivElement>(null);
+   const [disabledButtonRefresh, setDisabledButtonRefresh] = useState(false);
+   const [dataInvitados, setDataInvitados] = useState<invitado[]>([]);
+   const [search, setSearch] = useState("");
 
    const handleScan = async (text: string) => {
       if (text && text !== scannedPhone) {
@@ -73,6 +91,39 @@ export default function ValidarQR() {
       setCameraError(true);
    };
 
+   useEffect(() => {
+      handleRefresh();
+   }, []);
+
+   const handleRefresh = async () => {
+      setDisabledButtonRefresh(true);
+      const res = await fetch(
+         `https://script.google.com/macros/s/${env.ID_MACRO_SCRIPT}/exec?action=getConfirmCount`,
+      );
+      const data = await res.json();
+      console.log("🚀 ~ handleRefresh ~ data:", data);
+      setGuestData(data);
+      setDisabledButtonRefresh(false);
+   };
+
+   const handleGetListaInvitados = async () => {
+      const res = await fetch(
+         `https://script.google.com/macros/s/${env.ID_MACRO_SCRIPT}/exec?action=getList`,
+      );
+      const data = await res.json();
+      console.log("🚀 ~ handleRefresh ~ data:", data);
+      const headers = data.list[0]; // primera fila
+      const rows = data.list.slice(1); // resto de filas
+
+      // transformar en clave:valor
+      const formatted = rows.map((row: any[]) =>
+         Object.fromEntries(row.map((val, i) => [headers[i], val])),
+      );
+      console.log("🚀 ~ handleGetListaInvitados ~ formatted:", formatted);
+
+      setDataInvitados(formatted);
+   };
+
    const handleRetry = () => {
       setCameraError(false);
       setError("");
@@ -114,6 +165,104 @@ export default function ValidarQR() {
 
    return (
       <div className="p-2 text-center max-w-xl mx-auto">
+         <button
+            className="btn btn-outline btn-primary btn-xl mb-2"
+            onClick={() => {
+               handleGetListaInvitados();
+               document.getElementById("modal_invitados").showModal();
+            }}>
+            <ListIcon /> Mostrar lista de invitados
+         </button>
+         <dialog
+            id="modal_invitados"
+            className="modal modal-bottom sm:modal-middle">
+            {/* <div className="p-4 pb-2 text-xs opacity-60 tracking-wide ">
+               Lista de invitados
+               <div className="modal-action">
+                  <form method="dialog">
+                     {/* if there is a button in form, it will close the modal *
+                     <button className="btn">Close</button>
+                  </form>
+               </div>
+            </div> */}
+            <div className="modal-box p-0">
+               {/* HEADER FIJO */}
+               <div className="sticky top-0 z-10 bg-base-200 px-4 py-3 border-b border-base-300">
+                  <div className="flex justify-between items-center">
+                     <h2 className="font-semibold text-sm opacity-70">
+                        Lista de invitados
+                     </h2>
+                     <form method="dialog">
+                        <button className="btn btn-sm">Cerrar</button>
+                     </form>
+                  </div>
+                  {/* Buscador */}
+                  <div className="mt-2">
+                     <input
+                        type="text"
+                        placeholder="Buscar por nombre o teléfono..."
+                        className="input input-bordered input-md w-full"
+                        // aquí va tu lógica de filtrado
+                        onChange={(e) => setSearch(e.target.value)}
+                     />
+                  </div>
+               </div>
+               <div className="max-h-[90vh] overflow-y-auto">
+                  <ul className="list bg-base-100 rounded-box shadow-md">
+                     {dataInvitados
+                        .filter((invitado) => {
+                           if (!search) return true; // si está vacío, no filtra
+                           return (
+                              invitado.nombre
+                                 .toLowerCase()
+                                 .includes(search.toLowerCase()) ||
+                              invitado.telefono.includes(search)
+                           );
+                        })
+                        .map((invitado, index) => (
+                           <li
+                              className={`list-row ${
+                                 invitado.AsistenciaEscaneada === "✔️"
+                                    ? "bg-success/25"
+                                    : ""
+                              }`}>
+                              <div className="text-4xl font-thin opacity-30 tabular-nums">
+                                 {index + 1}
+                              </div>
+                              {/* <div>
+                                 <img
+                                    className="size-10 rounded-box"
+                                    src="https://img.daisyui.com/images/profile/demo/1@94.webp"
+                                 />
+                              </div> */}
+                              <div className="list-col-grow">
+                                 <div className="font-semibold">
+                                    {invitado.nombre}
+                                 </div>
+                                 <div className="text-xs uppercase opacity-60">
+                                    {invitado.telefono}
+                                 </div>
+                                 <div className="flex w-full justify-between">
+                                    <div className="w-full text-center border-r-2">
+                                       Invitados: <b>{invitado.personas}</b>
+                                    </div>
+                                    <div className="w-full text-center">
+                                       Mesa: <b>{invitado.mesa}</b>
+                                    </div>
+                                 </div>
+                              </div>
+                              {!invitado.AsistenciaEscaneada && (
+                                 <button className="btn btn-square btn-ghost btn-lg">
+                                    <CheckCircle2Icon size={30} />
+                                 </button>
+                              )}
+                           </li>
+                        ))}
+                  </ul>
+               </div>
+            </div>
+         </dialog>
+
          <h1 className="text-2xl font-bold mb-4">
             📷 Escanea un código QR <br />
             <small className="text-sm">
@@ -154,7 +303,7 @@ export default function ValidarQR() {
          {/* Indicadores y mensajes debajo de la cámara */}
          <div className="w-full max-w-md mx-auto flex flex-col gap-2 mb-4">
             {guestData && (
-               <div className="flex flex-row justify-center gap-6 mb-2 animate-fade-in">
+               <div className="flex flex-row justify-center items-center gap-6 mb-2 animate-fade-in">
                   <div className="flex flex-col items-center bg-base-200 rounded-lg px-4 py-2 shadow">
                      <span className="text-lg font-bold text-primary">
                         Invitaciones escaneadas
@@ -171,6 +320,17 @@ export default function ValidarQR() {
                         {guestData.pases ?? "-"}
                      </span>
                   </div>
+                  <button
+                     className="btn btn-lg"
+                     onClick={handleRefresh}
+                     disabled={disabledButtonRefresh}>
+                     <RefreshCwIcon
+                        size={25}
+                        className={`active:animate-spin ${
+                           disabledButtonRefresh ? "animate-spin" : ""
+                        }`}
+                     />
+                  </button>
                </div>
             )}
             {error && (

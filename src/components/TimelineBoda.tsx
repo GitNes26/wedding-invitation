@@ -23,21 +23,21 @@ const TimelineBoda = ({ weddingInfo }) => {
       },
       {
          hora: "20:00",
-         titulo: "Ceremonia",
-         subtitulo: "Civil",
-         icono: images.weddingRings,
+         titulo: "Recepción",
+         subtitulo: "",
+         icono: images.arch,
       },
       {
-         hora: "20:30",
+         hora: "20:20",
          titulo: "Ceremonia",
          subtitulo: "Religiosa",
          icono: images.doves,
       },
       {
-         hora: "21:00",
-         titulo: "Recepción",
-         subtitulo: "",
-         icono: images.arch,
+         hora: "20:40",
+         titulo: "Ceremonia",
+         subtitulo: "Civil",
+         icono: images.weddingRings,
       },
       {
          hora: "21:30",
@@ -81,12 +81,12 @@ const TimelineBoda = ({ weddingInfo }) => {
          subtitulo: "de Bodas",
          icono: images.weddingCake,
       },
-      {
-         hora: "01:00",
-         titulo: "Snacks!",
-         subtitulo: "",
-         icono: images.icecream,
-      },
+      // {
+      //    hora: "01:00",
+      //    titulo: "Snacks!",
+      //    subtitulo: "",
+      //    icono: images.icecream,
+      // },
       {
          hora: "02:00",
          titulo: "Fin",
