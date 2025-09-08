@@ -23,21 +23,21 @@ const TimelineBoda = ({ weddingInfo }) => {
       },
       {
          hora: "20:00",
-         titulo: "Recepción",
-         subtitulo: "",
-         icono: images.arch,
-      },
-      {
-         hora: "20:20",
          titulo: "Ceremonia",
          subtitulo: "Religiosa",
          icono: images.doves,
       },
       {
-         hora: "20:40",
+         hora: "20:30",
          titulo: "Ceremonia",
          subtitulo: "Civil",
          icono: images.weddingRings,
+      },
+      {
+         hora: "21:00",
+         titulo: "Recepción",
+         subtitulo: "",
+         icono: images.arch,
       },
       {
          hora: "21:30",
@@ -58,19 +58,19 @@ const TimelineBoda = ({ weddingInfo }) => {
       //    icono: images.weddingGramophone,
       // },
       {
-         hora: "22:30",
+         hora: "21:40",
          titulo: "Brindis",
          subtitulo: "de Honor",
          icono: images.brindis,
       },
       {
-         hora: "22:40",
+         hora: "22:00",
          titulo: "Cena",
          subtitulo: "Especial",
          icono: images.dinner,
       },
       {
-         hora: "23:20",
+         hora: "22:50",
          titulo: "¡A Bailar",
          subtitulo: "Todos!",
          icono: images.music,
@@ -233,7 +233,8 @@ const TimelineBoda = ({ weddingInfo }) => {
                   }>
                   <div className="flex flex-col items-center text-base-content">
                      <span className="text-sm font-marcellus mb-1 w-full">
-                        Arrastra horizontalmente en la linea del tiempo para ver todos los eventos
+                        Arrastra horizontalmente en la linea del tiempo para ver
+                        todos los eventos
                      </span>
                      <motion.div
                         animate={{ x: [0, 10, 0] }}
